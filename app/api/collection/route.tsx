@@ -6,11 +6,24 @@ import type {
   IAErrorResponse,
 } from "@/app/types/ia";
 
+// Force dynamic rendering (disable caching) - uncomment if you want fresh data every time
+// export const dynamic = 'force-dynamic';
+
+// Cache the entire route for 30 days
+export const revalidate = 2592000;
+
 export async function GET(): Promise<
   NextResponse<IADocument[] | IAErrorResponse>
 > {
   try {
-    const response = await fetch(IA.collection.baseUrl);
+    // Use Next.js fetch with caching
+    const response = await fetch(IA.collection.baseUrl, {
+      // Cache this specific fetch for 30 days
+      next: {
+        revalidate: 2592000, //  30 days
+        tags: ["collection-data"], // For cache invalidation
+      },
+    });
 
     if (!response.ok) {
       return NextResponse.json(
