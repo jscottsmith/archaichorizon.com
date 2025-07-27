@@ -1,0 +1,87 @@
+"use client";
+
+import { useCollection } from "@/app/hooks/useCollection";
+import Image from "next/image";
+import { formatDate } from "@/app/utils/date";
+import type { IADocument } from "@/app/types/ia";
+
+// Error component
+function CollectionError({ error }: { error: Error }) {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <div className="text-center">
+        <h2 className="text-lg font-semibold text-red-800 mb-2">
+          Error Loading Collection
+        </h2>
+        <p className="text-red-600">{error.message}</p>
+      </div>
+    </div>
+  );
+}
+
+// Collection data component
+function CollectionData({ initialData }: { initialData: IADocument[] }) {
+  const { data: collection, isError, error } = useCollection(initialData);
+
+  if (isError) {
+    return <CollectionError error={error as Error} />;
+  }
+
+  if (!collection || collection.length === 0) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <p className="text-gray-600">No items found in the collection.</p>
+      </div>
+    );
+  }
+
+  return (
+    <section className="grid grid-cols-1 gap-2">
+      {collection.map((item) => (
+        <article className="flex gap-2" key={item.identifier}>
+          {/* Thumbnail */}
+          <div className="w-18 h-18 rounded-sm aspect-square overflow-hidden">
+            {item.thumbnail && (
+              <Image
+                src={item.thumbnail}
+                alt={item.title || "Album cover"}
+                width={72}
+                height={72}
+              />
+            )}
+          </div>
+
+          <div className="flex flex-col justify-center">
+            {/* Title */}
+            <h2>
+              <span>
+                {Array.isArray(item.creator)
+                  ? item.creator.join(", ")
+                  : item.creator}
+              </span>
+              <span> - </span>
+              <span>{item.title || "Untitled"}</span>
+            </h2>
+
+            {/* Catalog Number / Date */}
+            {item.date && (
+              <p className="text-sm">
+                {item.cat_no} - Released on {formatDate(item.date)}
+              </p>
+            )}
+          </div>
+        </article>
+      ))}
+    </section>
+  );
+}
+
+interface CollectionDisplayProps {
+  initialData: IADocument[];
+}
+
+export default function CollectionDisplay({
+  initialData,
+}: CollectionDisplayProps) {
+  return <CollectionData initialData={initialData} />;
+}
