@@ -35,6 +35,8 @@ export interface IADocument {
   creator?: string | string[];
   date?: string;
   year?: number;
+  cat_no?: string; // Catalog number field
+  thumbnail?: string; // Thumbnail URL
 
   // Collection and type information
   collection?: string | string[];

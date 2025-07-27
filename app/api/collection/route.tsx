@@ -5,6 +5,7 @@ import type {
   IADocument,
   IAErrorResponse,
 } from "@/app/types/ia";
+import { addThumbnailsToDocuments } from "@/app/utils/collection";
 
 // Force dynamic rendering (disable caching) - uncomment if you want fresh data every time
 // export const dynamic = 'force-dynamic';
@@ -13,7 +14,7 @@ import type {
 export const revalidate = 2592000;
 
 export async function GET(): Promise<
-  NextResponse<IADocument[] | IAErrorResponse>
+  NextResponse<ReturnType<typeof addThumbnailsToDocuments> | IAErrorResponse>
 > {
   try {
     // Use Next.js fetch with caching
@@ -39,7 +40,9 @@ export async function GET(): Promise<
     const data: IAAdvancedSearchResponse = await response.json();
 
     if (data?.response?.docs && Array.isArray(data.response.docs)) {
-      return NextResponse.json(data.response.docs);
+      // Add thumbnail URLs to each document
+      const docsWithThumbnails = addThumbnailsToDocuments(data.response.docs);
+      return NextResponse.json(docsWithThumbnails);
     }
 
     return NextResponse.json(
