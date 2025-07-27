@@ -2,6 +2,7 @@
 
 import { useCollection } from "@/app/hooks/useCollection";
 import Image from "next/image";
+import Link from "next/link";
 import { formatDate } from "@/app/utils/date";
 import type { IADocument } from "@/app/types/ia";
 
@@ -38,39 +39,45 @@ function CollectionData({ initialData }: { initialData: IADocument[] }) {
   return (
     <section className="grid grid-cols-1 gap-2">
       {collection.map((item) => (
-        <article className="flex gap-2" key={item.identifier}>
-          {/* Thumbnail */}
-          <div className="w-18 h-18 rounded-sm aspect-square overflow-hidden">
-            {item.thumbnail && (
-              <Image
-                src={item.thumbnail}
-                alt={item.title || "Album cover"}
-                width={72}
-                height={72}
-              />
-            )}
-          </div>
+        <Link
+          href={`/releases/${item.cat_no || item.identifier}`}
+          key={item.identifier}
+          className="block hover:bg-gray-50 transition-colors rounded-lg p-2"
+        >
+          <article className="flex gap-2">
+            {/* Thumbnail */}
+            <div className="w-18 h-18 rounded-sm aspect-square overflow-hidden">
+              {item.thumbnail && (
+                <Image
+                  src={item.thumbnail}
+                  alt={item.title || "Album cover"}
+                  width={72}
+                  height={72}
+                />
+              )}
+            </div>
 
-          <div className="flex flex-col justify-center">
-            {/* Title */}
-            <h2>
-              <span>
-                {Array.isArray(item.creator)
-                  ? item.creator.join(", ")
-                  : item.creator}
-              </span>
-              <span> - </span>
-              <span>{item.title || "Untitled"}</span>
-            </h2>
+            <div className="flex flex-col justify-center">
+              {/* Title */}
+              <h2>
+                <span>
+                  {Array.isArray(item.creator)
+                    ? item.creator.join(", ")
+                    : item.creator}
+                </span>
+                <span> - </span>
+                <span>{item.title || "Untitled"}</span>
+              </h2>
 
-            {/* Catalog Number / Date */}
-            {item.date && (
-              <p className="text-sm">
-                {item.cat_no} - Released on {formatDate(item.date)}
-              </p>
-            )}
-          </div>
-        </article>
+              {/* Catalog Number / Date */}
+              {item.date && (
+                <p className="text-sm">
+                  {item.cat_no} - Released on {formatDate(item.date)}
+                </p>
+              )}
+            </div>
+          </article>
+        </Link>
       ))}
     </section>
   );
