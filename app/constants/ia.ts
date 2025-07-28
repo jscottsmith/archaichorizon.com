@@ -7,4 +7,7 @@ export const IA = {
   images: {
     baseUrl: `https://archive.org/services/img`,
   },
+  metadata: {
+    baseUrl: `https://archive.org/metadata`,
+  },
 };
