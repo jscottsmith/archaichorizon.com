@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
-import { MediaPlayer } from "./MediaPlayer";
+import { MediaPlayerController } from "./MediaPlayerController";
+import { useMediaPlayer } from "../contexts/MediaPlayerProvider";
 
 export function Header() {
+  const { metadata } = useMediaPlayer();
+
   return (
     <header>
       <div className="flex p-4 justify-between items-center h-16">
@@ -22,11 +27,7 @@ export function Header() {
           </Link>
         </nav>
       </div>
-      <MediaPlayer
-        title="Title of the track"
-        artist="Artist Name"
-        src="https://archive.org/download/AH015_Trills_-_Citrus_Drop/03_Angelas_Song_vbr.mp3"
-      />
+      <MediaPlayerController metadata={metadata} />
     </header>
   );
 }

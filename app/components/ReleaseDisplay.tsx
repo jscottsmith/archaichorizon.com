@@ -2,6 +2,7 @@
 
 import { useRelease } from "@/app/hooks/useRelease";
 import { notFound } from "next/navigation";
+import { useMediaPlayer } from "../contexts/MediaPlayerProvider";
 
 // Loading component
 export function ReleaseLoading() {
@@ -32,6 +33,7 @@ export function ReleaseError({ error }: { error: Error }) {
 // Release display component
 export function ReleaseDisplay({ catNo }: { catNo: string }) {
   const { data: release, isLoading, error } = useRelease({ catNo });
+  const { setCatalogId, currentCatalogId } = useMediaPlayer();
 
   if (isLoading) {
     return <ReleaseLoading />;
@@ -70,6 +72,7 @@ export function ReleaseDisplay({ catNo }: { catNo: string }) {
                 <span className="ml-2">{metadata.date}</span>
               </div>
             )}
+            <button onClick={() => setCatalogId(catNo)}>Play Album</button>
           </div>
         </div>
 

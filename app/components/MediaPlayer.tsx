@@ -6,32 +6,95 @@ interface MediaPlayerProps {
   src: string;
   title?: string;
   artist?: string;
+  onPlay?: () => void;
+  onPause?: () => void;
+  onEnded?: () => void;
+  onNext?: () => void;
+  onPrevious?: () => void;
+  isPlaying?: boolean;
+  currentTrackIndex?: number;
+  totalTracks?: number;
+  onTrackSelect?: (index: number) => void;
 }
 
-export function MediaPlayer({ src, title, artist }: MediaPlayerProps) {
+export function MediaPlayer({
+  src,
+  title,
+  artist,
+  onPlay,
+  onPause,
+  onEnded,
+  onNext,
+  onPrevious,
+  isPlaying: externalIsPlaying,
+  currentTrackIndex = 0,
+  totalTracks = 1,
+  onTrackSelect,
+}: MediaPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [internalIsPlaying, setIsPlaying] = useState(false);
 
-  // const togglePlay = () => {
-  //   if (!audioRef.current) return;
+  // Use external isPlaying if provided, otherwise use internal state
+  const isPlaying =
+    externalIsPlaying !== undefined ? externalIsPlaying : internalIsPlaying;
 
-  //   if (isPlaying) {
-  //     audioRef.current.pause();
-  //   } else {
-  //     audioRef.current.play();
-  //   }
-  // };
+  const handlePlay = () => {
+    setIsPlaying(true);
+    onPlay?.();
+  };
 
-  const handlePlay = () => setIsPlaying(true);
-  const handlePause = () => setIsPlaying(false);
+  const handlePause = () => {
+    setIsPlaying(false);
+    onPause?.();
+  };
+
+  const handleEnded = () => {
+    setIsPlaying(false);
+    onEnded?.();
+  };
+
+  const handleNext = () => {
+    onNext?.();
+  };
+
+  const handlePrevious = () => {
+    onPrevious?.();
+  };
 
   return (
-    <div className="p-4 flex gap-4">
+    <div className="p-4 flex gap-4 items-center">
       {/* Track info */}
       {(title || artist) && (
-        <div className="w-1/2">
+        <div className="w-1/3">
           {title && <h3 className="font-semibold">{title}</h3>}
-          {artist && <p className="text-sm">{artist}</p>}
+          {artist && <p className="text-sm text-gray-600">{artist}</p>}
+          {totalTracks > 1 && (
+            <p className="text-xs text-gray-500">
+              Track {currentTrackIndex + 1} of {totalTracks}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Navigation controls */}
+      {totalTracks > 1 && (
+        <div className="flex gap-2">
+          <button
+            onClick={handlePrevious}
+            disabled={currentTrackIndex === 0}
+            className="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed rounded"
+            aria-label="Previous track"
+          >
+            ⏮
+          </button>
+          <button
+            onClick={handleNext}
+            disabled={currentTrackIndex === totalTracks - 1}
+            className="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed rounded"
+            aria-label="Next track"
+          >
+            ⏭
+          </button>
         </div>
       )}
 
@@ -40,24 +103,14 @@ export function MediaPlayer({ src, title, artist }: MediaPlayerProps) {
         ref={audioRef}
         src={src}
         controls
-        className="w-full"
+        className="flex-1"
         onPlay={handlePlay}
         onPause={handlePause}
+        onEnded={handleEnded}
         preload="metadata"
       >
         Your browser does not support the audio element.
       </audio>
-
-      {/* Custom play/pause button (optional) */}
-      {/* <div className="mt-4 flex justify-center">
-        <button
-          onClick={togglePlay}
-          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
-          aria-label={isPlaying ? "Pause" : "Play"}
-        >
-          {isPlaying ? "Pause" : "Play"}
-        </button>
-      </div> */}
     </div>
   );
 }

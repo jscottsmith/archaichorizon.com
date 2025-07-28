@@ -6,8 +6,14 @@ export const IA = {
   },
   images: {
     baseUrl: `https://archive.org/services/img`,
+    url: `https://archive.org/services/img/{identifier}`,
   },
   metadata: {
     baseUrl: `https://archive.org/metadata`,
+    url: `https://archive.org/metadata/{identifier}`,
+  },
+  serve: {
+    baseUrl: `https://archive.org/serve`,
+    url: `https://archive.org/serve/{identifier}/{filename}`,
   },
 };
