@@ -75,6 +75,74 @@ export interface IADocument {
   [key: string]: unknown;
 }
 
+// File information from metadata response
+export interface IAFile {
+  name: string;
+  source: "original" | "derivative" | "metadata";
+  format: string;
+  mtime?: string;
+  size: string;
+  md5: string;
+  crc32: string;
+  sha1: string;
+  filecount?: string;
+  original?: string;
+  length?: string;
+  title?: string;
+  creator?: string;
+  album?: string;
+  track?: string;
+  height?: string;
+  width?: string;
+  genre?: string;
+  artist?: string;
+  "external-identifier"?: string;
+  btih?: string;
+  rotation?: string;
+  summation?: string;
+}
+
+// Metadata information from metadata response
+export interface IAMetadata {
+  identifier: string;
+  title: string;
+  creator: string;
+  mediatype: string;
+  collection: string[];
+  description: string;
+  date: string;
+  year: string;
+  subject: string;
+  licenseurl: string;
+  publicdate: string;
+  addeddate: string;
+  uploader: string;
+  updater: string[];
+  updatedate: string[];
+  code: string;
+  live: string;
+  cat_no: string;
+  filesxml: string;
+  boxid: string;
+  backup_location: string;
+}
+
+// Complete metadata response structure
+export interface IAMetadataResponse {
+  created: number;
+  d1: string;
+  d2: string;
+  dir: string;
+  files: IAFile[];
+  files_count: number;
+  item_last_updated: number;
+  item_size: number;
+  metadata: IAMetadata;
+  server: string;
+  uniq: number;
+  workable_servers: string[];
+}
+
 // Specific collection document type for Archaic Horizon
 export interface ArchaicHorizonDocument extends IADocument {
   collection: "archaichorizon" | string[];

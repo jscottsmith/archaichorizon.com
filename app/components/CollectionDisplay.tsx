@@ -40,7 +40,7 @@ function CollectionData({ initialData }: { initialData: IADocument[] }) {
     <section className="grid grid-cols-1 gap-2">
       {collection.map((item) => (
         <Link
-          href={`/releases/${item.cat_no || item.identifier}`}
+          href={`/release/${item.cat_no?.toLowerCase()}`}
           key={item.identifier}
           className="block hover:bg-gray-50 transition-colors rounded-lg p-2"
         >

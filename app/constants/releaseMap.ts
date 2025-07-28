@@ -68,7 +68,7 @@ export const REVERSE_RELEASE_MAP: Record<string, string> = Object.fromEntries(
 
 // Utility functions for working with release mappings
 export function getIdentifierByCatNo(catNo: string): string | undefined {
-  return RELEASE_MAP[catNo];
+  return RELEASE_MAP[catNo.toUpperCase()];
 }
 
 export function getCatNoByIdentifier(identifier: string): string | undefined {
@@ -76,7 +76,7 @@ export function getCatNoByIdentifier(identifier: string): string | undefined {
 }
 
 export function isValidCatNo(catNo: string): boolean {
-  return catNo in RELEASE_MAP;
+  return catNo.toUpperCase() in RELEASE_MAP;
 }
 
 export function isValidIdentifier(identifier: string): boolean {
