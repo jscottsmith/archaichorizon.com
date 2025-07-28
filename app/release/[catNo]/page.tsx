@@ -10,8 +10,8 @@ interface ReleasePageProps {
   };
 }
 
-export default function ReleasePage({ params }: ReleasePageProps) {
-  const { catNo } = params;
+export default async function ReleasePage({ params }: ReleasePageProps) {
+  const { catNo } = await params;
 
   return (
     <Suspense fallback={<ReleaseLoading />}>

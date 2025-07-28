@@ -17,7 +17,7 @@ export async function GET(
   { params }: ReleaseRouteParams
 ): Promise<NextResponse<IAMetadataResponse | IAErrorResponse>> {
   try {
-    const { catNo } = params;
+    const { catNo } = await params;
 
     if (!catNo) {
       return NextResponse.json(
