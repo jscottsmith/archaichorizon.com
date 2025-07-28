@@ -1,10 +1,6 @@
 import { IA } from "@/app/constants/ia";
 import { NextResponse } from "next/server";
-import type {
-  IAAdvancedSearchResponse,
-  IADocument,
-  IAErrorResponse,
-} from "@/app/types/ia";
+import type { IAAdvancedSearchResponse, IAErrorResponse } from "@/app/types/ia";
 import { addThumbnailsToDocuments } from "@/app/utils/collection";
 
 // Force dynamic rendering (disable caching) - uncomment if you want fresh data every time

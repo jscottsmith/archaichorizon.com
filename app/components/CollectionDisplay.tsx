@@ -20,8 +20,22 @@ function CollectionError({ error }: { error: Error }) {
   );
 }
 
+// Loading component
+export function CollectionLoading() {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      <span className="ml-2 text-gray-600">Loading collection...</span>
+    </div>
+  );
+}
+
 // Collection data component
-function CollectionData({ initialData }: { initialData: IADocument[] }) {
+export function CollectionDisplay({
+  initialData,
+}: {
+  initialData: IADocument[];
+}) {
   const { data: collection, isError, error } = useCollection(initialData);
 
   if (isError) {
@@ -81,14 +95,4 @@ function CollectionData({ initialData }: { initialData: IADocument[] }) {
       ))}
     </section>
   );
-}
-
-interface CollectionDisplayProps {
-  initialData: IADocument[];
-}
-
-export default function CollectionDisplay({
-  initialData,
-}: CollectionDisplayProps) {
-  return <CollectionData initialData={initialData} />;
 }
