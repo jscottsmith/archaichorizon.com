@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MediaPlayer } from "./MediaPlayer";
 
 export function Header() {
   return (
@@ -21,6 +22,11 @@ export function Header() {
           </Link>
         </nav>
       </div>
+      <MediaPlayer
+        title="Title of the track"
+        artist="Artist Name"
+        src="https://archive.org/download/AH015_Trills_-_Citrus_Drop/03_Angelas_Song_vbr.mp3"
+      />
     </header>
   );
 }

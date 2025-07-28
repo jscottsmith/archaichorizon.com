@@ -1,4 +1,8 @@
-import type { IADocument, IAErrorResponse } from "@/app/types/ia";
+import type {
+  IADocument,
+  IAErrorResponse,
+  IAMetadataResponse,
+} from "@/app/types/ia";
 import { getApiUrl } from "@/app/utils/api";
 
 // API function to fetch collection data
