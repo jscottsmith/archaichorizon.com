@@ -25,7 +25,7 @@ export function CollectionLoading() {
   return (
     <div className="flex items-center justify-center p-8">
       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-      <span className="ml-2 text-gray-600">Loading collection...</span>
+      <span className="ml-2">Loading collection...</span>
     </div>
   );
 }
@@ -45,7 +45,7 @@ export function CollectionDisplay({
   if (!collection || collection.length === 0) {
     return (
       <div className="flex items-center justify-center p-8">
-        <p className="text-gray-600">No items found in the collection.</p>
+        <p>No items found in the collection.</p>
       </div>
     );
   }
@@ -56,7 +56,7 @@ export function CollectionDisplay({
         <Link
           href={`/release/${item.cat_no?.toLowerCase()}`}
           key={item.identifier}
-          className="block hover:bg-gray-50 transition-colors rounded-lg p-2"
+          className="block hover:bg-gray-500/10 transition-colors rounded-lg p-2"
         >
           <article className="flex gap-2">
             {/* Thumbnail */}
