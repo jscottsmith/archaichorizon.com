@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 interface MediaPlayerProps {
   src: string;
@@ -14,7 +14,6 @@ interface MediaPlayerProps {
   isPlaying?: boolean;
   currentTrackIndex?: number;
   totalTracks?: number;
-  onTrackSelect?: (index: number) => void;
 }
 
 export function MediaPlayer({
@@ -26,17 +25,10 @@ export function MediaPlayer({
   onEnded,
   onNext,
   onPrevious,
-  isPlaying: externalIsPlaying,
   currentTrackIndex = 0,
   totalTracks = 1,
-  onTrackSelect,
 }: MediaPlayerProps) {
-  const audioRef = useRef<HTMLAudioElement>(null);
   const [internalIsPlaying, setIsPlaying] = useState(false);
-
-  // Use external isPlaying if provided, otherwise use internal state
-  const isPlaying =
-    externalIsPlaying !== undefined ? externalIsPlaying : internalIsPlaying;
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -82,7 +74,7 @@ export function MediaPlayer({
           <button
             onClick={handlePrevious}
             disabled={currentTrackIndex === 0}
-            className="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed rounded"
+            className="px-3 py-1 text-sm hover:bg-gray-500/20 disabled:opacity-50 disabled:cursor-not-allowed rounded"
             aria-label="Previous track"
           >
             ⏮
@@ -90,7 +82,7 @@ export function MediaPlayer({
           <button
             onClick={handleNext}
             disabled={currentTrackIndex === totalTracks - 1}
-            className="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed rounded"
+            className="px-3 py-1 text-sm hover:bg-gray-500/20 disabled:opacity-50 disabled:cursor-not-allowed rounded"
             aria-label="Next track"
           >
             ⏭
@@ -100,7 +92,6 @@ export function MediaPlayer({
 
       {/* HTML5 Audio element with native controls */}
       <audio
-        ref={audioRef}
         src={src}
         controls
         className="flex-1"

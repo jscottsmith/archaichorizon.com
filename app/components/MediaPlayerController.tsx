@@ -1,31 +1,23 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { IAMetadataResponse, IAFile } from "@/app/types/ia";
-import { getAudioFiles } from "@/app/utils/files";
-import { replaceUrlParams } from "@/app/utils/url";
-import { IA } from "@/app/constants/ia";
+import { IAMetadataResponse } from "@/app/types/ia";
+import { normalizeTracks, Track } from "@/app/utils/tracks";
 import { MediaPlayer } from "./MediaPlayer";
+import { TrackList } from "./TrackList";
 
 interface MediaPlayerControllerProps {
   metadata: IAMetadataResponse | null;
-}
-
-interface TrackInfo {
-  title?: string;
-  artist?: string;
-  url: string;
-  index: number;
 }
 
 export function MediaPlayerController({
   metadata,
 }: MediaPlayerControllerProps) {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [tracks, setTracks] = useState<TrackInfo[]>([]);
+  const [tracks, setTracks] = useState<Track[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Process metadata and create track list
+  // Process metadata and create normalized track list
   useEffect(() => {
     if (!metadata) {
       setTracks([]);
@@ -33,18 +25,9 @@ export function MediaPlayerController({
       return;
     }
 
-    const audioFiles = getAudioFiles(metadata.files);
-    const mp3Tracks = audioFiles.mp3.map((file, index) => ({
-      title: file.title || `Track ${index + 1}`,
-      artist: file.artist || metadata.metadata.creator,
-      url: replaceUrlParams(IA.serve.url, {
-        identifier: metadata.metadata.identifier,
-        filename: file.name,
-      }),
-      index,
-    }));
+    const normalizedTracks = normalizeTracks(metadata.files, metadata);
 
-    setTracks(mp3Tracks);
+    setTracks(normalizedTracks);
     setCurrentTrackIndex(0);
   }, [metadata]);
 
@@ -111,30 +94,13 @@ export function MediaPlayerController({
         isPlaying={isPlaying}
         currentTrackIndex={currentTrackIndex}
         totalTracks={tracks.length}
-        onTrackSelect={handleTrackSelect}
       />
 
-      {/* Track list (optional) */}
-      {tracks.length > 1 && (
-        <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-          <h4 className="text-sm font-medium mb-2">Track List</h4>
-          <div className="space-y-1">
-            {tracks.map((track, index) => (
-              <button
-                key={index}
-                onClick={() => handleTrackSelect(index)}
-                className={`w-full text-left px-2 py-1 rounded text-sm transition-colors ${
-                  index === currentTrackIndex
-                    ? "bg-blue-100 text-blue-800"
-                    : "hover:bg-gray-100"
-                }`}
-              >
-                {track.title}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      <TrackList
+        tracks={tracks}
+        currentTrackIndex={currentTrackIndex}
+        onTrackSelect={handleTrackSelect}
+      />
     </div>
   );
 }

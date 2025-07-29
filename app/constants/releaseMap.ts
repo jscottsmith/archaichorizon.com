@@ -92,3 +92,10 @@ export function getAllCatNos(): string[] {
 export function getAllIdentifiers(): string[] {
   return Object.values(RELEASE_MAP);
 }
+
+// Get a random catalog number
+export function getRandomCatNo(): string {
+  const catNos = getAllCatNos();
+  const randomIndex = Math.floor(Math.random() * catNos.length);
+  return catNos[randomIndex];
+}

@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
 import { MediaPlayerProvider } from "./contexts/MediaPlayerProvider";
+import { getRandomCatNo } from "./constants/releaseMap";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -22,7 +23,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MediaPlayerProvider initialCatalogId="AH015">
+      <MediaPlayerProvider initialCatalogId={getRandomCatNo()}>
         {children}
       </MediaPlayerProvider>
       <ReactQueryDevtools initialIsOpen={false} />
