@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useCallback, Suspense, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { normalizeTracks } from "@/app/utils/tracks";
 import { MediaPlayer } from "./MediaPlayer";
 import { TrackList } from "./TrackList";
 import { useRelease } from "../hooks/useRelease";
 
-function MediaPlayerControllerContent({ catNo }: { catNo?: string }) {
+export function MediaPlayerController({ catNo }: { catNo?: string }) {
+  // TODOpass initial data to useRelease?
   const { data: metadata } = useRelease(catNo);
 
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
@@ -84,20 +85,5 @@ function MediaPlayerControllerContent({ catNo }: { catNo?: string }) {
         onTrackSelect={handleTrackSelect}
       />
     </div>
-  );
-}
-
-// Main export component that handles Suspense
-export function MediaPlayerController({ catNo }: { catNo: string }) {
-  return (
-    <Suspense
-      fallback={
-        <div className="p-4">
-          <div className="w-full h-16 bg-gray-500/20 rounded-sm animate-pulse" />
-        </div>
-      }
-    >
-      <MediaPlayerControllerContent catNo={catNo} />
-    </Suspense>
   );
 }

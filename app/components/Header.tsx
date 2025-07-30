@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { MediaPlayerController } from "./MediaPlayerController";
 import { useMediaPlayer } from "../contexts/MediaPlayerProvider";
+import { Suspense } from "react";
 
 export function Header() {
   const { currentCatalogId } = useMediaPlayer();
@@ -27,7 +28,15 @@ export function Header() {
           </Link>
         </nav>
       </div>
-      <MediaPlayerController catNo={currentCatalogId} />
+      <Suspense
+        fallback={
+          <div className="p-4">
+            <div className="w-full h-16 bg-gray-500/20 rounded-sm animate-pulse" />
+          </div>
+        }
+      >
+        <MediaPlayerController catNo={currentCatalogId} />
+      </Suspense>
     </header>
   );
 }

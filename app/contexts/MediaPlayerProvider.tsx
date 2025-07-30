@@ -4,7 +4,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 interface MediaPlayerContextType {
   setCatalogId: (catNo: string) => void;
-  currentCatalogId: string | null;
+  currentCatalogId?: string;
 }
 
 const MediaPlayerContext = createContext<MediaPlayerContextType | undefined>(
@@ -20,8 +20,8 @@ export function MediaPlayerProvider({
   children,
   initialCatalogId,
 }: MediaPlayerProviderProps) {
-  const [currentCatalogId, setCurrentCatalogId] = useState<string | null>(
-    initialCatalogId || null
+  const [currentCatalogId, setCurrentCatalogId] = useState<string | undefined>(
+    initialCatalogId
   );
 
   const setCatalogId = (catNo: string) => {
