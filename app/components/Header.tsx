@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MediaPlayerController } from "./MediaPlayerController";
+import { Playlist } from "./Playlist";
 import { useMediaPlayer } from "../contexts/MediaPlayerProvider";
 import { Suspense } from "react";
 
@@ -35,7 +35,7 @@ export function Header() {
           </div>
         }
       >
-        <MediaPlayerController catNo={currentCatalogId} />
+        <Playlist catNo={currentCatalogId} />
       </Suspense>
     </header>
   );

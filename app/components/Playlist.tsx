@@ -6,7 +6,7 @@ import { MediaPlayer } from "./MediaPlayer";
 import { TrackList } from "./TrackList";
 import { useRelease } from "../hooks/useRelease";
 
-export function MediaPlayerController({ catNo }: { catNo?: string }) {
+export function Playlist({ catNo }: { catNo?: string }) {
   // TODOpass initial data to useRelease?
   const { data: metadata } = useRelease(catNo);
 
