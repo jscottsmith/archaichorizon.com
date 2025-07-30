@@ -11,7 +11,7 @@ export function TrackList({
   currentTrackIndex,
   onTrackSelect,
 }: TrackListProps) {
-  if (tracks.length <= 1) {
+  if (tracks.length === 0) {
     return null;
   }
 

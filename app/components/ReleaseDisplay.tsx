@@ -3,6 +3,7 @@
 import { useRelease } from "@/app/hooks/useRelease";
 import { notFound } from "next/navigation";
 import { useMediaPlayer } from "../contexts/MediaPlayerProvider";
+import type { IAMetadataResponse } from "../types/ia";
 
 // Loading component
 export function ReleaseLoading() {
@@ -31,20 +32,18 @@ export function ReleaseError({ error }: { error: Error }) {
 }
 
 // Release display component
-export function ReleaseDisplay({ catNo }: { catNo: string }) {
-  const { data: release, isLoading, error } = useRelease({ catNo });
-  const { setCatalogId, currentCatalogId } = useMediaPlayer();
-
-  if (isLoading) {
-    return <ReleaseLoading />;
-  }
+export function ReleaseDisplay({
+  catNo,
+  initialData,
+}: {
+  catNo: string;
+  initialData?: IAMetadataResponse;
+}) {
+  const { data: release, error } = useRelease(catNo, { initialData });
+  const { setCatalogId } = useMediaPlayer();
 
   if (error) {
     return <ReleaseError error={error} />;
-  }
-
-  if (!release) {
-    return notFound();
   }
 
   const { metadata } = release;

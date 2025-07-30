@@ -1,19 +1,8 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
-import { IAMetadataResponse } from "@/app/types/ia";
-import { fetchRelease } from "@/app/services";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 interface MediaPlayerContextType {
-  metadata: IAMetadataResponse | null;
-  isLoading: boolean;
-  error: Error | null;
   setCatalogId: (catNo: string) => void;
   currentCatalogId: string | null;
 }
@@ -31,9 +20,6 @@ export function MediaPlayerProvider({
   children,
   initialCatalogId,
 }: MediaPlayerProviderProps) {
-  const [metadata, setMetadata] = useState<IAMetadataResponse | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
   const [currentCatalogId, setCurrentCatalogId] = useState<string | null>(
     initialCatalogId || null
   );
@@ -42,37 +28,7 @@ export function MediaPlayerProvider({
     setCurrentCatalogId(catNo);
   };
 
-  useEffect(() => {
-    if (!currentCatalogId) {
-      setMetadata(null);
-      setError(null);
-      return;
-    }
-
-    const fetchMetadata = async () => {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const data = await fetchRelease(currentCatalogId);
-        setMetadata(data);
-      } catch (err) {
-        setError(
-          err instanceof Error ? err : new Error("Failed to fetch metadata")
-        );
-        setMetadata(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchMetadata();
-  }, [currentCatalogId]);
-
   const value: MediaPlayerContextType = {
-    metadata,
-    isLoading,
-    error,
     setCatalogId,
     currentCatalogId,
   };

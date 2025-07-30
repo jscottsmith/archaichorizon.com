@@ -1,34 +1,20 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { IAMetadataResponse } from "@/app/types/ia";
-import { normalizeTracks, Track } from "@/app/utils/tracks";
+import { useState, useCallback, Suspense, useMemo } from "react";
+import { normalizeTracks } from "@/app/utils/tracks";
 import { MediaPlayer } from "./MediaPlayer";
 import { TrackList } from "./TrackList";
+import { useRelease } from "../hooks/useRelease";
 
-interface MediaPlayerControllerProps {
-  metadata: IAMetadataResponse | null;
-}
+function MediaPlayerControllerContent({ catNo }: { catNo?: string }) {
+  const { data: metadata } = useRelease(catNo);
 
-export function MediaPlayerController({
-  metadata,
-}: MediaPlayerControllerProps) {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [tracks, setTracks] = useState<Track[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
 
   // Process metadata and create normalized track list
-  useEffect(() => {
-    if (!metadata) {
-      setTracks([]);
-      setCurrentTrackIndex(0);
-      return;
-    }
-
-    const normalizedTracks = normalizeTracks(metadata.files, metadata);
-
-    setTracks(normalizedTracks);
-    setCurrentTrackIndex(0);
+  const tracks = useMemo(() => {
+    return normalizeTracks(metadata.files, metadata);
   }, [metadata]);
 
   // Handle track completion and auto-advance
@@ -76,10 +62,6 @@ export function MediaPlayerController({
 
   const currentTrack = tracks[currentTrackIndex];
 
-  if (!metadata || tracks.length === 0) {
-    return null;
-  }
-
   return (
     <div className="w-full">
       <MediaPlayer
@@ -102,5 +84,20 @@ export function MediaPlayerController({
         onTrackSelect={handleTrackSelect}
       />
     </div>
+  );
+}
+
+// Main export component that handles Suspense
+export function MediaPlayerController({ catNo }: { catNo: string }) {
+  return (
+    <Suspense
+      fallback={
+        <div className="p-4">
+          <div className="w-full h-16 bg-gray-500/20 rounded-sm animate-pulse" />
+        </div>
+      }
+    >
+      <MediaPlayerControllerContent catNo={catNo} />
+    </Suspense>
   );
 }

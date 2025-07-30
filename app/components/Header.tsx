@@ -5,7 +5,7 @@ import { MediaPlayerController } from "./MediaPlayerController";
 import { useMediaPlayer } from "../contexts/MediaPlayerProvider";
 
 export function Header() {
-  const { metadata } = useMediaPlayer();
+  const { currentCatalogId } = useMediaPlayer();
 
   return (
     <header>
@@ -27,7 +27,7 @@ export function Header() {
           </Link>
         </nav>
       </div>
-      <MediaPlayerController metadata={metadata} />
+      <MediaPlayerController catNo={currentCatalogId} />
     </header>
   );
 }
