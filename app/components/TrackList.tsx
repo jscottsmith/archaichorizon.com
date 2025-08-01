@@ -23,7 +23,7 @@ export function TrackList({
   }
 
   return (
-    <div className="mt-4 p-4">
+    <div className="mt-4 p-4 bg-background">
       <h4 className="text-sm font-medium mb-3 text-gray-200">Track List</h4>
       <div className="space-y-2">
         {displayTracks.map((track, index) => (

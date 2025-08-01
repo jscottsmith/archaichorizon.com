@@ -88,6 +88,9 @@ export function PlaylistProvider({
       if (index >= 0 && index < tracks.length) {
         setCurrentTrackIndex(index);
       }
+      if (!isPlaying) {
+        play();
+      }
     },
     [tracks.length]
   );

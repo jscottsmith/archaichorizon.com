@@ -1,6 +1,5 @@
 "use client";
 
-import { MediaPlayer } from "./MediaPlayer";
 import { TrackList } from "./TrackList";
 import { usePlaylist } from "../contexts/PlaylistProvider";
 import { useRelease } from "../hooks/useRelease";
@@ -33,13 +32,7 @@ export function Playlist() {
   }, [tracks, playlist]);
 
   return (
-    <div className="w-full">
-      <MediaPlayer
-        title={playlist.currentTrack?.title}
-        artist={playlist.currentTrack?.artist}
-        src={playlist.currentTrack?.url || ""}
-        isPlaying={playlist.isPlaying}
-      />
+    <div className="fixed bottom-24 left-0 right-0 max-h-[calc(100vh_-_6rem)] overflow-auto z-50">
       <TrackList />
     </div>
   );
