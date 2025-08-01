@@ -1,6 +1,7 @@
 "use client";
 
 import { usePlaylist } from "../contexts/PlaylistProvider";
+import { SkipBack, SkipForward } from "lucide-react";
 
 interface MediaPlayerProps {
   onPlay?: () => void;
@@ -80,7 +81,7 @@ export function MediaPlayer({
             className="px-3 py-1 text-sm hover:bg-gray-500/20 disabled:opacity-50 disabled:cursor-not-allowed rounded"
             aria-label="Previous track"
           >
-            ⏮
+            <SkipBack size={16} />
           </button>
           <button
             onClick={handleNext}
@@ -88,7 +89,7 @@ export function MediaPlayer({
             className="px-3 py-1 text-sm hover:bg-gray-500/20 disabled:opacity-50 disabled:cursor-not-allowed rounded"
             aria-label="Next track"
           >
-            ⏭
+            <SkipForward size={16} />
           </button>
         </div>
       )}
