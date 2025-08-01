@@ -1,13 +1,8 @@
-"use client";
-
 import Link from "next/link";
 import { Playlist } from "./Playlist";
-import { useMediaPlayer } from "../contexts/MediaPlayerProvider";
 import { Suspense } from "react";
 
 export function Header() {
-  const { currentCatalogId } = useMediaPlayer();
-
   return (
     <header>
       <div className="flex p-4 justify-between items-center h-16">
@@ -28,14 +23,8 @@ export function Header() {
           </Link>
         </nav>
       </div>
-      <Suspense
-        fallback={
-          <div className="p-4">
-            <div className="w-full h-16 bg-gray-500/20 rounded-sm animate-pulse" />
-          </div>
-        }
-      >
-        <Playlist catNo={currentCatalogId} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Playlist />
       </Suspense>
     </header>
   );

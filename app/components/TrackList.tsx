@@ -1,17 +1,24 @@
 import { Track, formatTrackLength } from "@/app/utils/tracks";
+import { usePlaylist } from "../contexts/PlaylistProvider";
 
 interface TrackListProps {
-  tracks: Track[];
-  currentTrackIndex: number;
-  onTrackSelect: (index: number) => void;
+  tracks?: Track[];
+  currentTrackIndex?: number;
+  onTrackSelect?: (index: number) => void;
 }
 
 export function TrackList({
-  tracks,
-  currentTrackIndex,
-  onTrackSelect,
+  tracks: propTracks,
+  currentTrackIndex: propCurrentTrackIndex,
+  onTrackSelect: propOnTrackSelect,
 }: TrackListProps) {
-  if (tracks.length === 0) {
+  const { tracks, currentTrackIndex, selectTrack } = usePlaylist();
+
+  // Use props if provided, otherwise use context
+  const displayTracks = propTracks || tracks;
+  const displayCurrentTrackIndex = propCurrentTrackIndex ?? currentTrackIndex;
+  const handleTrackSelect = propOnTrackSelect || selectTrack;
+  if (displayTracks.length === 0) {
     return null;
   }
 
@@ -19,12 +26,12 @@ export function TrackList({
     <div className="mt-4 p-4">
       <h4 className="text-sm font-medium mb-3 text-gray-200">Track List</h4>
       <div className="space-y-2">
-        {tracks.map((track, index) => (
+        {displayTracks.map((track, index) => (
           <button
             key={index}
-            onClick={() => onTrackSelect(index)}
+            onClick={() => handleTrackSelect(index)}
             className={`w-full text-left p-3 rounded-lg transition-all duration-200 ${
-              index === currentTrackIndex
+              index === displayCurrentTrackIndex
                 ? "bg-blue-600/20 border border-blue-500/30 text-blue-300"
                 : "hover:bg-gray-500/20"
             }`}

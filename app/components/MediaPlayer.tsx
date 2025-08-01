@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { usePlaylist } from "../contexts/PlaylistProvider";
 
 interface MediaPlayerProps {
-  src: string;
+  src?: string;
   title?: string;
   artist?: string;
   onPlay?: () => void;
@@ -25,31 +25,40 @@ export function MediaPlayer({
   onEnded,
   onNext,
   onPrevious,
-  currentTrackIndex = 0,
-  totalTracks = 1,
+  currentTrackIndex,
+  totalTracks,
 }: MediaPlayerProps) {
-  const [internalIsPlaying, setIsPlaying] = useState(false);
+  const {
+    play,
+    pause,
+    nextTrack,
+    previousTrack,
+    isPlaying,
+    currentTrackIndex: contextCurrentTrackIndex,
+    totalTracks: contextTotalTracks,
+  } = usePlaylist();
 
   const handlePlay = () => {
-    setIsPlaying(true);
+    play();
     onPlay?.();
   };
 
   const handlePause = () => {
-    setIsPlaying(false);
+    pause();
     onPause?.();
   };
 
   const handleEnded = () => {
-    setIsPlaying(false);
     onEnded?.();
   };
 
   const handleNext = () => {
+    nextTrack();
     onNext?.();
   };
 
   const handlePrevious = () => {
+    previousTrack();
     onPrevious?.();
   };
 
@@ -60,20 +69,20 @@ export function MediaPlayer({
         <div className="w-1/3">
           {title && <h3 className="font-semibold">{title}</h3>}
           {artist && <p className="text-sm text-gray-600">{artist}</p>}
-          {totalTracks > 1 && (
+          {contextTotalTracks > 1 && (
             <p className="text-xs text-gray-500">
-              Track {currentTrackIndex + 1} of {totalTracks}
+              Track {contextCurrentTrackIndex + 1} of {contextTotalTracks}
             </p>
           )}
         </div>
       )}
 
       {/* Navigation controls */}
-      {totalTracks > 1 && (
+      {contextTotalTracks > 1 && (
         <div className="flex gap-2">
           <button
             onClick={handlePrevious}
-            disabled={currentTrackIndex === 0}
+            disabled={contextCurrentTrackIndex === 0}
             className="px-3 py-1 text-sm hover:bg-gray-500/20 disabled:opacity-50 disabled:cursor-not-allowed rounded"
             aria-label="Previous track"
           >
@@ -81,7 +90,7 @@ export function MediaPlayer({
           </button>
           <button
             onClick={handleNext}
-            disabled={currentTrackIndex === totalTracks - 1}
+            disabled={contextCurrentTrackIndex === contextTotalTracks - 1}
             className="px-3 py-1 text-sm hover:bg-gray-500/20 disabled:opacity-50 disabled:cursor-not-allowed rounded"
             aria-label="Next track"
           >
@@ -91,17 +100,20 @@ export function MediaPlayer({
       )}
 
       {/* HTML5 Audio element with native controls */}
-      <audio
-        src={src}
-        controls
-        className="flex-1"
-        onPlay={handlePlay}
-        onPause={handlePause}
-        onEnded={handleEnded}
-        preload="metadata"
-      >
-        Your browser does not support the audio element.
-      </audio>
+      {src && (
+        <audio
+          autoPlay={isPlaying}
+          src={src}
+          controls
+          className="flex-1"
+          onPlay={handlePlay}
+          onPause={handlePause}
+          onEnded={handleEnded}
+          preload="metadata"
+        >
+          Your browser does not support the audio element.
+        </audio>
+      )}
     </div>
   );
 }

@@ -2,8 +2,9 @@
 
 import { useRelease } from "@/app/hooks/useRelease";
 import { notFound } from "next/navigation";
-import { useMediaPlayer } from "../contexts/MediaPlayerProvider";
+import { usePlaylist } from "../contexts/PlaylistProvider";
 import type { IAMetadataResponse } from "../types/ia";
+import { useNormalizeTracks } from "../hooks/useNormalizeTracks";
 
 // Loading component
 export function ReleaseLoading() {
@@ -39,14 +40,15 @@ export function ReleaseDisplay({
   catNo: string;
   initialData?: IAMetadataResponse;
 }) {
-  const { data: release, error } = useRelease(catNo, { initialData });
-  const { setCatalogId } = useMediaPlayer();
+  const release = useRelease(catNo, { initialData });
+  const playlist = usePlaylist();
+  const tracks = useNormalizeTracks(release.data);
 
-  if (error) {
-    return <ReleaseError error={error} />;
+  if (release.error) {
+    return <ReleaseError error={release.error} />;
   }
 
-  const { metadata } = release;
+  const { metadata } = release.data;
 
   return (
     <article className="p-6">
@@ -71,7 +73,10 @@ export function ReleaseDisplay({
                 <span className="ml-2">{metadata.date}</span>
               </div>
             )}
-            <button onClick={() => setCatalogId(catNo)}>Play Album</button>
+
+            <button onClick={() => playlist.setTracks(tracks)}>
+              Play Album
+            </button>
           </div>
         </div>
 
