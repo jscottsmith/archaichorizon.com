@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Playlist } from "./Playlist";
 import { Suspense } from "react";
 import { MediaPlayer } from "./MediaPlayer";
+import { Navigation } from "./Navigation";
 
 export function Interface() {
   return (
@@ -15,14 +16,7 @@ export function Interface() {
         </div>
 
         {/* Navigation */}
-        <nav className="flex space-x-8">
-          <Link href="/" className="px-3 py-2 text-sm font-medium">
-            Home
-          </Link>
-          <Link href="/collection" className="px-3 py-2 text-sm font-medium">
-            Collection
-          </Link>
-        </nav>
+        <Navigation />
       </header>
 
       <Suspense fallback={<div>Loading...</div>}>
