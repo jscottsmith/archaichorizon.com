@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
 import { PlaylistProvider } from "./contexts/PlaylistProvider";
+import { AudioProvider } from "./contexts/AudioProvider";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 export function ThemeProvider({
@@ -31,7 +32,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <PlaylistProvider>{children}</PlaylistProvider>
+      <PlaylistProvider>
+        <AudioProvider>{children}</AudioProvider>
+      </PlaylistProvider>
     </QueryClientProvider>
   );
 }

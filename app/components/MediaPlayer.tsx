@@ -1,6 +1,7 @@
 "use client";
 
 import { usePlaylist } from "../contexts/PlaylistProvider";
+import { useAudio } from "../contexts/AudioProvider";
 import {
   SkipBack,
   SkipForward,
@@ -8,144 +9,60 @@ import {
   Pause,
   Volume2,
   VolumeX,
+  Loader2,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Slider } from "./ui/slider";
-import { useState, useRef, useEffect } from "react";
 
-interface MediaPlayerProps {
-  onPlay?: () => void;
-  onPause?: () => void;
-  onEnded?: () => void;
-  onNext?: () => void;
-  onPrevious?: () => void;
-}
-
-export function MediaPlayer({
-  onPlay,
-  onPause,
-  onEnded,
-  onNext,
-  onPrevious,
-}: MediaPlayerProps) {
+export function MediaPlayer() {
   const {
-    play,
-    pause,
     nextTrack,
     previousTrack,
-    isPlaying,
     currentTrack,
     currentTrackIndex,
     totalTracks,
   } = usePlaylist();
 
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(1);
-  const [isMuted, setIsMuted] = useState(false);
+  const {
+    play: audioPlay,
+    pause: audioPause,
+    seek,
+    setVolume,
+    toggleMute,
+    isPlaying,
+    isLoading,
+    currentTime,
+    duration,
+    volume,
+    isMuted,
+  } = useAudio();
 
-  // Update current time and duration
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    const updateTime = () => setCurrentTime(audio.currentTime);
-    const updateDuration = () => setDuration(audio.duration);
-    const handleEnded = () => {
-      onEnded?.();
-      setCurrentTime(0);
-    };
-
-    audio.addEventListener("timeupdate", updateTime);
-    audio.addEventListener("loadedmetadata", updateDuration);
-    audio.addEventListener("ended", handleEnded);
-
-    return () => {
-      audio.removeEventListener("timeupdate", updateTime);
-      audio.removeEventListener("loadedmetadata", updateDuration);
-      audio.removeEventListener("ended", handleEnded);
-    };
-  }, [onEnded]);
-
-  // Sync audio with playlist state
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio || !currentTrack?.url) return;
-
-    // Only set src if it's a different track
-    if (audio.src !== currentTrack.url) {
-      audio.src = currentTrack.url;
-      setCurrentTime(0); // Reset time for new track
-    }
-
-    if (isPlaying) {
-      audio.play().catch(console.error);
-    } else {
-      audio.pause();
-    }
-  }, [currentTrack, isPlaying]);
-
-  const handlePlay = () => {
-    audioRef.current?.play().catch(console.error);
-    play();
-    onPlay?.();
+  const handlePlay = async () => {
+    await audioPlay();
   };
 
   const handlePause = () => {
-    audioRef.current?.pause();
-    pause();
-    onPause?.();
+    audioPause();
   };
 
   const handleNext = () => {
     nextTrack();
-    onNext?.();
   };
 
   const handlePrevious = () => {
     previousTrack();
-    onPrevious?.();
   };
 
   const handleSeek = (value: number[]) => {
-    const audio = audioRef.current;
-    if (audio && duration > 0) {
+    if (duration > 0) {
       const newTime = (value[0] / 100) * duration;
-      audio.currentTime = newTime;
-      setCurrentTime(newTime);
-
-      // If the audio was playing before seeking, ensure it continues playing
-      if (isPlaying && audio.paused) {
-        audio.play().catch(console.error);
-      }
+      seek(newTime);
     }
   };
 
   const handleVolumeChange = (value: number[]) => {
     const newVolume = value[0] / 100;
     setVolume(newVolume);
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume;
-    }
-    if (newVolume === 0) {
-      setIsMuted(true);
-    } else if (isMuted) {
-      setIsMuted(false);
-    }
-  };
-
-  const toggleMute = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    if (isMuted) {
-      audio.volume = volume;
-      setIsMuted(false);
-    } else {
-      audio.volume = 0;
-      setIsMuted(true);
-    }
   };
 
   const formatTime = (time: number) => {
@@ -158,14 +75,6 @@ export function MediaPlayer({
 
   return (
     <div className="p-4 space-y-4 bg-background border rounded-lg">
-      {/* Hidden audio element */}
-      <audio
-        ref={audioRef}
-        preload="metadata"
-        onPlay={handlePlay}
-        onPause={handlePause}
-      />
-
       {/* Track info */}
       {(currentTrack?.title || currentTrack?.artist) && (
         <div className="text-center">
@@ -218,11 +127,17 @@ export function MediaPlayer({
           variant="ghost"
           size="icon"
           onClick={isPlaying ? handlePause : handlePlay}
-          disabled={!currentTrack?.url}
+          disabled={!currentTrack?.url || isLoading}
           className="h-12 w-12"
-          aria-label={isPlaying ? "Pause" : "Play"}
+          aria-label={isLoading ? "Loading" : isPlaying ? "Pause" : "Play"}
         >
-          {isPlaying ? <Pause size={24} /> : <Play size={24} />}
+          {isLoading ? (
+            <Loader2 size={24} className="animate-spin" />
+          ) : isPlaying ? (
+            <Pause size={24} />
+          ) : (
+            <Play size={24} />
+          )}
         </Button>
 
         {totalTracks > 1 && (

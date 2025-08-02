@@ -13,11 +13,8 @@ interface PlaylistContextType {
   // Playlist state
   tracks: Track[];
   currentTrackIndex: number;
-  isPlaying: boolean;
 
   // Playlist controls
-  play: () => void;
-  pause: () => void;
   nextTrack: () => void;
   previousTrack: () => void;
   selectTrack: (index: number) => void;
@@ -43,7 +40,6 @@ export function PlaylistProvider({
 }: PlaylistProviderProps) {
   const [tracks, setTracksState] = useState<Track[]>(initialTracks);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   // Current track
   const currentTrack = tracks[currentTrackIndex];
@@ -53,25 +49,12 @@ export function PlaylistProvider({
     setTracksState(newTracks);
     // Reset to first track when tracks change
     setCurrentTrackIndex(0);
-    setIsPlaying(false);
-  }, []);
-
-  // Play controls
-  const play = useCallback(() => {
-    setIsPlaying(true);
-  }, []);
-
-  const pause = useCallback(() => {
-    setIsPlaying(false);
   }, []);
 
   // Track navigation
   const nextTrack = useCallback(() => {
     if (currentTrackIndex < tracks.length - 1) {
       setCurrentTrackIndex(currentTrackIndex + 1);
-    } else {
-      // End of playlist, stop playing
-      setIsPlaying(false);
     }
   }, [currentTrackIndex, tracks.length]);
 
@@ -86,9 +69,6 @@ export function PlaylistProvider({
       if (index >= 0 && index < tracks.length) {
         setCurrentTrackIndex(index);
       }
-      if (!isPlaying) {
-        play();
-      }
     },
     [tracks.length]
   );
@@ -96,9 +76,6 @@ export function PlaylistProvider({
   const value: PlaylistContextType = {
     tracks,
     currentTrackIndex,
-    isPlaying,
-    play,
-    pause,
     nextTrack,
     previousTrack,
     selectTrack,
