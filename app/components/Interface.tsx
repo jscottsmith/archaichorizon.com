@@ -25,9 +25,7 @@ export function Interface() {
         <Playlist />
       </Suspense>
 
-      <div className="fixed right-0 bottom-0 left-0 bg-background/90 border-t border-foreground/10 z-50">
-        <MediaPlayer />
-      </div>
+      <MediaPlayer className="fixed right-2 bottom-2 left-2 bg-background/90 border-foreground/10 z-50" />
     </>
   );
 }

@@ -31,8 +31,13 @@ export function Playlist() {
     }
   }, [tracks, playlist]);
 
+  // Don't render if playlist is not visible
+  if (!playlist.isPlaylistVisible) {
+    return null;
+  }
+
   return (
-    <div className="fixed bottom-24 left-0 right-0 max-h-[calc(100vh_-_6rem)] overflow-auto z-50">
+    <div className="fixed bottom-64 left-0 right-0 max-h-[calc(100vh_-_16rem)] overflow-auto z-50">
       <TrackList />
     </div>
   );

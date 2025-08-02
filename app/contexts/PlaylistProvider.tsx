@@ -20,6 +20,10 @@ interface PlaylistContextType {
   selectTrack: (index: number) => void;
   setTracks: (tracks: Track[]) => void;
 
+  // Playlist visibility
+  isPlaylistVisible: boolean;
+  togglePlaylist: () => void;
+
   // Current track info
   currentTrack: Track | undefined;
   totalTracks: number;
@@ -40,6 +44,7 @@ export function PlaylistProvider({
 }: PlaylistProviderProps) {
   const [tracks, setTracksState] = useState<Track[]>(initialTracks);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isPlaylistVisible, setIsPlaylistVisible] = useState(false);
 
   // Current track
   const currentTrack = tracks[currentTrackIndex];
@@ -73,6 +78,11 @@ export function PlaylistProvider({
     [tracks.length]
   );
 
+  // Playlist visibility toggle
+  const togglePlaylist = useCallback(() => {
+    setIsPlaylistVisible((prev) => !prev);
+  }, []);
+
   const value: PlaylistContextType = {
     tracks,
     currentTrackIndex,
@@ -80,6 +90,8 @@ export function PlaylistProvider({
     previousTrack,
     selectTrack,
     setTracks,
+    isPlaylistVisible,
+    togglePlaylist,
     currentTrack,
     totalTracks: tracks.length,
   };
