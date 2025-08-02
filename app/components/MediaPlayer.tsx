@@ -73,7 +73,12 @@ export function MediaPlayer({
     const audio = audioRef.current;
     if (!audio || !currentTrack?.url) return;
 
-    audio.src = currentTrack.url;
+    // Only set src if it's a different track
+    if (audio.src !== currentTrack.url) {
+      audio.src = currentTrack.url;
+      setCurrentTime(0); // Reset time for new track
+    }
+
     if (isPlaying) {
       audio.play().catch(console.error);
     } else {
@@ -109,6 +114,11 @@ export function MediaPlayer({
       const newTime = (value[0] / 100) * duration;
       audio.currentTime = newTime;
       setCurrentTime(newTime);
+
+      // If the audio was playing before seeking, ensure it continues playing
+      if (isPlaying && audio.paused) {
+        audio.play().catch(console.error);
+      }
     }
   };
 

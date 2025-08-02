@@ -45,8 +45,6 @@ export function PlaylistProvider({
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  console.log("isPlaying", isPlaying);
-
   // Current track
   const currentTrack = tracks[currentTrackIndex];
 
