@@ -1,6 +1,6 @@
 import { IAFile, IAMetadataResponse } from "@/app/types/ia";
 import { replaceUrlParams } from "./url";
-import { getAudioFiles } from "./files";
+import { getAudioFiles, getCoverArt } from "./files";
 import { IA } from "@/app/constants/ia";
 
 export interface Track {
@@ -11,6 +11,10 @@ export interface Track {
   url: string;
   track: number;
   length?: string;
+  images?: {
+    cover?: string;
+    thumbnail?: string;
+  };
 }
 
 /**
@@ -40,9 +44,7 @@ export function extractTrackNumber(file: IAFile): number {
 /**
  * Normalize audio files into Track objects
  * @param files - Array of audio files from IA metadata
- * @param identifier - The IA identifier for URL generation
- * @param albumTitle - The album title
- * @param albumArtist - The album artist
+ * @param metadata - The IA metadata response
  * @returns Array of normalized Track objects
  */
 export function normalizeTracks(
@@ -52,9 +54,46 @@ export function normalizeTracks(
   // Use existing getAudioFiles function to filter audio files
   const audioFiles = getAudioFiles(files);
 
+  // Get cover art files
+  const coverArtFiles = getCoverArt(files);
+
+  // Find the main cover image (prefer cover.jpg, then any cover image)
+  const mainCover =
+    coverArtFiles.find(
+      (file) =>
+        file.name.toLowerCase().includes("cover.jpg") ||
+        file.name.toLowerCase().includes("cover.png")
+    ) || coverArtFiles[0];
+
+  // Find thumbnail image
+  const thumbnail = coverArtFiles.find(
+    (file) =>
+      file.name.toLowerCase().includes("thumb") ||
+      file.name.toLowerCase().includes("small")
+  );
+
   // Use MP3 files from the filtered audio files
   return audioFiles.mp3
     .map((file, index) => {
+      // Generate image URLs if cover art is available
+      const images =
+        mainCover || thumbnail
+          ? {
+              cover: mainCover
+                ? replaceUrlParams(IA.serve.url, {
+                    identifier: metadata.metadata.identifier,
+                    filename: mainCover.name,
+                  })
+                : undefined,
+              thumbnail: thumbnail
+                ? replaceUrlParams(IA.serve.url, {
+                    identifier: metadata.metadata.identifier,
+                    filename: thumbnail.name,
+                  })
+                : undefined,
+            }
+          : undefined;
+
       return {
         name: file.name,
         title: file.title ?? "",
@@ -66,6 +105,7 @@ export function normalizeTracks(
         }),
         track: extractTrackNumber(file),
         length: file.length,
+        images,
       };
     })
     .sort((a, b) => a.track - b.track); // Sort by track number

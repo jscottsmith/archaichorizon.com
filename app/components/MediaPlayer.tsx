@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Slider } from "./ui/slider";
+import Image from "next/image";
 
 export function MediaPlayer() {
   const playlist = usePlaylist();
@@ -57,24 +58,57 @@ export function MediaPlayer() {
 
   return (
     <div className="p-4 space-y-4 bg-background border rounded-lg">
-      {/* Track info */}
+      {/* Track info with thumbnail */}
       {(playlist.currentTrack?.title || playlist.currentTrack?.artist) && (
-        <div className="text-center">
-          {playlist.currentTrack?.title && (
-            <h3 className="font-semibold text-lg">
-              {playlist.currentTrack.title}
-            </h3>
+        <div className="flex items-center gap-4">
+          {/* Thumbnail image */}
+          {playlist.currentTrack?.images?.thumbnail ||
+          playlist.currentTrack?.images?.cover ? (
+            <div className="flex-shrink-0">
+              <Image
+                src={
+                  playlist.currentTrack.images.thumbnail ||
+                  playlist.currentTrack.images.cover!
+                }
+                alt={`${playlist.currentTrack.title || "Track"} cover art`}
+                width={64}
+                height={64}
+                className="rounded-sm object-cover"
+                onError={(e) => {
+                  // Hide image on error
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+            </div>
+          ) : (
+            <div className="flex-shrink-0 w-16 h-16 bg-muted rounded-md flex items-center justify-center">
+              <span className="text-muted-foreground text-xs">No Image</span>
+            </div>
           )}
-          {playlist.currentTrack?.artist && (
-            <p className="text-sm text-muted-foreground">
-              {playlist.currentTrack.artist}
-            </p>
-          )}
-          {playlist.totalTracks > 1 && (
-            <p className="text-xs text-muted-foreground">
-              Track {playlist.currentTrackIndex + 1} of {playlist.totalTracks}
-            </p>
-          )}
+
+          {/* Track information */}
+          <div className="flex-1 text-left">
+            {playlist.currentTrack?.title && (
+              <h3 className="font-semibold text-lg">
+                {playlist.currentTrack.title}
+              </h3>
+            )}
+            {playlist.currentTrack?.artist && (
+              <p className="text-sm text-muted-foreground">
+                {playlist.currentTrack.artist}
+              </p>
+            )}
+            {playlist.currentTrack?.album && (
+              <p className="text-xs text-muted-foreground">
+                {playlist.currentTrack.album}
+              </p>
+            )}
+            {playlist.totalTracks > 1 && (
+              <p className="text-xs text-muted-foreground">
+                Track {playlist.currentTrackIndex + 1} of {playlist.totalTracks}
+              </p>
+            )}
+          </div>
         </div>
       )}
 
