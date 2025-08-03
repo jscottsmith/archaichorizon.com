@@ -5,6 +5,9 @@ import {
 import { fetchRelease } from "@/app/services";
 import { Suspense } from "react";
 
+// Force dynamic rendering to avoid build-time API calls
+export const dynamic = "force-dynamic";
+
 export default async function ReleasePage({
   params,
 }: {
