@@ -66,22 +66,22 @@ function ArtistInfo({ className }: { className?: string }) {
   }
 
   return (
-    <div className={cn("flex-1 text-left", className)}>
+    <div className={cn("flex-1 text-left min-w-0", className)}>
       {playlist.currentTrack?.title && (
-        <h3 className="font-semibold text-sm flex whitespace-nowrap gap-2 items-center">
-          <span>{playlist.currentTrack.title}</span>
-          <span className="text-xs text-muted-foreground">
+        <h3 className="font-semibold text-sm flex whitespace-nowrap gap-2 items-center min-w-0">
+          <span className="truncate">{playlist.currentTrack.title}</span>
+          <span className="text-xs text-muted-foreground flex-shrink-0">
             {playlist.currentTrackIndex + 1} of {playlist.totalTracks}
           </span>
         </h3>
       )}
       {playlist.currentTrack?.artist && (
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground truncate">
           {playlist.currentTrack.artist}
         </p>
       )}
       {playlist.currentTrack?.album && (
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-muted-foreground truncate">
           {playlist.currentTrack.album}
         </p>
       )}
@@ -148,7 +148,12 @@ function MainControls({ className }: { className?: string }) {
   };
 
   return (
-    <div className={cn("flex items-center justify-center gap-4", className)}>
+    <div
+      className={cn(
+        "flex items-center justify-center gap-1 md:gap-2 lg:gap-4",
+        className
+      )}
+    >
       {playlist.totalTracks > 1 && (
         <Button
           variant="ghost"
@@ -253,16 +258,17 @@ export function MediaPlayer({ className }: { className?: string }) {
     <Card className={cn("p-2 space-y-1", className)}>
       {/* Track info with thumbnail */}
       {(playlist.currentTrack?.title || playlist.currentTrack?.artist) && (
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 items-center justify-between">
+          <div className="flex items-center gap-4 col-span-1">
             <CoverImage />
             <ArtistInfo />
           </div>
-          {/* Main controls */}
-          <MainControls />
-          <div className="flex items-center gap-2">
+
+          <MainControls className="col-span-1 justify-end sm:justify-center" />
+
+          <div className="col-span-3 sm:col-span-1 flex items-center justify-between sm:justify-end gap-2">
             <VolumeControl />
-            <PlaylistToggle className="ml-auto" />
+            <PlaylistToggle />
           </div>
         </div>
       )}
