@@ -8,7 +8,7 @@ import { useNormalizeTracks } from "../hooks/useNormalizeTracks";
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
 
-export function Playlist() {
+export function Playlist(props: { className?: string }) {
   const params = useParams();
 
   // Get catNo from params if this is a release page
@@ -37,7 +37,7 @@ export function Playlist() {
   }
 
   return (
-    <div className="fixed bottom-64 left-0 right-0 max-h-[calc(100vh_-_16rem)] overflow-auto z-50">
+    <div className={props.className}>
       <TrackList />
     </div>
   );

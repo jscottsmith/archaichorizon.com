@@ -1,39 +1,30 @@
-import { Track, formatTrackLength } from "@/app/utils/tracks";
+import { formatTrackLength } from "@/app/utils/tracks";
 import { usePlaylist } from "../contexts/PlaylistProvider";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Play } from "lucide-react";
 
 interface TrackListProps {
-  tracks?: Track[];
-  currentTrackIndex?: number;
-  onTrackSelect?: (index: number) => void;
+  className?: string;
 }
 
-export function TrackList({
-  tracks: propTracks,
-  currentTrackIndex: propCurrentTrackIndex,
-  onTrackSelect: propOnTrackSelect,
-}: TrackListProps) {
+export function TrackList(props: TrackListProps) {
   const { tracks, currentTrackIndex, selectTrack } = usePlaylist();
 
   // Use props if provided, otherwise use context
-  const displayTracks = propTracks || tracks;
-  const displayCurrentTrackIndex = propCurrentTrackIndex ?? currentTrackIndex;
-  const handleTrackSelect = propOnTrackSelect || selectTrack;
+  const displayTracks = tracks;
+  const displayCurrentTrackIndex = currentTrackIndex;
+  const handleTrackSelect = selectTrack;
 
   if (displayTracks.length === 0) {
     return null;
   }
 
   return (
-    <Card className="mt-4">
-      <CardHeader>
-        <CardTitle className="text-sm font-medium">Track List</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-2">
+    <Card className={cn("py-2", props.className)}>
+      <CardContent className="px-2 space-y-2">
         {displayTracks.map((track, index) => (
           <Button
             key={index}

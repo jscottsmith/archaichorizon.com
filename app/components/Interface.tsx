@@ -21,11 +21,13 @@ export function Interface() {
         <Navigation />
       </header>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <Playlist />
-      </Suspense>
+      <div className="fixed right-2 bottom-2 left-2 z-50">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Playlist className="mb-1" />
+        </Suspense>
 
-      <MediaPlayer className="fixed right-2 bottom-2 left-2 z-50" />
+        <MediaPlayer />
+      </div>
     </>
   );
 }

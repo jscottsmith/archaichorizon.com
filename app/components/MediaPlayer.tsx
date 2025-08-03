@@ -232,7 +232,7 @@ function PlaylistToggle({ className }: { className?: string }) {
 
   return (
     <Button
-      variant="ghost"
+      variant={playlist.isPlaylistVisible ? "default" : "ghost"}
       size="icon"
       onClick={playlist.togglePlaylist}
       className={cn("h-8 w-8", className)}
