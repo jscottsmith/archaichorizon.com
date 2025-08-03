@@ -5,14 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
 import { PlaylistProvider } from "./contexts/PlaylistProvider";
 import { AudioProvider } from "./contexts/AudioProvider";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-
-export function ThemeProvider({
-  children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
-}
+import { ThemeProvider } from "./contexts/ThemeProvider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -31,10 +24,17 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <PlaylistProvider>
-        <AudioProvider>{children}</AudioProvider>
-      </PlaylistProvider>
+      {/* <ReactQueryDevtools initialIsOpen={false} position="top" /> */}
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <PlaylistProvider>
+          <AudioProvider>{children}</AudioProvider>
+        </PlaylistProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
