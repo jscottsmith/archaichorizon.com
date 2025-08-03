@@ -17,6 +17,7 @@ import { Slider } from "./ui/slider";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
+import { BufferedSlider } from "./BufferedSlider";
 
 // CoverImage Component
 function CoverImage({ className }: { className?: string }) {
@@ -111,7 +112,8 @@ function TrackProgress({ className }: { className?: string }) {
 
   return (
     <div className={cn("space-y-2", className)}>
-      <Slider
+      <BufferedSlider
+        bufferedProgress={audio.bufferedProgress}
         value={[progressValue]}
         onValueChange={handleSeek}
         max={100}

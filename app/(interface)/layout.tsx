@@ -20,13 +20,11 @@ export default function Interface(props: { children: React.ReactNode }) {
         </div>
         <Navigation />
       </header>
-
       <div className="fixed right-2 bottom-2 left-2 z-50">
         <div className="flex flex-col gap-2 max-w-screen-md mx-auto">
           <Suspense fallback={null}>
             <Playlist />
           </Suspense>
-
           <MediaPlayer />
         </div>
       </div>

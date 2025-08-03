@@ -25,6 +25,7 @@ interface AudioContextType {
   duration: number;
   volume: number;
   isMuted: boolean;
+  bufferedProgress: number;
 }
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
@@ -41,6 +42,7 @@ export function AudioProvider({ children }: AudioProviderProps) {
   const [volume, setVolumeState] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [bufferedProgress, setBufferedProgress] = useState(0);
 
   // Get current track from playlist context
   const { currentTrack } = usePlaylist();
@@ -66,6 +68,14 @@ export function AudioProvider({ children }: AudioProviderProps) {
         audio.play().catch(console.error);
       }
     };
+    const handleProgress = () => {
+      // Calculate buffered progress
+      if (audio.buffered.length > 0 && audio.duration > 0) {
+        const bufferedEnd = audio.buffered.end(audio.buffered.length - 1);
+        const progress = bufferedEnd / audio.duration;
+        setBufferedProgress(progress);
+      }
+    };
 
     audio.addEventListener("timeupdate", updateTime);
     audio.addEventListener("loadedmetadata", updateDuration);
@@ -74,6 +84,7 @@ export function AudioProvider({ children }: AudioProviderProps) {
     audio.addEventListener("ended", handleEnded);
     audio.addEventListener("loadstart", handleLoadStart);
     audio.addEventListener("canplay", handleCanPlay);
+    audio.addEventListener("progress", handleProgress);
 
     return () => {
       audio.removeEventListener("timeupdate", updateTime);
@@ -83,6 +94,7 @@ export function AudioProvider({ children }: AudioProviderProps) {
       audio.removeEventListener("ended", handleEnded);
       audio.removeEventListener("loadstart", handleLoadStart);
       audio.removeEventListener("canplay", handleCanPlay);
+      audio.removeEventListener("progress", handleProgress);
     };
   }, [isPlaying]);
 
@@ -96,6 +108,7 @@ export function AudioProvider({ children }: AudioProviderProps) {
       const wasPlaying = isPlaying;
       audio.src = currentTrack.url;
       setCurrentTime(0);
+      setBufferedProgress(0); // Reset buffered progress for new track
 
       // If it was playing before, keep the isPlaying state true
       // The canplay event will handle resuming playback
@@ -172,6 +185,7 @@ export function AudioProvider({ children }: AudioProviderProps) {
     duration,
     volume,
     isMuted,
+    bufferedProgress,
   };
 
   return (
