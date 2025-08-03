@@ -6,15 +6,9 @@ import { NextResponse } from "next/server";
 // Cache the entire route for 30 days
 export const revalidate = 2592000;
 
-interface ReleaseRouteParams {
-  params: {
-    catNo: string;
-  };
-}
-
 export async function GET(
   request: Request,
-  { params }: ReleaseRouteParams
+  { params }: { params: Promise<{ catNo: string }> }
 ): Promise<NextResponse<IAMetadataResponse | IAErrorResponse>> {
   try {
     const { catNo } = await params;

@@ -74,7 +74,7 @@ export function normalizeTracks(
 
   // Use MP3 files from the filtered audio files
   return audioFiles.mp3
-    .map((file, index) => {
+    .map((file) => {
       // Generate image URLs if cover art is available
       const images =
         mainCover || thumbnail

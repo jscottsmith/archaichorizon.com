@@ -1,7 +1,6 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
 import { PlaylistProvider } from "./contexts/PlaylistProvider";
 import { AudioProvider } from "./contexts/AudioProvider";

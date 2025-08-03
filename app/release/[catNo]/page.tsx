@@ -5,13 +5,11 @@ import {
 import { fetchRelease } from "@/app/services";
 import { Suspense } from "react";
 
-interface ReleasePageProps {
-  params: {
-    catNo: string;
-  };
-}
-
-export default async function ReleasePage({ params }: ReleasePageProps) {
+export default async function ReleasePage({
+  params,
+}: {
+  params: Promise<{ catNo: string }>;
+}) {
   const { catNo } = await params;
 
   // Pre-fetch data on the server

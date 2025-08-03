@@ -1,7 +1,6 @@
 "use client";
 
 import { useRelease } from "@/app/hooks/useRelease";
-import { notFound } from "next/navigation";
 import { usePlaylist } from "../contexts/PlaylistProvider";
 import type { IAMetadataResponse } from "../types/ia";
 import { useNormalizeTracks } from "../hooks/useNormalizeTracks";
