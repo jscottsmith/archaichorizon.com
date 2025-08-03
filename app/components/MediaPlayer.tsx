@@ -252,28 +252,21 @@ function PlaylistToggle({ className }: { className?: string }) {
 
 // Main MediaPlayer Component
 export function MediaPlayer({ className }: { className?: string }) {
-  const playlist = usePlaylist();
-
   return (
     <Card className={cn("p-2 space-y-1", className)}>
-      {/* Track info with thumbnail */}
-      {(playlist.currentTrack?.title || playlist.currentTrack?.artist) && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 items-center justify-between">
-          <div className="flex items-center gap-4 col-span-1">
-            <CoverImage />
-            <ArtistInfo />
-          </div>
-
-          <MainControls className="col-span-1 justify-end sm:justify-center" />
-
-          <div className="col-span-3 sm:col-span-1 flex items-center justify-between sm:justify-end gap-2">
-            <VolumeControl />
-            <PlaylistToggle />
-          </div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 items-center justify-between">
+        <div className="flex items-center gap-4 col-span-1">
+          <CoverImage />
+          <ArtistInfo />
         </div>
-      )}
 
-      {/* Progress bar */}
+        <MainControls className="col-span-1 justify-end sm:justify-center" />
+
+        <div className="col-span-3 sm:col-span-1 flex items-center justify-between sm:justify-end gap-2">
+          <VolumeControl />
+          <PlaylistToggle />
+        </div>
+      </div>
       <TrackProgress />
     </Card>
   );

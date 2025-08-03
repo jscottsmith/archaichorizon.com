@@ -21,7 +21,6 @@ export function Background() {
         height={16}
         className="max-w-none w-full h-full object-cover"
         priority
-        sizes="100vw"
       />
     </div>
   );
