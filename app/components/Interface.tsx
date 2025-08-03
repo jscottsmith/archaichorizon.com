@@ -25,7 +25,7 @@ export function Interface() {
         <Playlist />
       </Suspense>
 
-      <MediaPlayer className="fixed right-2 bottom-2 left-2 bg-background/90 border-foreground/10 z-50" />
+      <MediaPlayer className="fixed right-2 bottom-2 left-2 z-50" />
     </>
   );
 }

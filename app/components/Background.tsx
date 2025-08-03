@@ -13,12 +13,13 @@ export function Background() {
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-background/80" />
+      <div className="absolute inset-0 backdrop-blur-3xl" />
       <Image
         src={currentTrack.images.cover}
         alt={`${currentTrack.title} cover art`}
-        fill
-        className="object-cover blur-xl scale-110 opacity-30"
+        width={16}
+        height={16}
+        className="max-w-none w-full h-full object-cover"
         priority
         sizes="100vw"
       />

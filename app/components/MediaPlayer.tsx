@@ -16,6 +16,7 @@ import { Button } from "./ui/button";
 import { Slider } from "./ui/slider";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { Card } from "@/components/ui/card";
 
 // CoverImage Component
 function CoverImage({ className }: { className?: string }) {
@@ -173,9 +174,9 @@ function MainControls({ className }: { className?: string }) {
         {audio.isLoading ? (
           <Loader2 size={24} className="animate-spin" />
         ) : audio.isPlaying ? (
-          <Pause size={24} />
+          <Pause size={24} fill="currentColor" />
         ) : (
-          <Play size={24} />
+          <Play size={24} fill="currentColor" />
         )}
       </Button>
 
@@ -249,7 +250,7 @@ export function MediaPlayer({ className }: { className?: string }) {
   const playlist = usePlaylist();
 
   return (
-    <div className={cn("p-4 space-y-4 bg-background", className)}>
+    <Card className={cn("p-2 space-y-1", className)}>
       {/* Track info with thumbnail */}
       {(playlist.currentTrack?.title || playlist.currentTrack?.artist) && (
         <div className="flex items-center justify-between">
@@ -268,6 +269,6 @@ export function MediaPlayer({ className }: { className?: string }) {
 
       {/* Progress bar */}
       <TrackProgress />
-    </div>
+    </Card>
   );
 }
