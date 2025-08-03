@@ -4,7 +4,7 @@ import {
   CollectionLoading,
   CollectionDisplay,
 } from "@/app/components/CollectionDisplay";
-import { fetchCollection } from "../services";
+import { fetchCollection } from "../../services";
 
 // Force dynamic rendering to avoid build-time API calls
 export const dynamic = "force-dynamic";
