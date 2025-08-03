@@ -4,30 +4,42 @@ import { useRelease } from "@/app/hooks/useRelease";
 import { usePlaylist } from "../contexts/PlaylistProvider";
 import type { IAMetadataResponse } from "../types/ia";
 import { useNormalizeTracks } from "../hooks/useNormalizeTracks";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/app/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { ContentWrapper } from "./ContentWrapper";
+import { Play, X, ArrowLeft } from "lucide-react";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { formatDate } from "../utils/date";
+import Link from "next/link";
 
 // Loading component
 export function ReleaseLoading() {
   return (
-    <div className="flex items-center justify-center p-8">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-      <span className="ml-2 ">Loading release...</span>
-    </div>
+    <ContentWrapper>
+      <div className="flex items-center justify-center p-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+        <span className="ml-2">Loading release...</span>
+      </div>
+    </ContentWrapper>
   );
 }
 
 // Error component
 export function ReleaseError({ error }: { error: Error }) {
   return (
-    <div className="min-h-screen py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+    <ContentWrapper>
+      <Card className="border-red-200 bg-red-50">
+        <CardContent className="p-6">
           <h2 className="text-xl font-semibold text-red-800 mb-2">
             Error Loading Release
           </h2>
           <p className="text-red-600">{error.message}</p>
-        </div>
-      </div>
-    </div>
+        </CardContent>
+      </Card>
+    </ContentWrapper>
   );
 }
 
@@ -49,75 +61,140 @@ export function ReleaseDisplay({
 
   const { metadata } = release.data;
 
+  // Get cover art from the first track
+  const coverArt = tracks[0]?.images?.cover || tracks[0]?.images?.thumbnail;
+
   return (
-    <article className="p-6">
-      <div className="space-y-6">
-        {/* Basic info */}
-        <div>
-          <h2 className="text-xl font-semibold mb-4">Release Information</h2>
-          <div className="space-y-3">
-            <div>
-              <span className="font-medium">Title:</span>
-              <span className="ml-2">{metadata.title}</span>
+    <ContentWrapper>
+      <Card className="pt-3">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/collection">
+                <ArrowLeft className="h-4 w-4" />
+              </Link>
+            </Button>
+            <CardTitle>
+              <Badge className="uppercase" variant="outline">
+                {catNo}
+              </Badge>
+            </CardTitle>
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/">
+                <X className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+          <Separator />
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Cover Art and Basic Info */}
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Cover Art */}
+            <div className="flex-shrink-0">
+              {coverArt ? (
+                <Image
+                  src={coverArt}
+                  alt={`${metadata.title} cover art`}
+                  width={200}
+                  height={200}
+                  className="rounded-xs object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
+              ) : (
+                <div className="w-[200px] h-[200px] bg-muted rounded-lg flex items-center justify-center">
+                  <span className="text-muted-foreground text-sm">
+                    No Cover Art
+                  </span>
+                </div>
+              )}
             </div>
-            {metadata.creator && (
+
+            {/* Basic Info */}
+            <div className="flex-1 space-y-4">
+              <div className="flex-1 space-y-2">
+                <h2 className="text-2xl font-semibold">
+                  <span>{metadata.creator}</span>
+                  <span> - </span>
+                  <span>{metadata.title}</span>
+                </h2>
+
+                {metadata.date && (
+                  <p>
+                    <span className="font-medium">Released on: </span>
+                    <span>{formatDate(metadata.date)}</span>
+                  </p>
+                )}
+              </div>
+
+              <Button
+                onClick={() => playlist.setTracks(tracks)}
+                className="w-full md:w-auto self-end"
+              >
+                <Play className="mr-2 h-4 w-4" />
+                Play Release
+              </Button>
+            </div>
+          </div>
+
+          {/* Description */}
+          {metadata.description && (
+            <div className="space-y-4">
+              <Separator />
               <div>
-                <span className="font-medium">Artist:</span>
-                <span className="ml-2">{metadata.creator}</span>
+                <h3 className="font-semibold mb-2">Description</h3>
+                <p className="leading-relaxed">{metadata.description}</p>
               </div>
-            )}
-            {metadata.date && (
-              <div>
-                <span className="font-medium ">Release Date:</span>
-                <span className="ml-2">{metadata.date}</span>
-              </div>
-            )}
-
-            <button onClick={() => playlist.setTracks(tracks)}>
-              Play Album
-            </button>
-          </div>
-        </div>
-
-        {/* Description */}
-        {metadata.description && (
-          <div>
-            <h3 className="text-lg font-semibold  mb-3">Description</h3>
-            <div className="prose prose-gray max-w-none">
-              <p className=" leading-relaxed">{metadata.description}</p>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Additional metadata */}
-        <div>
-          <h3 className="text-lg font-semibold  mb-3">Details</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+          {/* Additional metadata */}
+          <div className="space-y-4">
+            <Separator />
             <div>
-              <span className="font-medium ">Media Type:</span>
-              <span className="ml-2">{metadata.mediatype}</span>
-            </div>
-            <div>
-              <span className="font-medium ">License:</span>
-              <span className="ml-2">
-                <a
-                  href={metadata.licenseurl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View License
-                </a>
-              </span>
-            </div>
-            {metadata.subject && (
-              <div className="md:col-span-2">
-                <span className="font-medium ">Tags:</span>
-                <span className="ml-2">{metadata.subject}</span>
+              <h3 className="font-semibold mb-4">Details</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="font-medium">Media Type:</span>
+                  <Badge variant="outline" className="ml-2">
+                    {metadata.mediatype}
+                  </Badge>
+                </div>
+                <div>
+                  <span className="font-medium">License:</span>
+                  <Button variant="link" className="ml-2 p-0 h-auto" asChild>
+                    <a
+                      href={metadata.licenseurl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View License
+                    </a>
+                  </Button>
+                </div>
+                {metadata.subject && (
+                  <div className="md:col-span-2">
+                    <span className="font-medium">Tags:</span>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {metadata.subject.split(",").map((tag, index) => (
+                        <Badge
+                          key={index}
+                          variant="secondary"
+                          className="text-xs"
+                        >
+                          {tag.trim()}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
-        </div>
-      </div>
-    </article>
+        </CardContent>
+      </Card>
+    </ContentWrapper>
   );
 }
