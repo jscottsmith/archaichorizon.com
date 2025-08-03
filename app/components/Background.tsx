@@ -13,7 +13,7 @@ export function Background() {
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 backdrop-blur-3xl" />
+      <div className="absolute inset-0 backdrop-blur-3xl bg-background/50 saturate-200" />
       <Image
         src={currentTrack.images.cover}
         alt={`${currentTrack.title} cover art`}

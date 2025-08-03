@@ -4,6 +4,8 @@ import { Playlist } from "../components/Playlist";
 import { MediaPlayer } from "../components/MediaPlayer";
 import { Navigation } from "../components/Navigation";
 import { Background } from "../components/Background";
+import Logo from "../components/Logo";
+import { ThemeSwitcher } from "@/components/ui/theme-switcher";
 
 export const dynamic = "force-dynamic";
 
@@ -11,11 +13,12 @@ export default function Interface(props: { children: React.ReactNode }) {
   return (
     <>
       <Background />
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 flex p-4 justify-between items-center h-16">
+      <header className="fixed top-0 left-0 right-0 z-50 flex px-4 h-20 justify-between items-center">
+        <ThemeSwitcher />
         {/* Logo/Brand */}
         <div className="flex items-center">
-          <Link href="/" className="text-xl font-bold">
-            Archaic Horizon
+          <Link href="/" className="text-foreground/80 hover:text-foreground">
+            <Logo className="h-24 sm:h-32" />
           </Link>
         </div>
         <Navigation />

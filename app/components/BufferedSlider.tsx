@@ -38,7 +38,7 @@ export function BufferedSlider({
       <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-secondary">
         {/* Buffered progress background */}
         <div
-          className="absolute h-full bg-primary/20 transition-all duration-300 ease-out"
+          className="absolute h-full bg-accent-foreground/30 transition-all duration-300 ease-out"
           style={{ width: `${bufferedProgress * 100}%` }}
         />
         {/* Playback progress */}

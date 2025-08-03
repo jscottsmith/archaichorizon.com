@@ -10,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { ThemeSwitcher } from "../../components/ui/theme-switcher";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +20,6 @@ export function Navigation() {
 
   return (
     <div className="flex items-center gap-2">
-      <ThemeSwitcher />
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon" className="h-8 w-8">
