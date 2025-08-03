@@ -192,7 +192,7 @@ export function AudioProvider({ children }: AudioProviderProps) {
     <AudioContext.Provider value={value}>
       {children}
       {/* Hidden audio element */}
-      <audio ref={audioRef} preload="metadata" />
+      <audio ref={audioRef} preload="metadata" autoPlay className="invisible" />
     </AudioContext.Provider>
   );
 }
