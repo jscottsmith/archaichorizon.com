@@ -15,6 +15,7 @@ import {
 import { Button } from "./ui/button";
 import { Slider } from "./ui/slider";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { BufferedSlider } from "./BufferedSlider";
@@ -254,12 +255,26 @@ function PlaylistToggle({ className }: { className?: string }) {
 
 // Main MediaPlayer Component
 export function MediaPlayer({ className }: { className?: string }) {
+  const playlist = usePlaylist();
+
   return (
     <Card className={cn("p-2 space-y-1", className)}>
       <div className="grid grid-cols-2 sm:grid-cols-3 items-center justify-between">
-        <div className="flex items-center gap-4 col-span-1">
-          <CoverImage />
-          <ArtistInfo />
+        <div className="flex items-center gap-2 col-span-1">
+          {playlist.currentTrack?.catNo ? (
+            <Link
+              href={`/release/${playlist.currentTrack.catNo}`}
+              className="flex items-center gap-2 hover:bg-accent/50 transition-colors rounded-md p-1.5"
+            >
+              <CoverImage />
+              <ArtistInfo />
+            </Link>
+          ) : (
+            <>
+              <CoverImage />
+              <ArtistInfo />
+            </>
+          )}
         </div>
 
         <MainControls className="col-span-1 justify-end sm:justify-center" />

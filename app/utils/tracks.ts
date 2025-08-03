@@ -11,6 +11,7 @@ export interface Track {
   url: string;
   track: number;
   length?: string;
+  catNo: string;
   images?: {
     cover?: string;
     thumbnail?: string;
@@ -105,6 +106,7 @@ export function normalizeTracks(
         }),
         track: extractTrackNumber(file),
         length: file.length,
+        catNo: metadata.metadata.cat_no,
         images,
       };
     })
