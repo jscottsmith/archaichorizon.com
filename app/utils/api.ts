@@ -28,8 +28,26 @@ function getBaseUrl(): string {
  * @returns The full API URL
  */
 export function getApiUrl(path: string): string {
-  const baseUrl = getBaseUrl();
+  // For client-side usage, use relative URLs which work correctly
+  // in both development and production
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
 
-  return `${baseUrl}${cleanPath}`;
+  // If we're on the server side, we can use the full URL
+  if (typeof window === "undefined") {
+    const baseUrl = getBaseUrl();
+    return `${baseUrl}${cleanPath}`;
+  }
+
+  // On the client side, use relative URLs
+  return cleanPath;
 }
+
+/**
+ * Alternative approach using Next.js public environment variables:
+ *
+ * 1. Add to your .env.local: NEXT_PUBLIC_API_URL=https://your-domain.vercel.app
+ * 2. Replace the client-side logic with:
+ *    return process.env.NEXT_PUBLIC_API_URL + cleanPath;
+ *
+ * This would work for both server and client, but requires manual configuration.
+ */
