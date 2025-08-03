@@ -18,7 +18,7 @@ export default function Interface(props: { children: React.ReactNode }) {
         {/* Logo/Brand */}
         <div className="flex items-center">
           <Link href="/" className="text-foreground/80 hover:text-foreground">
-            <Logo className="h-24 sm:h-32" />
+            <Logo className="h-24 sm:h-32 group" />
           </Link>
         </div>
         <Navigation />

@@ -12,7 +12,7 @@ export default function Logo(props: SVGProps<SVGSVGElement>) {
     >
       <title>Archaic Horizon</title>
       <path
-        className="fill-accent/20 hover:fill-accent"
+        className="fill-accent/20 group-hover:fill-accent/50"
         strokeMiterlimit="10"
         d="M118.56 49.723c27.572 0 50.003 22.428 50.003 50 0 27.576-22.431 50-50.003 50 -6.151 0-12.185-1.121-17.927-3.34l-0.637-0.241 -0.63 0.241c-5.743 2.219-11.771 3.34-17.937 3.34 -27.563 0-49.994-22.426-49.994-50 0-27.572 22.431-50 49.994-50 6.167 0 12.194 1.126 17.937 3.34l0.63 0.24 0.637-0.24C106.375 50.849 112.408 49.723 118.56 49.723"
       />
