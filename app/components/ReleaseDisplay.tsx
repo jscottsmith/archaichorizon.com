@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ContentWrapper } from "./ContentWrapper";
+import { TrackList } from "./TrackList";
 import { Play, X, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -136,6 +137,23 @@ export function ReleaseDisplay({
                 <Play className="mr-2 h-4 w-4" />
                 Play Release
               </Button>
+            </div>
+          </div>
+
+          {/* Track List */}
+          <div className="space-y-4">
+            <Separator />
+            <div>
+              <h3 className="font-semibold mb-2">Tracks</h3>
+              <TrackList
+                tracks={tracks}
+                currentTrackIndex={
+                  catNo === playlist.currentTrack?.catNo?.toLowerCase()
+                    ? playlist.currentTrackIndex
+                    : undefined
+                }
+                selectTrack={playlist.selectTrack}
+              />
             </div>
           </div>
 

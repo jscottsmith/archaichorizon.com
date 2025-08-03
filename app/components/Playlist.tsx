@@ -7,6 +7,8 @@ import { getAllCatNos } from "../constants/releaseMap";
 import { useNormalizeTracks } from "../hooks/useNormalizeTracks";
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
+import { Card, CardContent } from "@/components/ui/card";
+import { useHandleClickOutside } from "../hooks/useHandleClickOutside";
 
 export function Playlist(props: { className?: string }) {
   const params = useParams();
@@ -23,6 +25,11 @@ export function Playlist(props: { className?: string }) {
 
   const playlist = usePlaylist();
 
+  const playlistRef = useHandleClickOutside({
+    enabled: playlist.isPlaylistVisible,
+    onOutsideClick: playlist.togglePlaylist,
+  });
+
   // Set tracks when the release is fetched
   // but only if the playlist is empty
   useEffect(() => {
@@ -37,8 +44,16 @@ export function Playlist(props: { className?: string }) {
   }
 
   return (
-    <div className={props.className}>
-      <TrackList />
+    <div ref={playlistRef} className={props.className}>
+      <Card className="py-2">
+        <CardContent className="px-2">
+          <TrackList
+            tracks={playlist.tracks}
+            currentTrackIndex={playlist.currentTrackIndex}
+            selectTrack={playlist.selectTrack}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 }
