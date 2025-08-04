@@ -3,11 +3,12 @@ import type {
   IAErrorResponse,
   IAMetadataResponse,
 } from "@/app/types/ia";
+import { getApiUrl } from "../utils/api";
 
 // API function to fetch collection data
 export async function fetchCollection(): Promise<IADocument[]> {
   // Use relative URL - Next.js fetch will handle this correctly
-  const response = await fetch("/api/collection");
+  const response = await fetch(getApiUrl("/api/collection"));
 
   if (!response.ok) {
     const errorData: IAErrorResponse = await response.json();
@@ -19,7 +20,7 @@ export async function fetchCollection(): Promise<IADocument[]> {
 
 export async function fetchRelease(catNo: string): Promise<IAMetadataResponse> {
   // Use relative URL - Next.js fetch will handle this correctly
-  const response = await fetch(`/api/release/${catNo}`);
+  const response = await fetch(getApiUrl(`/api/release/${catNo}`));
 
   if (!response.ok) {
     const errorData: IAErrorResponse = await response.json();
