@@ -5,12 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatDate } from "@/app/utils/date";
 import type { IADocument } from "@/app/types/ia";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ContentWrapper } from "./ContentWrapper";
 
 // Error component
-function CollectionError({ error }: { error: Error }) {
+export function CollectionError({ error }: { error: Error }) {
   return (
     <div className="flex items-center justify-center p-8">
       <div className="text-center">
