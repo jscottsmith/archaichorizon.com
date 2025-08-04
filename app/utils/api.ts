@@ -34,35 +34,19 @@ function getBaseUrl(): string {
  * @returns The full API URL
  */
 export function getApiUrl(path: string): string {
-  // For client-side usage, use relative URLs which work correctly
-  // in both development and production
+  // Always use relative URLs for API calls
+  // This works correctly in both development and production
+  // and avoids issues with server-side HTTP calls in Vercel
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
 
-  // If we're on the server side, we can use the full URL
-  if (typeof window === "undefined") {
-    const baseUrl = getBaseUrl();
-    const fullUrl = `${baseUrl}${cleanPath}`;
-    console.log("[getApiUrl] Server-side URL:", {
-      path,
-      cleanPath,
-      baseUrl,
-      fullUrl,
-      environment: process.env.NODE_ENV,
-      hasVercelUrl: !!process.env.VERCEL_URL,
-    });
-    return fullUrl;
-  }
-
-  // On the client side, use relative URLs
-  const relativeUrl = cleanPath;
-  console.log("[getApiUrl] Client-side URL:", {
+  console.log("[getApiUrl] Using relative URL:", {
     path,
     cleanPath,
-    relativeUrl,
     environment: process.env.NODE_ENV,
     isClient: typeof window !== "undefined",
   });
-  return relativeUrl;
+
+  return cleanPath;
 }
 
 /**
