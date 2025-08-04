@@ -3,6 +3,9 @@ import { getIdentifierByCatNo } from "@/app/constants/releaseMap";
 import { IAMetadataResponse, IAErrorResponse } from "@/app/types/ia";
 import { NextResponse } from "next/server";
 
+// Use Edge Runtime for better network access
+export const runtime = "edge";
+
 // Cache the entire route for 30 days
 export const revalidate = 2592000;
 
@@ -65,6 +68,7 @@ export async function GET(
 
     return NextResponse.json(data);
   } catch (error) {
+    console.error("Error fetching release metadata:", error);
     return NextResponse.json(
       {
         error: "Internal server error",

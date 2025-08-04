@@ -3,6 +3,9 @@ import { NextResponse } from "next/server";
 import type { IAAdvancedSearchResponse, IAErrorResponse } from "@/app/types/ia";
 import { addThumbnailsToDocuments } from "@/app/utils/collection";
 
+// Use Edge Runtime for better network access
+export const runtime = "edge";
+
 // Force dynamic rendering (disable caching) - uncomment if you want fresh data every time
 // export const dynamic = 'force-dynamic';
 
@@ -50,6 +53,7 @@ export async function GET(): Promise<
       { status: 404 }
     );
   } catch (error) {
+    console.error("Error fetching collection:", error);
     return NextResponse.json(
       {
         error: "Internal server error",

@@ -12,7 +12,6 @@ import { ContentWrapper } from "./ContentWrapper";
 import { TrackList } from "./TrackList";
 import { Play, X, ArrowLeft } from "lucide-react";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { formatDate } from "../utils/date";
 import Link from "next/link";
 
