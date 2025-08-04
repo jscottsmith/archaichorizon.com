@@ -10,16 +10,22 @@
 function getBaseUrl(): string {
   // In production (Vercel), use VERCEL_URL
   if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
+    const baseUrl = `https://${process.env.VERCEL_URL}`;
+    console.log("[getBaseUrl] Using VERCEL_URL:", baseUrl);
+    return baseUrl;
   }
 
   // In development, use localhost
   if (process.env.NODE_ENV === "development") {
-    return "http://localhost:3000";
+    const baseUrl = "http://localhost:3000";
+    console.log("[getBaseUrl] Using development localhost:", baseUrl);
+    return baseUrl;
   }
 
   // Fallback for other environments
-  return "http://localhost:3000";
+  const baseUrl = "http://localhost:3000";
+  console.log("[getBaseUrl] Using fallback localhost:", baseUrl);
+  return baseUrl;
 }
 
 /**
@@ -35,11 +41,28 @@ export function getApiUrl(path: string): string {
   // If we're on the server side, we can use the full URL
   if (typeof window === "undefined") {
     const baseUrl = getBaseUrl();
-    return `${baseUrl}${cleanPath}`;
+    const fullUrl = `${baseUrl}${cleanPath}`;
+    console.log("[getApiUrl] Server-side URL:", {
+      path,
+      cleanPath,
+      baseUrl,
+      fullUrl,
+      environment: process.env.NODE_ENV,
+      hasVercelUrl: !!process.env.VERCEL_URL,
+    });
+    return fullUrl;
   }
 
   // On the client side, use relative URLs
-  return cleanPath;
+  const relativeUrl = cleanPath;
+  console.log("[getApiUrl] Client-side URL:", {
+    path,
+    cleanPath,
+    relativeUrl,
+    environment: process.env.NODE_ENV,
+    isClient: typeof window !== "undefined",
+  });
+  return relativeUrl;
 }
 
 /**
