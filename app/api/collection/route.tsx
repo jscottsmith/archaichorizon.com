@@ -36,6 +36,24 @@ export async function GET(): Promise<
       );
     }
 
+    // Check if response is actually JSON
+    const contentType = response.headers.get("content-type");
+    if (!contentType?.includes("application/json")) {
+      const text = await response.text();
+      console.error(
+        "Received non-JSON response from IA:",
+        text.substring(0, 500)
+      );
+      return NextResponse.json(
+        {
+          error: "Invalid response format",
+          message: `Expected JSON but received ${contentType}`,
+          status: 500,
+        } as IAErrorResponse,
+        { status: 500 }
+      );
+    }
+
     const data: IAAdvancedSearchResponse = await response.json();
 
     if (data?.response?.docs && Array.isArray(data.response.docs)) {
