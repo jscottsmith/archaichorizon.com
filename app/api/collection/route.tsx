@@ -16,7 +16,45 @@ export async function GET(): Promise<
   NextResponse<ReturnType<typeof addThumbnailsToDocuments> | IAErrorResponse>
 > {
   try {
-    console.log("Fetching collection from IA:", IA.collection.baseUrl);
+    console.log("TESTING: Returning mock data instead of fetching from IA");
+
+    // TEMPORARY: Return mock data instead of fetching from IA
+    const mockData = {
+      response: {
+        docs: [
+          {
+            identifier: "test-identifier-1",
+            title: "Test Release 1",
+            creator: "Test Artist",
+            date: "2024",
+            description: "Test description",
+            downloads: 100,
+            cat_no: "AH001",
+            licenseurl: "https://creativecommons.org/licenses/by/3.0/",
+            subject: ["test", "electronic"],
+          },
+          {
+            identifier: "test-identifier-2",
+            title: "Test Release 2",
+            creator: "Test Artist 2",
+            date: "2024",
+            description: "Test description 2",
+            downloads: 200,
+            cat_no: "AH002",
+            licenseurl: "https://creativecommons.org/licenses/by/3.0/",
+            subject: ["test", "electronic"],
+          },
+        ],
+      },
+    } as IAAdvancedSearchResponse;
+
+    // Add thumbnail URLs to each document
+    const docsWithThumbnails = addThumbnailsToDocuments(mockData.response.docs);
+    return NextResponse.json(docsWithThumbnails);
+
+    // ORIGINAL CODE (commented out for testing):
+    /*
+    console.log('Fetching collection from IA:', IA.collection.baseUrl);
 
     // Use Next.js fetch with caching
     const response = await fetch(IA.collection.baseUrl, {
@@ -27,17 +65,17 @@ export async function GET(): Promise<
       },
     });
 
-    console.log("IA Collection Response:", {
+    console.log('IA Collection Response:', {
       status: response.status,
       statusText: response.statusText,
-      contentType: response.headers.get("content-type"),
-      url: response.url,
+      contentType: response.headers.get('content-type'),
+      url: response.url
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("IA Error Response:", errorText.substring(0, 500));
-
+      console.error('IA Error Response:', errorText.substring(0, 500));
+      
       return NextResponse.json(
         {
           error: "Failed to fetch data",
@@ -49,13 +87,10 @@ export async function GET(): Promise<
     }
 
     // Check if response is actually JSON
-    const contentType = response.headers.get("content-type");
-    if (!contentType?.includes("application/json")) {
+    const contentType = response.headers.get('content-type');
+    if (!contentType?.includes('application/json')) {
       const text = await response.text();
-      console.error(
-        "Received non-JSON response from IA:",
-        text.substring(0, 500)
-      );
+      console.error('Received non-JSON response from IA:', text.substring(0, 500));
       return NextResponse.json(
         {
           error: "Invalid response format",
@@ -82,6 +117,7 @@ export async function GET(): Promise<
       } as IAErrorResponse,
       { status: 404 }
     );
+    */
   } catch (error) {
     console.error("Error fetching collection:", error);
     return NextResponse.json(

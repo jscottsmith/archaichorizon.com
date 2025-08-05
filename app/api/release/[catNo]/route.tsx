@@ -41,10 +41,76 @@ export async function GET(
       );
     }
 
+    console.log(
+      "TESTING: Returning mock data instead of fetching from IA for catNo:",
+      catNo
+    );
+
+    // TEMPORARY: Return mock data instead of fetching from IA
+    const mockData: IAMetadataResponse = {
+      created: Date.now(),
+      d1: "test-d1",
+      d2: "test-d2",
+      dir: "/test-dir",
+      files: [
+        {
+          name: "test-track-1.mp3",
+          source: "original",
+          format: "VBR MP3",
+          size: "5000000",
+          md5: "test-md5-1",
+          crc32: "test-crc32-1",
+          sha1: "test-sha1-1",
+        },
+        {
+          name: "test-track-2.mp3",
+          source: "original",
+          format: "VBR MP3",
+          size: "6000000",
+          md5: "test-md5-2",
+          crc32: "test-crc32-2",
+          sha1: "test-sha1-2",
+        },
+      ],
+      files_count: 2,
+      item_last_updated: Date.now(),
+      item_size: 11000000,
+      metadata: {
+        identifier: identifier,
+        title: `Test Release ${catNo}`,
+        creator: "Test Artist",
+        mediatype: "audio",
+        collection: ["archaichorizon"],
+        description: `Test description for ${catNo}`,
+        date: "2024",
+        year: "2024",
+        subject: "test, electronic",
+        licenseurl: "https://creativecommons.org/licenses/by/3.0/",
+        publicdate: "2024-01-01",
+        addeddate: "2024-01-01",
+        uploader: "test-uploader",
+        updater: ["test-updater"],
+        updatedate: ["2024-01-01"],
+        code: "test-code",
+        live: "test-live",
+        cat_no: catNo,
+        filesxml: "test-filesxml",
+        boxid: "test-boxid",
+        backup_location: "test-backup",
+      },
+      server: "test-server",
+      uniq: 12345,
+      workable_servers: ["test-server"],
+    };
+
+    return NextResponse.json(mockData);
+
+    // ORIGINAL CODE (commented out for testing):
+    /*
     // Construct the metadata URL with the mapped identifier
     const metadataUrl = `${IA.metadata.baseUrl}/${identifier}`;
 
-    console.log("Fetching from IA:", metadataUrl);
+    console.log('Fetching from IA:', metadataUrl);
 
     // Use Next.js fetch with caching
     const response = await fetch(metadataUrl, {
@@ -55,17 +121,17 @@ export async function GET(
       },
     });
 
-    console.log("IA Response:", {
+    console.log('IA Response:', {
       status: response.status,
       statusText: response.statusText,
-      contentType: response.headers.get("content-type"),
-      url: response.url,
+      contentType: response.headers.get('content-type'),
+      url: response.url
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("IA Error Response:", errorText.substring(0, 500));
-
+      console.error('IA Error Response:', errorText.substring(0, 500));
+      
       return NextResponse.json(
         {
           error: "Failed to fetch metadata",
@@ -97,6 +163,7 @@ export async function GET(
     const data: IAMetadataResponse = await response.json();
 
     return NextResponse.json(data);
+    */
   } catch (error) {
     console.error("Error fetching release metadata:", error);
     return NextResponse.json(
