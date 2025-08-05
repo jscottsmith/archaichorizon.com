@@ -14,6 +14,7 @@ import { Play, X, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { formatDate } from "../utils/date";
 import Link from "next/link";
+import { addCoverArtUrls, getOriginalCoverArt } from "../utils/files";
 
 // Loading component
 export function ReleaseLoading() {
@@ -62,7 +63,10 @@ export function ReleaseDisplay({
   const { metadata } = release.data;
 
   // Get cover art from the first track
-  const coverArt = tracks[0]?.images?.cover || tracks[0]?.images?.thumbnail;
+  const coverArt = addCoverArtUrls(
+    getOriginalCoverArt(release.data.files, catNo),
+    metadata.identifier
+  )[0];
 
   return (
     <ContentWrapper>
@@ -94,7 +98,7 @@ export function ReleaseDisplay({
             <div className="flex-shrink-0">
               {coverArt ? (
                 <Image
-                  src={coverArt}
+                  src={coverArt.url}
                   alt={`${metadata.title} cover art`}
                   width={200}
                   height={200}

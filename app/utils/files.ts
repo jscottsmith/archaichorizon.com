@@ -1,4 +1,6 @@
 import type { IAFile } from "@/app/types/ia";
+import { replaceUrlParams } from "./url";
+import { IA } from "@/app/constants/ia";
 
 /**
  * Get audio files organized by quality/format
@@ -31,18 +33,43 @@ export function getAudioFiles(files: IAFile[]): {
  * @param files - Array of files
  * @returns Array of cover art files
  */
-export function getCoverArt(files: IAFile[]): IAFile[] {
+export function getCoverArt(files: IAFile[], catNo: string): IAFile[] {
   return files.filter((file) => {
     const name = file.name.toLowerCase();
     const format = file.format.toLowerCase();
 
     return (
-      (format.includes("jpg") ||
-        format.includes("jpeg") ||
-        format.includes("png")) &&
-      (name.includes("cover") ||
-        name.includes("artwork") ||
-        name.includes("thumb"))
+      (format.includes("jpg") || format.includes("jpeg")) &&
+      (name.includes("cover") || name.includes(catNo))
     );
   });
+}
+
+/**
+ * Get original cover art files (source === "original")
+ * @param files - Array of files
+ * @param catNo - Catalog number
+ * @returns Array of original cover art files
+ */
+export function getOriginalCoverArt(files: IAFile[], catNo: string): IAFile[] {
+  return getCoverArt(files, catNo).filter((file) => file.source === "original");
+}
+
+/**
+ * Add URL to IAFile objects for cover art
+ * @param files - Array of IAFile objects
+ * @param identifier - Internet Archive identifier
+ * @returns Array of IAFile objects with URL property added
+ */
+export function addCoverArtUrls(
+  files: IAFile[],
+  identifier: string
+): (IAFile & { url: string })[] {
+  return files.map((file) => ({
+    ...file,
+    url: replaceUrlParams(IA.serve.url, {
+      identifier,
+      filename: file.name,
+    }),
+  }));
 }
