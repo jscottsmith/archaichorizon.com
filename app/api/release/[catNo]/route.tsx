@@ -3,8 +3,8 @@ import { getIdentifierByCatNo } from "@/app/constants/releaseMap";
 import { IAMetadataResponse, IAErrorResponse } from "@/app/types/ia";
 import { NextResponse } from "next/server";
 
-// Use Edge Runtime for better network access
-export const runtime = "edge";
+// Use Node.js runtime instead of Edge Runtime
+// export const runtime = "edge";
 
 // Cache the entire route for 30 days
 export const revalidate = 2592000;
@@ -44,6 +44,8 @@ export async function GET(
     // Construct the metadata URL with the mapped identifier
     const metadataUrl = `${IA.metadata.baseUrl}/${identifier}`;
 
+    console.log("Fetching from IA:", metadataUrl);
+
     // Use Next.js fetch with caching
     const response = await fetch(metadataUrl, {
       // Cache this specific fetch for 30 days
@@ -53,7 +55,17 @@ export async function GET(
       },
     });
 
+    console.log("IA Response:", {
+      status: response.status,
+      statusText: response.statusText,
+      contentType: response.headers.get("content-type"),
+      url: response.url,
+    });
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("IA Error Response:", errorText.substring(0, 500));
+
       return NextResponse.json(
         {
           error: "Failed to fetch metadata",

@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 import type { IAAdvancedSearchResponse, IAErrorResponse } from "@/app/types/ia";
 import { addThumbnailsToDocuments } from "@/app/utils/collection";
 
-// Use Edge Runtime for better network access
-export const runtime = "edge";
+// Use Node.js runtime instead of Edge Runtime
+// export const runtime = 'edge';
 
 // Force dynamic rendering (disable caching) - uncomment if you want fresh data every time
 // export const dynamic = 'force-dynamic';
@@ -16,6 +16,8 @@ export async function GET(): Promise<
   NextResponse<ReturnType<typeof addThumbnailsToDocuments> | IAErrorResponse>
 > {
   try {
+    console.log("Fetching collection from IA:", IA.collection.baseUrl);
+
     // Use Next.js fetch with caching
     const response = await fetch(IA.collection.baseUrl, {
       // Cache this specific fetch for 30 days
@@ -25,7 +27,17 @@ export async function GET(): Promise<
       },
     });
 
+    console.log("IA Collection Response:", {
+      status: response.status,
+      statusText: response.statusText,
+      contentType: response.headers.get("content-type"),
+      url: response.url,
+    });
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("IA Error Response:", errorText.substring(0, 500));
+
       return NextResponse.json(
         {
           error: "Failed to fetch data",
