@@ -11,10 +11,10 @@ import { Separator } from "@/components/ui/separator";
 import { ContentWrapper } from "./ContentWrapper";
 import { TrackList } from "./TrackList";
 import { Play, X, ArrowLeft } from "lucide-react";
-import Image from "next/image";
 import { formatDate } from "../utils/date";
 import Link from "next/link";
 import { addCoverArtUrls, getOriginalCoverArt } from "../utils/files";
+import { CoverArtCarousel } from "./CoverArtCarousel";
 
 // Loading component
 export function ReleaseLoading() {
@@ -62,11 +62,14 @@ export function ReleaseDisplay({
 
   const { metadata } = release.data;
 
-  // Get cover art from the first track
-  const coverArt = addCoverArtUrls(
+  // Get all cover art images
+  const coverArtImages = addCoverArtUrls(
     getOriginalCoverArt(release.data.files, catNo),
     metadata.identifier
-  )[0];
+  ).map((image, index) => ({
+    url: image.url,
+    alt: `${metadata.title} cover art ${index + 1}`,
+  }));
 
   return (
     <ContentWrapper>
@@ -96,24 +99,7 @@ export function ReleaseDisplay({
           <div className="flex flex-col md:flex-row gap-6">
             {/* Cover Art */}
             <div className="flex-shrink-0">
-              {coverArt ? (
-                <Image
-                  src={coverArt.url}
-                  alt={`${metadata.title} cover art`}
-                  width={200}
-                  height={200}
-                  className="rounded-xs object-cover"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                  }}
-                />
-              ) : (
-                <div className="w-[200px] h-[200px] bg-muted rounded-lg flex items-center justify-center">
-                  <span className="text-muted-foreground text-sm">
-                    No Cover Art
-                  </span>
-                </div>
-              )}
+              <CoverArtCarousel images={coverArtImages} />
             </div>
 
             {/* Basic Info */}
