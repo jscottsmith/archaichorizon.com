@@ -16,8 +16,6 @@ export async function GET(): Promise<
   NextResponse<ReturnType<typeof addThumbnailsToDocuments> | IAErrorResponse>
 > {
   try {
-    console.log("Fetching collection from IA:", IA.collection.baseUrl);
-
     // Use Next.js fetch with caching
     const response = await fetch(IA.collection.baseUrl, {
       // Cache this specific fetch for 30 days
@@ -27,17 +25,7 @@ export async function GET(): Promise<
       },
     });
 
-    console.log("IA Collection Response:", {
-      status: response.status,
-      statusText: response.statusText,
-      contentType: response.headers.get("content-type"),
-      url: response.url,
-    });
-
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("IA Error Response:", errorText.substring(0, 500));
-
       return NextResponse.json(
         {
           error: "Failed to fetch data",
@@ -45,24 +33,6 @@ export async function GET(): Promise<
           status: response.status,
         } as IAErrorResponse,
         { status: response.status }
-      );
-    }
-
-    // Check if response is actually JSON
-    const contentType = response.headers.get("content-type");
-    if (!contentType?.includes("application/json")) {
-      const text = await response.text();
-      console.error(
-        "Received non-JSON response from IA:",
-        text.substring(0, 500)
-      );
-      return NextResponse.json(
-        {
-          error: "Invalid response format",
-          message: `Expected JSON but received ${contentType}`,
-          status: 500,
-        } as IAErrorResponse,
-        { status: 500 }
       );
     }
 
@@ -83,7 +53,6 @@ export async function GET(): Promise<
       { status: 404 }
     );
   } catch (error) {
-    console.error("Error fetching collection:", error);
     return NextResponse.json(
       {
         error: "Internal server error",

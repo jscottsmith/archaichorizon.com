@@ -44,8 +44,6 @@ export async function GET(
     // Construct the metadata URL with the mapped identifier
     const metadataUrl = `${IA.metadata.baseUrl}/${identifier}`;
 
-    console.log("Fetching from IA:", metadataUrl);
-
     // Use Next.js fetch with caching
     const response = await fetch(metadataUrl, {
       // Cache this specific fetch for 30 days
@@ -55,17 +53,7 @@ export async function GET(
       },
     });
 
-    console.log("IA Response:", {
-      status: response.status,
-      statusText: response.statusText,
-      contentType: response.headers.get("content-type"),
-      url: response.url,
-    });
-
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("IA Error Response:", errorText.substring(0, 500));
-
       return NextResponse.json(
         {
           error: "Failed to fetch metadata",
@@ -76,29 +64,10 @@ export async function GET(
       );
     }
 
-    // Check if response is actually JSON
-    const contentType = response.headers.get("content-type");
-    if (!contentType?.includes("application/json")) {
-      const text = await response.text();
-      console.error(
-        "Received non-JSON response from IA:",
-        text.substring(0, 500)
-      );
-      return NextResponse.json(
-        {
-          error: "Invalid response format",
-          message: `Expected JSON but received ${contentType}`,
-          status: 500,
-        } as IAErrorResponse,
-        { status: 500 }
-      );
-    }
-
     const data: IAMetadataResponse = await response.json();
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching release metadata:", error);
     return NextResponse.json(
       {
         error: "Internal server error",
