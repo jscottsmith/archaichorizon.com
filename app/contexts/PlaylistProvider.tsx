@@ -18,7 +18,7 @@ interface PlaylistContextType {
   nextTrack: () => void;
   previousTrack: () => void;
   selectTrack: (index: number) => void;
-  setTracks: (tracks: Track[]) => void;
+  setTracks: (tracks: Track[], currentTrackIndex?: number) => void;
 
   // Playlist visibility
   isPlaylistVisible: boolean;
@@ -50,11 +50,14 @@ export function PlaylistProvider({
   const currentTrack = tracks[currentTrackIndex];
 
   // Set tracks function
-  const setTracks = useCallback((newTracks: Track[]) => {
-    setTracksState(newTracks);
-    // Reset to first track when tracks change
-    setCurrentTrackIndex(0);
-  }, []);
+  const setTracks = useCallback(
+    (newTracks: Track[], currentTrackIndex?: number) => {
+      setTracksState(newTracks);
+      // Reset to first track when tracks change
+      setCurrentTrackIndex(currentTrackIndex ?? 0);
+    },
+    []
+  );
 
   // Track navigation
   const nextTrack = useCallback(() => {

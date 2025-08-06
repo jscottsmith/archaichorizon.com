@@ -72,6 +72,9 @@ export function ReleaseDisplay({
     alt: `${metadata.title} cover art ${index + 1}`,
   }));
 
+  const isCurrentPlaylist =
+    catNo === playlist.currentTrack?.catNo?.toLowerCase();
+
   return (
     <ContentWrapper>
       <Card className="pt-3">
@@ -138,11 +141,15 @@ export function ReleaseDisplay({
               <TrackList
                 tracks={tracks}
                 currentTrackIndex={
-                  catNo === playlist.currentTrack?.catNo?.toLowerCase()
-                    ? playlist.currentTrackIndex
-                    : undefined
+                  isCurrentPlaylist ? playlist.currentTrackIndex : undefined
                 }
-                selectTrack={playlist.selectTrack}
+                selectTrack={
+                  isCurrentPlaylist
+                    ? playlist.selectTrack
+                    : (index) => {
+                        playlist.setTracks(tracks, index);
+                      }
+                }
               />
             </div>
           </div>
