@@ -119,4 +119,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    user-select: none;
+  }
 }
