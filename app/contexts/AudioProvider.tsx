@@ -45,7 +45,7 @@ export function AudioProvider({ children }: AudioProviderProps) {
   const [bufferedProgress, setBufferedProgress] = useState(0);
 
   // Get current track from playlist context
-  const { currentTrack } = usePlaylist();
+  const { currentTrack, nextTrack } = usePlaylist();
 
   // Update current time and duration
   useEffect(() => {
@@ -59,6 +59,7 @@ export function AudioProvider({ children }: AudioProviderProps) {
     const handleEnded = () => {
       setIsPlaying(false);
       setCurrentTime(0);
+      nextTrack();
     };
     const handleLoadStart = () => setIsLoading(true);
     const handleCanPlay = () => {
@@ -116,7 +117,7 @@ export function AudioProvider({ children }: AudioProviderProps) {
         setIsPlaying(true);
       }
     }
-  }, [currentTrack?.url, isPlaying]);
+  }, [currentTrack?.url, isPlaying, nextTrack]);
 
   const play = async () => {
     const audio = audioRef.current;
