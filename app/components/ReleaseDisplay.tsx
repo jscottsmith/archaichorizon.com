@@ -15,6 +15,7 @@ import { formatDate } from "../utils/date";
 import Link from "next/link";
 import { addCoverArtUrls, getOriginalCoverArt } from "../utils/files";
 import { CoverArtCarousel } from "./CoverArtCarousel";
+import { splitSubject } from "../utils/subject";
 
 // Loading component
 export function ReleaseLoading() {
@@ -163,13 +164,23 @@ export function ReleaseDisplay({
             <div>
               <h3 className="font-semibold mb-4">Details</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <span className="font-medium">Media Type:</span>
-                  <Badge variant="outline" className="ml-2">
-                    {metadata.mediatype}
-                  </Badge>
-                </div>
-                <div>
+                {metadata.subject && (
+                  <div className="md:col-span-1">
+                    <span className="font-medium">Tags:</span>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {splitSubject(metadata.subject).map((tag, index) => (
+                        <Badge
+                          key={index}
+                          variant="outline"
+                          className="text-xs"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div className="md:col-span-1 self-end">
                   <span className="font-medium">License:</span>
                   <Button variant="link" className="ml-2 p-0 h-auto" asChild>
                     <a
@@ -181,22 +192,6 @@ export function ReleaseDisplay({
                     </a>
                   </Button>
                 </div>
-                {metadata.subject && (
-                  <div className="md:col-span-2">
-                    <span className="font-medium">Tags:</span>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {metadata.subject.split(",").map((tag, index) => (
-                        <Badge
-                          key={index}
-                          variant="secondary"
-                          className="text-xs"
-                        >
-                          {tag.trim()}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>
