@@ -104,9 +104,9 @@ export function AudioProvider({ children }: AudioProviderProps) {
     if (!audio || !currentTrack?.url) return;
 
     // Only set src if it's a different track
-    if (audio.src !== currentTrack.url) {
+    if (audio.src !== currentTrack.media.mp3.url) {
       const wasPlaying = isPlaying;
-      audio.src = currentTrack.url;
+      audio.src = currentTrack.media.mp3.url;
       setCurrentTime(0);
       setBufferedProgress(0); // Reset buffered progress for new track
 

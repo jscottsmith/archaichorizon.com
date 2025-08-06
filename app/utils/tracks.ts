@@ -1,4 +1,4 @@
-import { IAFile, IAMetadataResponse } from "@/app/types/ia";
+import { IAFile, IAMetadataResponse, AudioFile } from "@/app/types/ia";
 import { replaceUrlParams } from "./url";
 import { getAudioFiles, getCoverArt } from "./files";
 import { IA } from "@/app/constants/ia";
@@ -12,34 +12,21 @@ export interface Track {
   track: number;
   length?: string;
   catNo: string;
+  media: {
+    mp3: {
+      url: string;
+    };
+    flac: {
+      url: string;
+    };
+    ogg: {
+      url: string;
+    };
+  };
   images?: {
     cover?: string;
     thumbnail?: string;
   };
-}
-
-/**
- * Extract track number from file metadata or filename
- * @param file - IA file object
- * @returns Track number as number, or 0 if not found
- */
-export function extractTrackNumber(file: IAFile): number {
-  // First try to extract from track metadata
-  if (file.track) {
-    const trackMatch = file.track.match(/^(\d+)/);
-    if (trackMatch) {
-      return Number(trackMatch[1]);
-    }
-  }
-
-  // Fallback to extracting from filename (e.g., "01_trackname.mp3")
-  const filenameMatch = file.name.match(/^(\d+)_/);
-  if (filenameMatch) {
-    return Number(filenameMatch[1]);
-  }
-
-  // If no track number found, return 0
-  return 0;
 }
 
 /**
@@ -52,8 +39,8 @@ export function normalizeTracks(
   files: IAFile[],
   metadata: IAMetadataResponse
 ): Track[] {
-  // Use existing getAudioFiles function to filter audio files
-  const audioFiles = getAudioFiles(files);
+  // Use updated getAudioFiles function to get tracks organized by track number
+  const audioTracks = getAudioFiles(files);
 
   // Get cover art files
   const coverArtFiles = getCoverArt(files, metadata.metadata.cat_no);
@@ -70,21 +57,67 @@ export function normalizeTracks(
       file.name.toLowerCase().includes("thumb")
   );
 
-  // Use MP3 files from the filtered audio files
-  return audioFiles.mp3
-    .map((file) => {
+  // Convert audio tracks to Track objects
+  return audioTracks
+    .map((track) => {
+      // Get the primary file (prefer original source, then mp3, then ogg, then flac)
+      const originalFiles = [
+        track.media.mp3,
+        track.media.ogg,
+        track.media.flac,
+      ].filter((file) => file?.source === "original");
+
+      // Prefer original files, then fall back formats
+      const primaryFile =
+        originalFiles[0] ||
+        track.media.mp3 ||
+        track.media.ogg ||
+        track.media.flac;
+
+      if (!primaryFile) {
+        // Skip tracks without any audio files
+        console.warn("No primary file found for track", track);
+        return null;
+      }
+
       return {
-        name: file.name,
-        title: file.title ?? "",
-        artist: file.artist ?? metadata.metadata.creator,
-        album: file.album ?? "",
+        name: primaryFile.name,
+        title: track.title || primaryFile.title || "",
+        artist: track.artist || primaryFile.artist || metadata.metadata.creator,
+        album: track.album || primaryFile.album || "",
         url: replaceUrlParams(IA.serve.url, {
           identifier: metadata.metadata.identifier,
-          filename: file.name,
+          filename: primaryFile.name,
         }),
-        track: extractTrackNumber(file),
-        length: file.length,
+        track: track.trackNumber,
+        length: track.length || primaryFile.length,
         catNo: metadata.metadata.cat_no,
+        media: {
+          mp3: track.media.mp3
+            ? {
+                url: replaceUrlParams(IA.serve.url, {
+                  identifier: metadata.metadata.identifier,
+                  filename: track.media.mp3.name,
+                }),
+              }
+            : { url: "" },
+          flac: track.media.flac
+            ? {
+                url: replaceUrlParams(IA.serve.url, {
+                  identifier: metadata.metadata.identifier,
+                  filename: track.media.flac.name,
+                }),
+              }
+            : { url: "" },
+          ogg: track.media.ogg
+            ? {
+                url: replaceUrlParams(IA.serve.url, {
+                  identifier: metadata.metadata.identifier,
+                  filename: track.media.ogg.name,
+                }),
+              }
+            : { url: "" },
+        },
         images: {
           cover: mainCover
             ? replaceUrlParams(IA.serve.url, {
@@ -99,9 +132,9 @@ export function normalizeTracks(
               })
             : undefined,
         },
-      };
+      } as Track;
     })
-    .sort((a, b) => a.track - b.track); // Sort by track number
+    .filter((track): track is Track => track !== null); // Remove null tracks
 }
 
 /**

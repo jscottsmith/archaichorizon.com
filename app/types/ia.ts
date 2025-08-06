@@ -102,6 +102,21 @@ export interface IAFile {
   summation?: string;
 }
 
+// Audio file type for track media
+export interface AudioFile {
+  trackNumber: number;
+  baseName: string;
+  title: string;
+  artist: string;
+  album: string;
+  length?: string;
+  media: {
+    mp3?: IAFile;
+    flac?: IAFile;
+    ogg?: IAFile;
+  };
+}
+
 // Metadata information from metadata response
 export interface IAMetadata {
   identifier: string;
