@@ -29,11 +29,11 @@ export function TrackList({
           key={index}
           variant={index === currentTrackIndex ? "default" : "ghost"}
           onClick={() => selectTrack(index)}
-          className={cn("w-full justify-start h-auto p-1.5 group")}
+          className={cn("w-full justify-start h-auto px-2 group")}
         >
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 flex items-center justify-center">
+          <div className="flex items-center justify-between w-full min-w-0">
+            <div className="flex items-center space-x-3 min-w-0 flex-1">
+              <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
                 <Play
                   fill="currentColor"
                   className={cn(
@@ -51,12 +51,14 @@ export function TrackList({
                   {track.track}
                 </Badge>
               </div>
-              <div className="flex-1 text-left">
-                <div className="font-bold text-sm">{track.title}</div>
-                {track.artist && <div className="text-xs">{track.artist}</div>}
+              <div className="flex-1 text-left min-w-0">
+                <div className="font-bold text-sm truncate">{track.title}</div>
+                {track.artist && (
+                  <div className="text-xs truncate">{track.artist}</div>
+                )}
               </div>
             </div>
-            <div className="flex items-center space-x-4 text-xs">
+            <div className="flex items-center space-x-4 text-xs flex-shrink-0 ml-2">
               {track.album && (
                 <span className="hidden sm:inline">{track.album}</span>
               )}

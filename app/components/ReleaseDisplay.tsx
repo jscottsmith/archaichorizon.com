@@ -78,7 +78,7 @@ export function ReleaseDisplay({
   return (
     <ContentWrapper>
       <Card className="pt-3">
-        <CardHeader>
+        <CardHeader className="px-3 md:px-6">
           <div className="flex items-center justify-between">
             <Button variant="ghost" size="sm" asChild>
               <Link href="/collection">
@@ -98,7 +98,7 @@ export function ReleaseDisplay({
           </div>
           <Separator />
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 px-3 md:px-6">
           {/* Cover Art and Basic Info */}
           <div className="flex flex-col md:flex-row gap-6">
             {/* Cover Art */}
