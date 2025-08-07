@@ -2,7 +2,7 @@
 
 import { useRelease } from "@/app/hooks/useRelease";
 import { usePlaylist } from "../contexts/PlaylistProvider";
-import { useAudio } from "../contexts/AudioProvider";
+import { useAudio } from "../stores/audioStore";
 import type { IAMetadataResponse } from "../types/ia";
 import { useNormalizeTracks } from "../hooks/useNormalizeTracks";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

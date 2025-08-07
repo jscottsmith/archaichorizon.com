@@ -1,7 +1,7 @@
 "use client";
 
 import { usePlaylist } from "../contexts/PlaylistProvider";
-import { useAudio } from "../contexts/AudioProvider";
+import { useAudio } from "../stores/audioStore";
 import {
   SkipBack,
   SkipForward,
