@@ -24,6 +24,12 @@ export function AudioProvider({ children }: AudioProviderProps) {
   useEffect(() => {
     setAudioRef(audioRef.current);
 
+    // Sync persisted state with audio element when it's available
+    if (audioRef.current) {
+      const { volume, isMuted } = useAudioStore.getState();
+      audioRef.current.volume = isMuted ? 0 : volume;
+    }
+
     // Cleanup on unmount
     return () => {
       cleanupAudioStore();
