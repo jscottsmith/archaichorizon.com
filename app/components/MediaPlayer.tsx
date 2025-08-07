@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { usePlaylist } from "../stores/playlistStore";
 import { useAudio } from "../stores/audioStore";
 import {
@@ -21,7 +22,11 @@ import { Card } from "@/components/ui/card";
 import { BufferedSlider } from "./BufferedSlider";
 
 // CoverImage Component
-function CoverImage({ className }: { className?: string }) {
+const CoverImage = React.memo(function CoverImage({
+  className,
+}: {
+  className?: string;
+}) {
   const currentTrack = usePlaylist((state) => state.currentTrack);
 
   if (!currentTrack?.images?.thumbnail && !currentTrack?.images?.cover) {
@@ -51,11 +56,14 @@ function CoverImage({ className }: { className?: string }) {
       />
     </div>
   );
-}
+});
 
 // ArtistInfo Component
-function ArtistInfo({ className }: { className?: string }) {
-  console.log("render ArtistInfo");
+const ArtistInfo = React.memo(function ArtistInfo({
+  className,
+}: {
+  className?: string;
+}) {
   const currentTrack = usePlaylist((state) => state.currentTrack);
   const totalTracks = usePlaylist((state) => state.tracks.length);
   const currentTrackIndex = usePlaylist((state) => state.currentTrackIndex);
@@ -86,10 +94,14 @@ function ArtistInfo({ className }: { className?: string }) {
       )}
     </div>
   );
-}
+});
 
 // TrackProgress Component
-function TrackProgress({ className }: { className?: string }) {
+const TrackProgress = React.memo(function TrackProgress({
+  className,
+}: {
+  className?: string;
+}) {
   const currentTime = useAudio((state) => state.currentTime);
   const duration = useAudio((state) => state.duration);
   const bufferedProgress = useAudio((state) => state.bufferedProgress);
@@ -126,11 +138,14 @@ function TrackProgress({ className }: { className?: string }) {
       </div>
     </div>
   );
-}
+});
 
 // MainControls Component
-function MainControls({ className }: { className?: string }) {
-  console.log("render MainControls");
+const MainControls = React.memo(function MainControls({
+  className,
+}: {
+  className?: string;
+}) {
   const isPlaying = useAudio((state) => state.isPlaying);
   const isLoading = useAudio((state) => state.isLoading);
   const play = useAudio((state) => state.play);
@@ -206,10 +221,14 @@ function MainControls({ className }: { className?: string }) {
       )}
     </div>
   );
-}
+});
 
 // VolumeControl Component
-function VolumeControl({ className }: { className?: string }) {
+const VolumeControl = React.memo(function VolumeControl({
+  className,
+}: {
+  className?: string;
+}) {
   const volume = useAudio((state) => state.volume);
   const isMuted = useAudio((state) => state.isMuted);
   const setVolume = useAudio((state) => state.setVolume);
@@ -240,10 +259,14 @@ function VolumeControl({ className }: { className?: string }) {
       />
     </div>
   );
-}
+});
 
 // PlaylistToggle Component
-function PlaylistToggle({ className }: { className?: string }) {
+const PlaylistToggle = React.memo(function PlaylistToggle({
+  className,
+}: {
+  className?: string;
+}) {
   const isPlaylistVisible = usePlaylist((state) => state.isPlaylistVisible);
   const togglePlaylist = usePlaylist((state) => state.togglePlaylist);
 
@@ -258,39 +281,57 @@ function PlaylistToggle({ className }: { className?: string }) {
       <List size={16} />
     </Button>
   );
-}
+});
 
-// Main MediaPlayer Component
-export function MediaPlayer({ className }: { className?: string }) {
+// TrackInfo Component - combines cover and artist info
+const TrackInfo = React.memo(function TrackInfo({
+  className,
+}: {
+  className?: string;
+}) {
   const currentTrack = usePlaylist((state) => state.currentTrack);
 
   return (
-    <Card className={cn("p-2 space-y-1", className)}>
-      <div className="grid grid-cols-2 sm:grid-cols-3 items-center justify-between">
-        <div className="flex items-center gap-2 col-span-1">
-          {currentTrack?.catNo ? (
-            <Link
-              href={`/release/${currentTrack.catNo}`}
-              className="flex items-center gap-2 hover:bg-accent/50 transition-colors rounded-md p-1.5"
-            >
-              <CoverImage />
-              <ArtistInfo />
-            </Link>
-          ) : (
-            <>
-              <CoverImage />
-              <ArtistInfo />
-            </>
-          )}
-        </div>
+    <div className={cn("flex items-center gap-2", className)}>
+      {currentTrack?.catNo ? (
+        <Link
+          href={`/release/${currentTrack.catNo}`}
+          className="flex items-center gap-2 hover:bg-accent/50 transition-colors rounded-md p-1.5"
+        >
+          <CoverImage />
+          <ArtistInfo />
+        </Link>
+      ) : (
+        <>
+          <CoverImage />
+          <ArtistInfo />
+        </>
+      )}
+    </div>
+  );
+});
 
-        <MainControls className="col-span-1 justify-end sm:justify-center" />
+// MediaPlayerControls - static controls that don't need to update with time
+const MediaPlayerControls = React.memo(function MediaPlayerControls() {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 items-center justify-between">
+      <TrackInfo className="col-span-1" />
 
-        <div className="col-span-3 sm:col-span-1 flex items-center justify-between sm:justify-end gap-2">
-          <VolumeControl />
-          <PlaylistToggle />
-        </div>
+      <MainControls className="col-span-1 justify-end sm:justify-center" />
+
+      <div className="col-span-3 sm:col-span-1 flex items-center justify-between sm:justify-end gap-2">
+        <VolumeControl />
+        <PlaylistToggle />
       </div>
+    </div>
+  );
+});
+
+// Main MediaPlayer Component
+export function MediaPlayer({ className }: { className?: string }) {
+  return (
+    <Card className={cn("p-2 space-y-1", className)}>
+      <MediaPlayerControls />
       <TrackProgress />
     </Card>
   );
