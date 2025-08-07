@@ -1,17 +1,13 @@
 "use client";
 
-import React, { useRef, useEffect, ReactNode } from "react";
+import React, { useRef, useEffect } from "react";
 import { usePlaylist, useCurrentTrack } from "../stores/playlistStore";
 import {
   useAudio as useAudioStore,
   cleanupAudioStore,
 } from "@/app/stores/audioStore";
 
-interface AudioProviderProps {
-  children: ReactNode;
-}
-
-export function AudioProvider({ children }: AudioProviderProps) {
+export function AudioProvider() {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Get current track from playlist store
@@ -80,11 +76,5 @@ export function AudioProvider({ children }: AudioProviderProps) {
     };
   }, [nextTrack]);
 
-  return (
-    <>
-      {children}
-      {/* Hidden audio element */}
-      <audio ref={audioRef} preload="metadata" autoPlay className="invisible" />
-    </>
-  );
+  return <audio ref={audioRef} preload="metadata" autoPlay />;
 }
