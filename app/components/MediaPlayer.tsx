@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  usePlaylist,
-  useCurrentTrack,
-  useTotalTracks,
-} from "../stores/playlistStore";
+import { usePlaylist } from "../stores/playlistStore";
 import { useAudio } from "../stores/audioStore";
 import {
   SkipBack,
@@ -26,7 +22,7 @@ import { BufferedSlider } from "./BufferedSlider";
 
 // CoverImage Component
 function CoverImage({ className }: { className?: string }) {
-  const currentTrack = useCurrentTrack();
+  const currentTrack = usePlaylist((state) => state.currentTrack);
 
   if (!currentTrack?.images?.thumbnail && !currentTrack?.images?.cover) {
     return (
@@ -59,9 +55,10 @@ function CoverImage({ className }: { className?: string }) {
 
 // ArtistInfo Component
 function ArtistInfo({ className }: { className?: string }) {
-  const currentTrack = useCurrentTrack();
-  const totalTracks = useTotalTracks();
-  const { currentTrackIndex } = usePlaylist();
+  console.log("render ArtistInfo");
+  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const totalTracks = usePlaylist((state) => state.tracks.length);
+  const currentTrackIndex = usePlaylist((state) => state.currentTrackIndex);
 
   if (!currentTrack?.title && !currentTrack?.artist) {
     return null;
@@ -93,12 +90,15 @@ function ArtistInfo({ className }: { className?: string }) {
 
 // TrackProgress Component
 function TrackProgress({ className }: { className?: string }) {
-  const audio = useAudio();
+  const currentTime = useAudio((state) => state.currentTime);
+  const duration = useAudio((state) => state.duration);
+  const bufferedProgress = useAudio((state) => state.bufferedProgress);
+  const seek = useAudio((state) => state.seek);
 
   const handleSeek = (value: number[]) => {
-    if (audio.duration > 0) {
-      const newTime = (value[0] / 100) * audio.duration;
-      audio.seek(newTime);
+    if (duration > 0) {
+      const newTime = (value[0] / 100) * duration;
+      seek(newTime);
     }
   };
 
@@ -108,13 +108,12 @@ function TrackProgress({ className }: { className?: string }) {
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
-  const progressValue =
-    audio.duration > 0 ? (audio.currentTime / audio.duration) * 100 : 0;
+  const progressValue = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
     <div className={cn("space-y-2", className)}>
       <BufferedSlider
-        bufferedProgress={audio.bufferedProgress}
+        bufferedProgress={bufferedProgress}
         value={[progressValue]}
         onValueChange={handleSeek}
         max={100}
@@ -122,8 +121,8 @@ function TrackProgress({ className }: { className?: string }) {
         className="w-full"
       />
       <div className="flex justify-between text-xs text-muted-foreground">
-        <span>{formatTime(audio.currentTime)}</span>
-        <span>{formatTime(audio.duration)}</span>
+        <span>{formatTime(currentTime)}</span>
+        <span>{formatTime(duration)}</span>
       </div>
     </div>
   );
@@ -131,17 +130,23 @@ function TrackProgress({ className }: { className?: string }) {
 
 // MainControls Component
 function MainControls({ className }: { className?: string }) {
-  const audio = useAudio();
-  const { nextTrack, previousTrack, currentTrackIndex } = usePlaylist();
-  const currentTrack = useCurrentTrack();
-  const totalTracks = useTotalTracks();
+  console.log("render MainControls");
+  const isPlaying = useAudio((state) => state.isPlaying);
+  const isLoading = useAudio((state) => state.isLoading);
+  const play = useAudio((state) => state.play);
+  const pause = useAudio((state) => state.pause);
+  const nextTrack = usePlaylist((state) => state.nextTrack);
+  const previousTrack = usePlaylist((state) => state.previousTrack);
+  const currentTrackIndex = usePlaylist((state) => state.currentTrackIndex);
+  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const totalTracks = usePlaylist((state) => state.tracks.length);
 
   const handlePlay = async () => {
-    await audio.play();
+    await play();
   };
 
   const handlePause = () => {
-    audio.pause();
+    pause();
   };
 
   const handleNext = () => {
@@ -174,16 +179,14 @@ function MainControls({ className }: { className?: string }) {
       <Button
         variant="ghost"
         size="icon"
-        onClick={audio.isPlaying ? handlePause : handlePlay}
-        disabled={!currentTrack?.url || audio.isLoading}
+        onClick={isPlaying ? handlePause : handlePlay}
+        disabled={!currentTrack?.url || isLoading}
         className="h-12 w-12"
-        aria-label={
-          audio.isLoading ? "Loading" : audio.isPlaying ? "Pause" : "Play"
-        }
+        aria-label={isLoading ? "Loading" : isPlaying ? "Pause" : "Play"}
       >
-        {audio.isLoading ? (
+        {isLoading ? (
           <Loader2 size={24} className="animate-spin" />
-        ) : audio.isPlaying ? (
+        ) : isPlaying ? (
           <Pause size={24} fill="currentColor" />
         ) : (
           <Play size={24} fill="currentColor" />
@@ -207,11 +210,14 @@ function MainControls({ className }: { className?: string }) {
 
 // VolumeControl Component
 function VolumeControl({ className }: { className?: string }) {
-  const audio = useAudio();
+  const volume = useAudio((state) => state.volume);
+  const isMuted = useAudio((state) => state.isMuted);
+  const setVolume = useAudio((state) => state.setVolume);
+  const toggleMute = useAudio((state) => state.toggleMute);
 
   const handleVolumeChange = (value: number[]) => {
     const newVolume = value[0] / 100;
-    audio.setVolume(newVolume);
+    setVolume(newVolume);
   };
 
   return (
@@ -219,14 +225,14 @@ function VolumeControl({ className }: { className?: string }) {
       <Button
         variant="ghost"
         size="icon"
-        onClick={audio.toggleMute}
+        onClick={toggleMute}
         className="h-8 w-8"
-        aria-label={audio.isMuted ? "Unmute" : "Mute"}
+        aria-label={isMuted ? "Unmute" : "Mute"}
       >
-        {audio.isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+        {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
       </Button>
       <Slider
-        value={[audio.isMuted ? 0 : audio.volume * 100]}
+        value={[isMuted ? 0 : volume * 100]}
         onValueChange={handleVolumeChange}
         max={100}
         step={1}
@@ -238,7 +244,8 @@ function VolumeControl({ className }: { className?: string }) {
 
 // PlaylistToggle Component
 function PlaylistToggle({ className }: { className?: string }) {
-  const { isPlaylistVisible, togglePlaylist } = usePlaylist();
+  const isPlaylistVisible = usePlaylist((state) => state.isPlaylistVisible);
+  const togglePlaylist = usePlaylist((state) => state.togglePlaylist);
 
   return (
     <Button
@@ -255,7 +262,7 @@ function PlaylistToggle({ className }: { className?: string }) {
 
 // Main MediaPlayer Component
 export function MediaPlayer({ className }: { className?: string }) {
-  const currentTrack = useCurrentTrack();
+  const currentTrack = usePlaylist((state) => state.currentTrack);
 
   return (
     <Card className={cn("p-2 space-y-1", className)}>

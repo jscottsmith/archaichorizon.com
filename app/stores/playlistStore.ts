@@ -6,6 +6,7 @@ interface PlaylistState {
   // Playlist state
   tracks: Track[];
   currentTrackIndex: number;
+  currentTrack: Track | null;
   isPlaylistVisible: boolean;
 
   // Playlist controls
@@ -23,34 +24,48 @@ export const usePlaylist = create<PlaylistState>()(
     // Initial state
     tracks: [],
     currentTrackIndex: 0,
+    currentTrack: null,
     isPlaylistVisible: false,
 
     // Actions
     nextTrack: () => {
       const { currentTrackIndex, tracks } = get();
       if (currentTrackIndex < tracks.length - 1) {
-        set({ currentTrackIndex: currentTrackIndex + 1 });
+        const newIndex = currentTrackIndex + 1;
+        set({
+          currentTrackIndex: newIndex,
+          currentTrack: tracks[newIndex] || null,
+        });
       }
     },
 
     previousTrack: () => {
-      const { currentTrackIndex } = get();
+      const { currentTrackIndex, tracks } = get();
       if (currentTrackIndex > 0) {
-        set({ currentTrackIndex: currentTrackIndex - 1 });
+        const newIndex = currentTrackIndex - 1;
+        set({
+          currentTrackIndex: newIndex,
+          currentTrack: tracks[newIndex] || null,
+        });
       }
     },
 
     selectTrack: (index: number) => {
       const { tracks } = get();
       if (index >= 0 && index < tracks.length) {
-        set({ currentTrackIndex: index });
+        set({
+          currentTrackIndex: index,
+          currentTrack: tracks[index] || null,
+        });
       }
     },
 
     setTracks: (newTracks: Track[], currentTrackIndex?: number) => {
+      const trackIndex = currentTrackIndex ?? 0;
       set({
         tracks: newTracks,
-        currentTrackIndex: currentTrackIndex ?? 0,
+        currentTrackIndex: trackIndex,
+        currentTrack: newTracks[trackIndex] || null,
       });
     },
 
@@ -60,15 +75,3 @@ export const usePlaylist = create<PlaylistState>()(
     },
   }))
 );
-
-// Selectors for computed values
-export const useCurrentTrack = () => {
-  return usePlaylist((state) => {
-    const { tracks, currentTrackIndex } = state;
-    return tracks[currentTrackIndex];
-  });
-};
-
-export const useTotalTracks = () => {
-  return usePlaylist((state) => state.tracks.length);
-};

@@ -1,12 +1,12 @@
 "use client";
 
-import { useCurrentTrack } from "../stores/playlistStore";
+import { usePlaylist } from "../stores/playlistStore";
 import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 export function Background() {
-  const currentTrack = useCurrentTrack();
+  const currentTrack = usePlaylist((state) => state.currentTrack);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (

@@ -20,7 +20,7 @@ export function TrackList({
   selectTrack,
   className,
 }: TrackListProps) {
-  const audio = useAudio();
+  const audioIsPlaying = useAudio((state) => state.isPlaying);
 
   if (tracks.length === 0) {
     return null;
@@ -30,7 +30,7 @@ export function TrackList({
     <div className={cn("space-y-2", className)}>
       {tracks.map((track, index) => {
         const isCurrentTrack = index === currentTrackIndex;
-        const isPlaying = isCurrentTrack && audio.isPlaying;
+        const isPlaying = isCurrentTrack && audioIsPlaying;
 
         return (
           <Button

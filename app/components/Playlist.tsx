@@ -23,23 +23,29 @@ export function Playlist(props: { className?: string }) {
   // Process metadata and create normalized track list
   const tracks = useNormalizeTracks(release.data);
 
-  const playlist = usePlaylist();
+  // Use inline state selectors for each piece of state
+  const playlistTracks = usePlaylist((state) => state.tracks);
+  const currentTrackIndex = usePlaylist((state) => state.currentTrackIndex);
+  const isPlaylistVisible = usePlaylist((state) => state.isPlaylistVisible);
+  const togglePlaylist = usePlaylist((state) => state.togglePlaylist);
+  const setTracks = usePlaylist((state) => state.setTracks);
+  const selectTrack = usePlaylist((state) => state.selectTrack);
 
   const playlistRef = useHandleClickOutside({
-    enabled: playlist.isPlaylistVisible,
-    onOutsideClick: playlist.togglePlaylist,
+    enabled: isPlaylistVisible,
+    onOutsideClick: togglePlaylist,
   });
 
   // Set tracks when the release is fetched
   // but only if the playlist is empty
   useEffect(() => {
-    if (playlist.tracks.length === 0) {
-      playlist.setTracks(tracks);
+    if (playlistTracks.length === 0) {
+      setTracks(tracks);
     }
-  }, [tracks, playlist]);
+  }, [tracks, playlistTracks.length, setTracks]);
 
   // Don't render if playlist is not visible
-  if (!playlist.isPlaylistVisible) {
+  if (!isPlaylistVisible) {
     return null;
   }
 
@@ -48,9 +54,9 @@ export function Playlist(props: { className?: string }) {
       <Card className="py-2">
         <CardContent className="px-2">
           <TrackList
-            tracks={playlist.tracks}
-            currentTrackIndex={playlist.currentTrackIndex}
-            selectTrack={playlist.selectTrack}
+            tracks={playlistTracks}
+            currentTrackIndex={currentTrackIndex}
+            selectTrack={selectTrack}
           />
         </CardContent>
       </Card>

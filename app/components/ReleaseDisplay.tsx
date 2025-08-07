@@ -1,7 +1,7 @@
 "use client";
 
 import { useRelease } from "@/app/hooks/useRelease";
-import { usePlaylist, useCurrentTrack } from "../stores/playlistStore";
+import { usePlaylist } from "../stores/playlistStore";
 import { useAudio } from "../stores/audioStore";
 import type { IAMetadataResponse } from "../types/ia";
 import { useNormalizeTracks } from "../hooks/useNormalizeTracks";
@@ -55,9 +55,16 @@ export function ReleaseDisplay({
   initialData?: IAMetadataResponse;
 }) {
   const release = useRelease(catNo, { initialData });
-  const playlist = usePlaylist();
-  const audio = useAudio();
-  const currentTrack = useCurrentTrack();
+
+  // Use inline state selectors for each piece of state
+  const currentTrackIndex = usePlaylist((state) => state.currentTrackIndex);
+  const setTracks = usePlaylist((state) => state.setTracks);
+  const selectTrack = usePlaylist((state) => state.selectTrack);
+  const currentTrack = usePlaylist((state) => state.currentTrack);
+
+  const isPlaying = useAudio((state) => state.isPlaying);
+  const play = useAudio((state) => state.play);
+  const pause = useAudio((state) => state.pause);
   const tracks = useNormalizeTracks(release.data);
 
   if (release.error) {
@@ -77,7 +84,7 @@ export function ReleaseDisplay({
 
   const isCurrentPlaylist = catNo === currentTrack?.catNo?.toLowerCase();
 
-  const isCurrentlyPlaying = isCurrentPlaylist && audio.isPlaying;
+  const isCurrentlyPlaying = isCurrentPlaylist && isPlaying;
 
   return (
     <ContentWrapper>
@@ -131,15 +138,15 @@ export function ReleaseDisplay({
                 onClick={() => {
                   if (isCurrentPlaylist) {
                     // If this release is loaded control playback
-                    if (!audio.isPlaying) {
-                      audio.play();
+                    if (!isPlaying) {
+                      play();
                     } else {
-                      audio.pause();
+                      pause();
                     }
                   } else {
                     // Otherwise, set the tracks (which will start playing)
-                    playlist.setTracks(tracks);
-                    audio.play();
+                    setTracks(tracks);
+                    play();
                   }
                 }}
                 className="w-full md:w-auto self-end min-w-36"
@@ -167,13 +174,13 @@ export function ReleaseDisplay({
               <TrackList
                 tracks={tracks}
                 currentTrackIndex={
-                  isCurrentPlaylist ? playlist.currentTrackIndex : undefined
+                  isCurrentPlaylist ? currentTrackIndex : undefined
                 }
                 selectTrack={
                   isCurrentPlaylist
-                    ? playlist.selectTrack
+                    ? selectTrack
                     : (index) => {
-                        playlist.setTracks(tracks, index);
+                        setTracks(tracks, index);
                       }
                 }
               />
