@@ -2,7 +2,6 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
-import { PlaylistProvider } from "./contexts/PlaylistProvider";
 import { AudioProvider } from "./contexts/AudioProvider";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 
@@ -30,9 +29,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         enableSystem
         disableTransitionOnChange
       >
-        <PlaylistProvider>
-          <AudioProvider>{children}</AudioProvider>
-        </PlaylistProvider>
+        <AudioProvider>{children}</AudioProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

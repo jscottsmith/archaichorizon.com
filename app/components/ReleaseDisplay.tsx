@@ -1,7 +1,7 @@
 "use client";
 
 import { useRelease } from "@/app/hooks/useRelease";
-import { usePlaylist } from "../contexts/PlaylistProvider";
+import { usePlaylist, useCurrentTrack } from "../stores/playlistStore";
 import { useAudio } from "../stores/audioStore";
 import type { IAMetadataResponse } from "../types/ia";
 import { useNormalizeTracks } from "../hooks/useNormalizeTracks";
@@ -57,6 +57,7 @@ export function ReleaseDisplay({
   const release = useRelease(catNo, { initialData });
   const playlist = usePlaylist();
   const audio = useAudio();
+  const currentTrack = useCurrentTrack();
   const tracks = useNormalizeTracks(release.data);
 
   if (release.error) {
@@ -74,8 +75,7 @@ export function ReleaseDisplay({
     alt: `${metadata.title} cover art ${index + 1}`,
   }));
 
-  const isCurrentPlaylist =
-    catNo === playlist.currentTrack?.catNo?.toLowerCase();
+  const isCurrentPlaylist = catNo === currentTrack?.catNo?.toLowerCase();
 
   const isCurrentlyPlaying = isCurrentPlaylist && audio.isPlaying;
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { TrackList } from "./TrackList";
-import { usePlaylist } from "../contexts/PlaylistProvider";
+import { usePlaylist } from "../stores/playlistStore";
 import { useRelease } from "../hooks/useRelease";
 import { getAllCatNos } from "../constants/releaseMap";
 import { useNormalizeTracks } from "../hooks/useNormalizeTracks";

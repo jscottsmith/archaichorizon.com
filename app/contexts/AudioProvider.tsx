@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, ReactNode } from "react";
-import { usePlaylist } from "./PlaylistProvider";
+import { usePlaylist, useCurrentTrack } from "../stores/playlistStore";
 import {
   useAudio as useAudioStore,
   cleanupAudioStore,
@@ -14,8 +14,9 @@ interface AudioProviderProps {
 export function AudioProvider({ children }: AudioProviderProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Get current track from playlist context
-  const { currentTrack, nextTrack } = usePlaylist();
+  // Get current track from playlist store
+  const { nextTrack } = usePlaylist();
+  const currentTrack = useCurrentTrack();
 
   // Get audio store actions and state
   const { setAudioRef, isPlaying, resetForNewTrack } = useAudioStore();

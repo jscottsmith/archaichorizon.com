@@ -1,6 +1,10 @@
 "use client";
 
-import { usePlaylist } from "../contexts/PlaylistProvider";
+import {
+  usePlaylist,
+  useCurrentTrack,
+  useTotalTracks,
+} from "../stores/playlistStore";
 import { useAudio } from "../stores/audioStore";
 import {
   SkipBack,
@@ -22,12 +26,9 @@ import { BufferedSlider } from "./BufferedSlider";
 
 // CoverImage Component
 function CoverImage({ className }: { className?: string }) {
-  const playlist = usePlaylist();
+  const currentTrack = useCurrentTrack();
 
-  if (
-    !playlist.currentTrack?.images?.thumbnail &&
-    !playlist.currentTrack?.images?.cover
-  ) {
+  if (!currentTrack?.images?.thumbnail && !currentTrack?.images?.cover) {
     return (
       <div
         className={cn(
@@ -43,11 +44,8 @@ function CoverImage({ className }: { className?: string }) {
   return (
     <div className={cn("flex-shrink-0", className)}>
       <Image
-        src={
-          playlist.currentTrack!.images.thumbnail ||
-          playlist.currentTrack!.images.cover!
-        }
-        alt={`${playlist.currentTrack!.title || "Track"} cover art`}
+        src={currentTrack!.images.thumbnail || currentTrack!.images.cover!}
+        alt={`${currentTrack!.title || "Track"} cover art`}
         width={64}
         height={64}
         className="rounded-sm object-cover"
@@ -61,30 +59,32 @@ function CoverImage({ className }: { className?: string }) {
 
 // ArtistInfo Component
 function ArtistInfo({ className }: { className?: string }) {
-  const playlist = usePlaylist();
+  const currentTrack = useCurrentTrack();
+  const totalTracks = useTotalTracks();
+  const { currentTrackIndex } = usePlaylist();
 
-  if (!playlist.currentTrack?.title && !playlist.currentTrack?.artist) {
+  if (!currentTrack?.title && !currentTrack?.artist) {
     return null;
   }
 
   return (
     <div className={cn("flex-1 text-left min-w-0", className)}>
-      {playlist.currentTrack?.title && (
+      {currentTrack?.title && (
         <h3 className="font-semibold text-sm flex whitespace-nowrap gap-2 items-center min-w-0">
-          <span className="truncate">{playlist.currentTrack.title}</span>
+          <span className="truncate">{currentTrack.title}</span>
           <span className="text-xs text-muted-foreground flex-shrink-0">
-            {playlist.currentTrackIndex + 1} of {playlist.totalTracks}
+            {currentTrackIndex + 1} of {totalTracks}
           </span>
         </h3>
       )}
-      {playlist.currentTrack?.artist && (
+      {currentTrack?.artist && (
         <p className="text-sm text-muted-foreground truncate">
-          {playlist.currentTrack.artist}
+          {currentTrack.artist}
         </p>
       )}
-      {playlist.currentTrack?.album && (
+      {currentTrack?.album && (
         <p className="text-xs text-muted-foreground truncate">
-          {playlist.currentTrack.album}
+          {currentTrack.album}
         </p>
       )}
     </div>
@@ -131,8 +131,10 @@ function TrackProgress({ className }: { className?: string }) {
 
 // MainControls Component
 function MainControls({ className }: { className?: string }) {
-  const playlist = usePlaylist();
   const audio = useAudio();
+  const { nextTrack, previousTrack, currentTrackIndex } = usePlaylist();
+  const currentTrack = useCurrentTrack();
+  const totalTracks = useTotalTracks();
 
   const handlePlay = async () => {
     await audio.play();
@@ -143,11 +145,11 @@ function MainControls({ className }: { className?: string }) {
   };
 
   const handleNext = () => {
-    playlist.nextTrack();
+    nextTrack();
   };
 
   const handlePrevious = () => {
-    playlist.previousTrack();
+    previousTrack();
   };
 
   return (
@@ -157,12 +159,12 @@ function MainControls({ className }: { className?: string }) {
         className
       )}
     >
-      {playlist.totalTracks > 1 && (
+      {totalTracks > 1 && (
         <Button
           variant="ghost"
           size="icon"
           onClick={handlePrevious}
-          disabled={playlist.currentTrackIndex === 0}
+          disabled={currentTrackIndex === 0}
           aria-label="Previous track"
         >
           <SkipBack size={20} />
@@ -173,7 +175,7 @@ function MainControls({ className }: { className?: string }) {
         variant="ghost"
         size="icon"
         onClick={audio.isPlaying ? handlePause : handlePlay}
-        disabled={!playlist.currentTrack?.url || audio.isLoading}
+        disabled={!currentTrack?.url || audio.isLoading}
         className="h-12 w-12"
         aria-label={
           audio.isLoading ? "Loading" : audio.isPlaying ? "Pause" : "Play"
@@ -188,12 +190,12 @@ function MainControls({ className }: { className?: string }) {
         )}
       </Button>
 
-      {playlist.totalTracks > 1 && (
+      {totalTracks > 1 && (
         <Button
           variant="ghost"
           size="icon"
           onClick={handleNext}
-          disabled={playlist.currentTrackIndex === playlist.totalTracks - 1}
+          disabled={currentTrackIndex === totalTracks - 1}
           aria-label="Next track"
         >
           <SkipForward size={20} />
@@ -236,17 +238,15 @@ function VolumeControl({ className }: { className?: string }) {
 
 // PlaylistToggle Component
 function PlaylistToggle({ className }: { className?: string }) {
-  const playlist = usePlaylist();
+  const { isPlaylistVisible, togglePlaylist } = usePlaylist();
 
   return (
     <Button
-      variant={playlist.isPlaylistVisible ? "default" : "ghost"}
+      variant={isPlaylistVisible ? "default" : "ghost"}
       size="icon"
-      onClick={playlist.togglePlaylist}
+      onClick={togglePlaylist}
       className={cn("h-8 w-8", className)}
-      aria-label={
-        playlist.isPlaylistVisible ? "Hide playlist" : "Show playlist"
-      }
+      aria-label={isPlaylistVisible ? "Hide playlist" : "Show playlist"}
     >
       <List size={16} />
     </Button>
@@ -255,15 +255,15 @@ function PlaylistToggle({ className }: { className?: string }) {
 
 // Main MediaPlayer Component
 export function MediaPlayer({ className }: { className?: string }) {
-  const playlist = usePlaylist();
+  const currentTrack = useCurrentTrack();
 
   return (
     <Card className={cn("p-2 space-y-1", className)}>
       <div className="grid grid-cols-2 sm:grid-cols-3 items-center justify-between">
         <div className="flex items-center gap-2 col-span-1">
-          {playlist.currentTrack?.catNo ? (
+          {currentTrack?.catNo ? (
             <Link
-              href={`/release/${playlist.currentTrack.catNo}`}
+              href={`/release/${currentTrack.catNo}`}
               className="flex items-center gap-2 hover:bg-accent/50 transition-colors rounded-md p-1.5"
             >
               <CoverImage />
