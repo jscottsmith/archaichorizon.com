@@ -2,6 +2,7 @@
 
 import { useRelease } from "@/app/hooks/useRelease";
 import { usePlaylist } from "../contexts/PlaylistProvider";
+import { useAudio } from "../contexts/AudioProvider";
 import type { IAMetadataResponse } from "../types/ia";
 import { useNormalizeTracks } from "../hooks/useNormalizeTracks";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +11,7 @@ import { Button } from "@/app/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ContentWrapper } from "./ContentWrapper";
 import { TrackList } from "./TrackList";
-import { Play, X, ArrowLeft } from "lucide-react";
+import { Play, X, ArrowLeft, AudioLines } from "lucide-react";
 import { formatDate } from "../utils/date";
 import Link from "next/link";
 import { addCoverArtUrls, getOriginalCoverArt } from "../utils/files";
@@ -55,6 +56,7 @@ export function ReleaseDisplay({
 }) {
   const release = useRelease(catNo, { initialData });
   const playlist = usePlaylist();
+  const audio = useAudio();
   const tracks = useNormalizeTracks(release.data);
 
   if (release.error) {
@@ -74,6 +76,8 @@ export function ReleaseDisplay({
 
   const isCurrentPlaylist =
     catNo === playlist.currentTrack?.catNo?.toLowerCase();
+
+  const isCurrentlyPlaying = isCurrentPlaylist && audio.isPlaying;
 
   return (
     <ContentWrapper>
@@ -124,11 +128,33 @@ export function ReleaseDisplay({
               </div>
 
               <Button
-                onClick={() => playlist.setTracks(tracks)}
-                className="w-full md:w-auto self-end"
+                onClick={() => {
+                  if (isCurrentPlaylist) {
+                    // If this release is loaded control playback
+                    if (!audio.isPlaying) {
+                      audio.play();
+                    } else {
+                      audio.pause();
+                    }
+                  } else {
+                    // Otherwise, set the tracks (which will start playing)
+                    playlist.setTracks(tracks);
+                    audio.play();
+                  }
+                }}
+                className="w-full md:w-auto self-end min-w-36"
               >
-                <Play className="mr-2 h-4 w-4" />
-                Play Release
+                {isCurrentlyPlaying ? (
+                  <>
+                    <AudioLines className="mr-2 h-4 w-4 animate-pulse fill-current" />
+                    Now Playing
+                  </>
+                ) : (
+                  <>
+                    <Play className="mr-2 h-4 w-4" />
+                    {isCurrentPlaylist ? "Resume" : "Play Release"}
+                  </>
+                )}
               </Button>
             </div>
           </div>

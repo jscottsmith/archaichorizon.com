@@ -22,8 +22,6 @@ export function TrackDownload({ track }: TrackDownloadProps) {
     }
   };
 
-  console.log(track.media);
-
   const hasDownloadOptions =
     track.media.mp3.url || track.media.ogg.url || track.media.flac.url;
 
