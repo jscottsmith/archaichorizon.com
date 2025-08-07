@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Play } from "lucide-react";
+import { TrackDownload } from "./TrackDownload";
 
 interface TrackListProps {
   className?: string;
@@ -30,6 +31,7 @@ export function TrackList({
           variant={index === currentTrackIndex ? "default" : "ghost"}
           onClick={() => selectTrack(index)}
           className={cn("w-full justify-start h-auto px-2 group")}
+          asChild
         >
           <div className="flex items-center justify-between w-full min-w-0">
             <div className="flex items-center space-x-3 min-w-0 flex-1">
@@ -67,6 +69,7 @@ export function TrackList({
                   {formatTrackLength(track.length)}
                 </span>
               )}
+              <TrackDownload track={track} />
             </div>
           </div>
         </Button>
