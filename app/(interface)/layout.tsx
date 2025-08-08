@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { Playlist } from "../components/Playlist";
-import { MediaPlayer } from "../components/MediaPlayer";
+import { MediaPlayer, MediaPlayerMobile } from "../components/MediaPlayer";
 import { Navigation } from "../components/Navigation";
 import { Background } from "../components/Background";
 import Logo from "../components/Logo";
@@ -28,7 +28,8 @@ export default function Interface(props: { children: React.ReactNode }) {
           <Suspense fallback={null}>
             <Playlist />
           </Suspense>
-          <MediaPlayer />
+          <MediaPlayer className="md:block hidden" />
+          <MediaPlayerMobile className="md:hidden px-2 mx-auto" />
         </div>
       </div>
       {props.children}
