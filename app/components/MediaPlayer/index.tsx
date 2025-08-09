@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { MediaPlayerControls } from "./MediaPlayerControls";
 import { TrackProgress } from "./TrackProgress";
-import { MainControls } from "./MainControls";
 import { CoverImage } from "./CoverImage";
+import { PreviousButton } from "./PreviousButton";
+import { PlayPauseButton } from "./PlayPauseButton";
+import { NextButton } from "./NextButton";
 
 // Export all individual components
 export { CoverImage } from "./CoverImage";
@@ -38,12 +40,21 @@ export function MediaPlayerMobile({ className }: { className?: string }) {
   return (
     <Card
       className={cn(
-        "p-2 space-y-1 items-center inline-flex flex-row justify-between items-center w-full px-2 mx-auto",
+        "p-2 items-center inline-flex flex-row justify-between w-full px-2 mx-auto",
         className
       )}
     >
       <CoverImage size={48} />
-      <MainControls className="justify-center" />
+      <div
+        className={cn(
+          "flex items-center justify-center gap-1 md:gap-2 lg:gap-4",
+          className
+        )}
+      >
+        <PreviousButton iconSize={20} />
+        <PlayPauseButton iconSize={20} />
+        <NextButton iconSize={20} />
+      </div>
     </Card>
   );
 }
