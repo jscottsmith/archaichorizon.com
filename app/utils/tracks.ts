@@ -1,4 +1,4 @@
-import { IAFile, IAMetadataResponse, AudioFile } from "@/app/types/ia";
+import { IAFile, IAMetadataResponse } from "@/app/types/ia";
 import { replaceUrlParams } from "./url";
 import { getAudioFiles, getCoverArt } from "./files";
 import { IA } from "@/app/constants/ia";

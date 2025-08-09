@@ -1,16 +1,16 @@
 "use client";
 
 import { useRelease } from "@/app/hooks/useRelease";
-import type { IAMetadataResponse } from "../types/ia";
-import { useNormalizeTracks } from "../hooks/useNormalizeTracks";
+import type { IAMetadataResponse } from "../../types/ia";
+import { useNormalizeTracks } from "@/app/hooks/useNormalizeTracks";
 import { Card, CardContent } from "@/components/ui/card";
-import { ContentWrapper } from "./ContentWrapper";
-import { addCoverArtUrls, getOriginalCoverArt } from "../utils/files";
+import { ContentWrapper } from "../ContentWrapper";
+import { addCoverArtUrls, getOriginalCoverArt } from "../../utils/files";
 import { ReleaseDescription } from "./ReleaseDescription";
-import { ReleaseHeader } from "./ReleaseDisplay/ReleaseHeader";
-import { ReleaseBasicInfo } from "./ReleaseDisplay/ReleaseBasicInfo";
-import { ReleaseTracks } from "./ReleaseDisplay/ReleaseTracks";
-import { ReleaseDetails } from "./ReleaseDisplay/ReleaseDetails";
+import { ReleaseHeader } from "./ReleaseHeader";
+import { ReleaseBasicInfo } from "./ReleaseBasicInfo";
+import { ReleaseTracks } from "./ReleaseTracks";
+import { ReleaseDetails } from "./ReleaseDetails";
 
 // Loading component
 export function ReleaseLoading() {
