@@ -29,7 +29,7 @@ export default function Interface(props: { children: React.ReactNode }) {
             <Playlist />
           </Suspense>
           <MediaPlayer className="md:block hidden" />
-          <MediaPlayerMobile className="md:hidden px-2 mx-auto" />
+          <MediaPlayerMobile className="md:hidden" />
         </div>
       </div>
       {props.children}

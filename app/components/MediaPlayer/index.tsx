@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { MediaPlayerControls } from "./MediaPlayerControls";
 import { TrackProgress } from "./TrackProgress";
 import { MainControls } from "./MainControls";
+import { CoverImage } from "./CoverImage";
 
 // Export all individual components
 export { CoverImage } from "./CoverImage";
@@ -16,6 +17,11 @@ export { VolumeControl } from "./VolumeControl";
 export { PlaylistToggle } from "./PlaylistToggle";
 export { TrackInfo } from "./TrackInfo";
 export { MediaPlayerControls } from "./MediaPlayerControls";
+
+// Export button components
+export { PreviousButton } from "./PreviousButton";
+export { PlayPauseButton } from "./PlayPauseButton";
+export { NextButton } from "./NextButton";
 
 // Main MediaPlayer Component
 export function MediaPlayer({ className }: { className?: string }) {
@@ -30,7 +36,13 @@ export function MediaPlayer({ className }: { className?: string }) {
 // Mobile MediaPlayer Component
 export function MediaPlayerMobile({ className }: { className?: string }) {
   return (
-    <Card className={cn("p-2 rounded-full space-y-1", className)}>
+    <Card
+      className={cn(
+        "p-2 space-y-1 items-center inline-flex flex-row justify-between items-center w-full px-2 mx-auto",
+        className
+      )}
+    >
+      <CoverImage size={48} />
       <MainControls className="justify-center" />
     </Card>
   );
