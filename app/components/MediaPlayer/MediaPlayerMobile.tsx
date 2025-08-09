@@ -18,7 +18,7 @@ export function MediaPlayerMobile({ className }: { className?: string }) {
     <>
       <Card
         className={cn(
-          "p-2 gap-2 items-center inline-flex flex-row justify-between w-full px-2 mx-auto cursor-pointer hover:bg-accent/50 transition-colors",
+          "p-2 gap-2 rounded-lg items-center inline-flex flex-row justify-between w-full px-2 mx-auto cursor-pointer hover:bg-accent/50 transition-colors",
           className
         )}
         onClick={open}
