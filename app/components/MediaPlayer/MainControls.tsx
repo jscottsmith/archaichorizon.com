@@ -14,12 +14,7 @@ export const MainControls = React.memo(function MainControls({
   iconSize?: number;
 }) {
   return (
-    <div
-      className={cn(
-        "flex items-center justify-center gap-1 md:gap-2 lg:gap-4",
-        className
-      )}
-    >
+    <div className={cn("flex items-center justify-center gap-1", className)}>
       <PreviousButton iconSize={iconSize} />
       <PlayPauseButton iconSize={iconSize} className="h-12 w-12" />
       <NextButton iconSize={iconSize} />

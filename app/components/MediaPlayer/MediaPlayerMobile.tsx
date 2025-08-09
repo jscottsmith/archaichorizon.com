@@ -23,7 +23,7 @@ export function MediaPlayerMobile({ className }: { className?: string }) {
         )}
         onClick={open}
       >
-        <CoverImage size={48} />
+        <CoverImage size={48} className="w-12 h-12" />
         <ArtistInfo hideArtist hideAlbum hideTrackNumbers />
         <div
           onClick={(e) => e.stopPropagation()}

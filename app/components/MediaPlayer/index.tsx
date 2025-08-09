@@ -25,7 +25,7 @@ export { NextButton } from "./NextButton";
 // Main MediaPlayer Component
 export function MediaPlayer({ className }: { className?: string }) {
   return (
-    <Card className={cn("p-2 space-y-1", className)}>
+    <Card className={cn("p-4 space-y-4 rounded-lg", className)}>
       <MediaPlayerControls />
       <TrackProgress />
     </Card>

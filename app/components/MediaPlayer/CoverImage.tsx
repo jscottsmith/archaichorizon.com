@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { usePlaylist } from "../../stores/playlistStore";
 import { cn } from "@/lib/utils";
+import { ImageOff } from "lucide-react";
 
 export const CoverImage = React.memo(function CoverImage({
   className,
@@ -15,7 +16,8 @@ export const CoverImage = React.memo(function CoverImage({
   const currentTrack = usePlaylist((state) => state.currentTrack);
 
   return (
-    <div className={cn("flex-shrink-0", className)}>
+    // width/height must be set to match the size prop
+    <div className={cn("flex-shrink-0 w-16 h-16", className)}>
       {currentTrack?.images?.thumbnail || currentTrack?.images?.cover ? (
         <Image
           src={currentTrack!.images.thumbnail || currentTrack!.images.cover!}
@@ -30,11 +32,12 @@ export const CoverImage = React.memo(function CoverImage({
       ) : (
         <div
           className={cn(
-            "flex-shrink-0 w-full aspect-square bg-muted rounded-md flex items-center justify-center",
-            className
+            "flex-shrink-0 w-full aspect-square bg-muted rounded-sm flex items-center justify-center"
           )}
         >
-          <span className="text-muted-foreground text-xs">No Image</span>
+          <span className="text-muted-foreground text-xs text-center">
+            <ImageOff size={16} />
+          </span>
         </div>
       )}
     </div>
