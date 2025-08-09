@@ -76,5 +76,7 @@ export function AudioProvider() {
     };
   }, [nextTrack]);
 
-  return <audio ref={audioRef} preload="metadata" autoPlay />;
+  return (
+    <audio ref={audioRef} preload="metadata" autoPlay crossOrigin="anonymous" />
+  );
 }
