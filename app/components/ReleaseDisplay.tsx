@@ -17,6 +17,7 @@ import Link from "next/link";
 import { addCoverArtUrls, getOriginalCoverArt } from "../utils/files";
 import { CoverArtCarousel } from "./CoverArtCarousel";
 import { splitSubject } from "../utils/subject";
+import { ReleaseDescription } from "./ReleaseDescription";
 
 // Loading component
 export function ReleaseLoading() {
@@ -188,15 +189,7 @@ export function ReleaseDisplay({
           </div>
 
           {/* Description */}
-          {metadata.description && (
-            <div className="space-y-4">
-              <Separator />
-              <div>
-                <h3 className="font-semibold mb-2">Description</h3>
-                <p className="leading-relaxed">{metadata.description}</p>
-              </div>
-            </div>
-          )}
+          <ReleaseDescription description={metadata.description} />
 
           {/* Additional metadata */}
           <div className="space-y-4">

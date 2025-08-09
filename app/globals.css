@@ -125,3 +125,60 @@
     user-select: none;
   }
 }
+
+@layer components {
+  .markdown-content {
+    @apply text-foreground;
+  }
+  .markdown-content h1,
+  .markdown-content h2,
+  .markdown-content h3,
+  .markdown-content h4,
+  .markdown-content h5,
+  .markdown-content h6 {
+    @apply text-foreground font-semibold mb-2;
+  }
+  .markdown-content h1 {
+    @apply text-xl;
+  }
+  .markdown-content h2 {
+    @apply text-lg;
+  }
+  .markdown-content h3 {
+    @apply text-base;
+  }
+  .markdown-content p {
+    @apply text-foreground/80 mb-3;
+  }
+  .markdown-content a {
+    @apply text-primary hover:text-primary/80 underline;
+  }
+  .markdown-content strong {
+    @apply text-foreground font-semibold;
+  }
+  .markdown-content em {
+    @apply text-foreground/70 italic;
+  }
+  .markdown-content code {
+    @apply bg-muted text-foreground px-1 py-0.5 rounded text-sm font-mono;
+  }
+  .markdown-content pre {
+    @apply bg-muted text-foreground p-3 rounded-lg overflow-x-auto mb-3;
+  }
+  .markdown-content blockquote {
+    @apply border-l-4 border-muted-foreground/30 pl-4 italic text-foreground/70 mb-3;
+  }
+  .markdown-content ul,
+  .markdown-content ol {
+    @apply text-foreground/80 mb-3 pl-6;
+  }
+  .markdown-content li {
+    @apply text-foreground/80 mb-1;
+  }
+  .markdown-content ul {
+    @apply list-disc;
+  }
+  .markdown-content ol {
+    @apply list-decimal;
+  }
+}
