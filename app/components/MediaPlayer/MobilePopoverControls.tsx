@@ -16,6 +16,7 @@ import { PlayPauseButton } from "./PlayPauseButton";
 import { NextButton } from "./NextButton";
 import { VolumeControl } from "./VolumeControl";
 import { ArtistInfo } from "./ArtistInfo";
+import { CoverArtCarousel } from "../CoverArtCarousel";
 
 interface MobilePopoverControlsProps {
   isOpen: boolean;
@@ -39,9 +40,10 @@ export function MobilePopoverControls({
           </DrawerDescription>
         </DrawerHeader>
         <div className="px-6 pb-6 flex flex-col gap-8">
-          <div className="flex items-center">
+          <CoverArtCarousel className="max-w-1/2 w-full mx-auto" />
+          {/* <div className="flex items-center">
             <CoverImage size={128} className="rounded-lg mx-auto" />
-          </div>
+          </div> */}
           <ArtistInfo />
           <TrackProgress />
           <div className="flex items-center justify-center gap-6">

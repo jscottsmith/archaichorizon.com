@@ -24,10 +24,10 @@ export function ReleaseBasicInfo({
 }: ReleaseBasicInfoProps) {
   return (
     <div className="flex flex-col md:flex-row gap-6">
-      {/* Cover Art */}
-      <div className="flex-shrink-0">
-        <CoverArtCarousel images={coverArtImages} />
-      </div>
+      <CoverArtCarousel
+        images={coverArtImages}
+        className="flex-shrink-0 max-w-[300px] mx-auto"
+      />
 
       {/* Basic Info */}
       <div className="flex-1 space-y-4">
