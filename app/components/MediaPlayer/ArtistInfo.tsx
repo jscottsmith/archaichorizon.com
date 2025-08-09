@@ -6,8 +6,14 @@ import { cn } from "@/lib/utils";
 
 export const ArtistInfo = React.memo(function ArtistInfo({
   className,
+  hideArtist = false,
+  hideAlbum = false,
+  hideTrackNumbers = false,
 }: {
   className?: string;
+  hideArtist?: boolean;
+  hideAlbum?: boolean;
+  hideTrackNumbers?: boolean;
 }) {
   const currentTrack = usePlaylist((state) => state.currentTrack);
   const totalTracks = usePlaylist((state) => state.tracks.length);
@@ -22,17 +28,19 @@ export const ArtistInfo = React.memo(function ArtistInfo({
       {currentTrack?.title && (
         <h3 className="font-semibold text-sm flex whitespace-nowrap gap-2 items-center min-w-0">
           <span className="truncate">{currentTrack.title}</span>
-          <span className="text-xs text-muted-foreground flex-shrink-0">
-            {currentTrackIndex + 1} of {totalTracks}
-          </span>
+          {!hideTrackNumbers && (
+            <span className="text-xs text-muted-foreground flex-shrink-0">
+              {currentTrackIndex + 1} of {totalTracks}
+            </span>
+          )}
         </h3>
       )}
-      {currentTrack?.artist && (
+      {currentTrack?.artist && !hideArtist && (
         <p className="text-sm text-muted-foreground truncate">
           {currentTrack.artist}
         </p>
       )}
-      {currentTrack?.album && (
+      {currentTrack?.album && !hideAlbum && (
         <p className="text-xs text-muted-foreground truncate">
           {currentTrack.album}
         </p>
