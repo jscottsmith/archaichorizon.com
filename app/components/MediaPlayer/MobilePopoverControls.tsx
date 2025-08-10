@@ -17,6 +17,7 @@ import { NextButton } from "./NextButton";
 import { VolumeControl } from "./VolumeControl";
 import { ArtistInfo } from "./ArtistInfo";
 import { CoverArtCarousel } from "../CoverArtCarousel";
+import { usePlaylist } from "@/app/stores/playlistStore";
 
 interface MobilePopoverControlsProps {
   isOpen: boolean;
@@ -29,6 +30,15 @@ export function MobilePopoverControls({
   onClose,
   className,
 }: MobilePopoverControlsProps) {
+  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const images = currentTrack?.images?.cover
+    ? [
+        {
+          url: currentTrack.images.cover,
+          alt: `${currentTrack.title} cover art`,
+        },
+      ]
+    : [];
   return (
     <Drawer open={isOpen} onOpenChange={onClose}>
       <DrawerContent className={cn("max-h-[100vh] h-[90vh]", className)}>
@@ -40,7 +50,10 @@ export function MobilePopoverControls({
           </DrawerDescription>
         </DrawerHeader>
         <div className="px-6 pb-6 flex flex-col gap-8">
-          <CoverArtCarousel className="max-w-1/2 w-full mx-auto" />
+          <CoverArtCarousel
+            className="max-w-1/2 w-full mx-auto"
+            images={images}
+          />
           {/* <div className="flex items-center">
             <CoverImage size={128} className="rounded-lg mx-auto" />
           </div> */}
