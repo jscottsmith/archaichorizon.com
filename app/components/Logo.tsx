@@ -53,6 +53,25 @@ export default function Logo(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function LogoAbbreviated(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      x="0"
+      y="0"
+      viewBox="63 83 70 35"
+      {...props}
+    >
+      <path
+        className="ah-letters"
+        fill="currentColor"
+        d="M82.025 97.467l4.391 7.637c0.674 1.172 0.124 2.128-1.233 2.128h-6.32c-1.347 0-1.904-0.956-1.229-2.128L82.025 97.467M63.495 113.282c-0.679 1.167-0.12 2.129 1.224 2.129h34.608c1.344 0 1.906-0.962 1.235-2.129L83.25 83.177c-0.676-1.164-1.775-1.164-2.449 0L63.495 113.282zM106.529 114.37c0 0.545 0.442 0.984 0.981 0.984l24.43 0.002c0.538 0 0.987-0.439 0.987-0.986v0.041c0-7.288-5.914-13.195-13.197-13.195 -7.289 0-13.201 5.907-13.201 13.195V114.37zM132.928 83.342c0-0.539-0.449-0.982-0.987-0.982h-24.43c-0.539 0-0.981 0.443-0.981 0.982v-0.039c0 7.288 5.912 13.197 13.201 13.197 7.283 0 13.197-5.909 13.197-13.197V83.342z"
+      />
+    </svg>
+  );
+}
+
 export function Logotype(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 198 46" {...props}>
