@@ -53,7 +53,9 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [`/api/release/${catNo}/opengraph-image`],
+      images: [
+        `https://archaichorizon.com/api/release/${catNo}/opengraph-image`,
+      ],
       creator: "@archaichorizon",
     },
     other: {
