@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
+import { SITE } from "./constants/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,11 +15,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Archaic Horizon",
-  description: "Electronic music label and collection",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-  ),
+  title: {
+    default: SITE.name,
+    template: `%s | ${SITE.name}`,
+  },
+  description: SITE.description,
+  keywords: SITE.keywords,
+  authors: SITE.authors,
+  creator: SITE.creator,
+  metadataBase: new URL(SITE.url),
+  robots: SITE.robots,
+  openGraph: {
+    ...SITE.openGraph,
+    images: [SITE.openGraph.defaultImage],
+  },
+  twitter: SITE.twitter,
+  icons: SITE.icons,
+  category: SITE.category,
+  classification: SITE.category,
 };
 
 export default function RootLayout({
