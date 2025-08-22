@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useEventListener } from "usehooks-ts";
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
-import Logo from "./Logo";
+import Logo, { LogoAbbreviated } from "./Logo";
 import { Navigation } from "./Navigation";
 
 export default function Header() {
@@ -36,7 +36,7 @@ export default function Header() {
       {/* Logo/Brand */}
       <div className="flex items-center">
         <Link href="/" className="text-foreground/80 hover:text-foreground">
-          <Logo className="h-24 sm:h-32 group" />
+          <LogoAbbreviated className="h-4 group" />
         </Link>
       </div>
       <Navigation />

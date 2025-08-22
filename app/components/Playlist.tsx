@@ -5,7 +5,7 @@ import { usePlaylist } from "../stores/playlistStore";
 import { useRelease } from "../hooks/useRelease";
 import { getAllCatNos } from "../constants/releaseMap";
 import { useNormalizeTracks } from "../hooks/useNormalizeTracks";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { useHandleClickOutside } from "../hooks/useHandleClickOutside";
@@ -13,9 +13,30 @@ import { useHandleClickOutside } from "../hooks/useHandleClickOutside";
 export function Playlist(props: { className?: string }) {
   const params = useParams();
 
+  // Get a date-based random catalog number for consistent server/client rendering
+  const getDateBasedRandomCatNo = useMemo(() => {
+    const catNos = getAllCatNos();
+    const today = new Date();
+    const dateString = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+
+    // Create a simple hash from the date string using djb2 algorithm
+    let hash = 0; // Initialize hash value to 0
+    for (let i = 0; i < dateString.length; i++) {
+      const char = dateString.charCodeAt(i); // Get ASCII code of current character
+      hash = (hash << 5) - hash + char; // djb2 formula: hash * 33 + char
+      hash = hash & hash; // Bitwise AND to ensure 32-bit integer (handles overflow)
+    }
+
+    // Use the hash to select a catalog number
+    const index = Math.abs(hash) % catNos.length;
+    return catNos[index];
+  }, []);
+
   // Get catNo from params if this is a release page
-  // Otherwise, use the first catNo from the release map
-  const catNo = params.catNo ? (params.catNo as string) : getAllCatNos()[0];
+  // Otherwise, use the date-based random catNo
+  const catNo = params.catNo
+    ? (params.catNo as string)
+    : getDateBasedRandomCatNo;
 
   // Pre-fetch data on the server
   const release = useRelease(catNo);
