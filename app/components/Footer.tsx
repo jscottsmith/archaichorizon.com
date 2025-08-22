@@ -2,7 +2,7 @@ import Link from "next/link";
 import Logo from "./Logo";
 import { SITE } from "../constants/site";
 import { Button } from "./ui";
-import { Disc3, ExternalLinkIcon } from "lucide-react";
+import { ExternalLinkIcon } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -24,10 +24,7 @@ export default function Footer() {
         </p>
         <div className="text-center">
           <Button size="sm" asChild>
-            <Link href="/collection">
-              Explore the Collection{" "}
-              <Disc3 className="w-3.5 h-3.5 inline-flex ml-1" />
-            </Link>
+            <Link href="/collection">Explore the Collection</Link>
           </Button>
         </div>
       </div>
