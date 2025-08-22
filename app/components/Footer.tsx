@@ -6,7 +6,7 @@ import { ExternalLinkIcon } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-background px-8 relative border-t pt-12 pb-8 mt-4 rounded-t-xl md:rounded-none">
+    <footer className="bg-background px-8 relative border-t pt-12 pb-8 rounded-t-xl md:rounded-none">
       {/* Logo */}
       <div className="flex justify-center flex-col items-center mb-8">
         <Logo className="h-32" />

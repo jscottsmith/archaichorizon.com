@@ -13,7 +13,7 @@ export default function Interface(props: { children: React.ReactNode }) {
       <Background />
       <Header />
 
-      <main className="min-h-screen">
+      <main className="min-h-screen mb-4">
         {props.children}
         <div className="sticky bottom-2 mx-2 left-0 right-0 z-50">
           <div className="flex flex-col gap-2 max-w-screen-md mx-auto">

@@ -127,6 +127,16 @@
 }
 
 @layer components {
+  .bg-gradient-radial {
+    background: radial-gradient(
+      circle at center center,
+      #f2ebc7 0%,
+      #9dd1fc 50%,
+      #6d78a1
+    );
+    background-size: 200% 200%;
+  }
+
   .markdown-content {
     @apply text-foreground;
   }
