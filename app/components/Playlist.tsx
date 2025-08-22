@@ -17,7 +17,7 @@ export function Playlist(props: { className?: string }) {
   const getDateBasedRandomCatNo = useMemo(() => {
     const catNos = getAllCatNos();
     const today = new Date();
-    const dateString = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+    const dateString = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}-${today.getHours()}-${today.getMinutes()}-${today.getSeconds()}`;
 
     // Create a simple hash from the date string using djb2 algorithm
     let hash = 0; // Initialize hash value to 0
