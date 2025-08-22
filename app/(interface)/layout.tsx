@@ -6,6 +6,7 @@ import { Navigation } from "../components/Navigation";
 import { Background } from "../components/Background";
 import Logo from "../components/Logo";
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
+import Footer from "../components/Footer";
 
 export const dynamic = "force-dynamic";
 
@@ -23,16 +24,20 @@ export default function Interface(props: { children: React.ReactNode }) {
         </div>
         <Navigation />
       </header>
-      <div className="fixed right-2 bottom-2 left-2 z-50">
-        <div className="flex flex-col gap-2 max-w-screen-md mx-auto">
-          <Suspense fallback={null}>
-            <Playlist />
-          </Suspense>
-          <MediaPlayer className="md:block hidden" />
-          <MediaPlayerMobile className="md:hidden" />
+
+      <main className="min-h-screen">
+        {props.children}
+        <div className="sticky bottom-2 mx-2 left-0 right-0 z-50">
+          <div className="flex flex-col gap-2 max-w-screen-md mx-auto">
+            <Suspense fallback={null}>
+              <Playlist />
+            </Suspense>
+            <MediaPlayer className="md:block hidden" />
+            <MediaPlayerMobile className="md:hidden" />
+          </div>
         </div>
-      </div>
-      {props.children}
+      </main>
+      <Footer />
     </>
   );
 }
