@@ -7,6 +7,7 @@ export const SITE = {
   shortDescription: "Electronic music label and collection",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   creator: "@archaichorizon",
+  email: "archaichorizon@gmail.com",
   keywords: [
     "electronic music",
     "ambient",
