@@ -60,7 +60,7 @@ export default function Footer() {
 
         {/* Legal line */}
 
-        <p className="text-center md:text-right max-w-screen-sm shrink-0 text-foreground/60 text-xs text-balance">
+        <p className="text-center md:text-right max-w-screen-sm text-foreground/60 text-xs text-balance">
           All design, music, and written content on Archaic Horizon is
           distributed under and protected by the Creative Commons{" "}
           <Link
