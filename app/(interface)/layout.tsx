@@ -15,7 +15,7 @@ export default function Interface(props: { children: React.ReactNode }) {
 
       <main className="min-h-screen mb-4">
         {props.children}
-        <div className="sticky bottom-2 mx-2 left-0 right-0 z-50">
+        <div className="sticky bottom-[calc(env(safe-area-inset-bottom)_+_0.5rem)] mx-2 left-0 right-0 z-50">
           <div className="flex flex-col gap-2 max-w-screen-md mx-auto">
             <Suspense fallback={null}>
               <Playlist />
