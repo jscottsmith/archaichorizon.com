@@ -8,6 +8,7 @@ import type { IADocument } from "@/app/types/ia";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ContentWrapper } from "./ContentWrapper";
+import { PageLoading } from "./PageLoading";
 
 // Error component
 export function CollectionError({ error }: { error: Error }) {
@@ -25,12 +26,7 @@ export function CollectionError({ error }: { error: Error }) {
 
 // Loading component
 export function CollectionLoading() {
-  return (
-    <div className="flex items-center justify-center p-8">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-      <span className="ml-2">Loading collection...</span>
-    </div>
-  );
+  return <PageLoading message="Loading collection..." />;
 }
 
 // Collection data component

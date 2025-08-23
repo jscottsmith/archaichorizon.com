@@ -11,17 +11,11 @@ import { ReleaseHeader } from "./ReleaseHeader";
 import { ReleaseBasicInfo } from "./ReleaseBasicInfo";
 import { ReleaseTracks } from "./ReleaseTracks";
 import { ReleaseDetails } from "./ReleaseDetails";
+import { PageLoading } from "../PageLoading";
 
 // Loading component
 export function ReleaseLoading() {
-  return (
-    <ContentWrapper>
-      <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-        <span className="ml-2">Loading release...</span>
-      </div>
-    </ContentWrapper>
-  );
+  return <PageLoading message="Loading release..." />;
 }
 
 // Error component
