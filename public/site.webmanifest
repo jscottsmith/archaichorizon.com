@@ -1,9 +1,9 @@
 {
   "name": "Archaic Horizon",
-  "short_name": "AH",
+  "short_name": "Archaic Horizon",
   "description": "Electronic music label and collection featuring experimental and ambient sounds",
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#0a0a0a",
   "theme_color": "#1a1a1a",
   "orientation": "portrait-primary",
