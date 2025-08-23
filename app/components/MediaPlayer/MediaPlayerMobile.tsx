@@ -38,7 +38,7 @@ export function MediaPlayerMobile({ className }: { className?: string }) {
         </div>
       </Card>
 
-      <MobilePopoverControls isOpen={isOpen} onClose={close} />
+      <MobilePopoverControls isOpen={isOpen} closePopover={close} />
     </>
   );
 }
