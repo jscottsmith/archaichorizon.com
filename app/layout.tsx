@@ -1,9 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import { SITE } from "./constants/site";
+import PWA from "./components/PWA";
+import InstallPrompt from "./components/InstallPrompt";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +36,19 @@ export const metadata: Metadata = {
   icons: SITE.icons,
   category: SITE.category,
   classification: SITE.category,
+  manifest: SITE.manifest,
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: SITE.name,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#1a1a1a",
 };
 
 export default function RootLayout({
@@ -48,6 +63,8 @@ export default function RootLayout({
       >
         <Providers>{children}</Providers>
         <Analytics />
+        <PWA />
+        <InstallPrompt />
       </body>
     </html>
   );

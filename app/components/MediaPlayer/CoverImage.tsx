@@ -20,6 +20,7 @@ export const CoverImage = React.memo(function CoverImage({
     <div className={cn("flex-shrink-0 w-16 h-16", className)}>
       {currentTrack?.images?.thumbnail || currentTrack?.images?.cover ? (
         <Image
+          priority
           src={currentTrack!.images.thumbnail || currentTrack!.images.cover!}
           alt={`${currentTrack!.title || "Track"} cover art`}
           width={size}
