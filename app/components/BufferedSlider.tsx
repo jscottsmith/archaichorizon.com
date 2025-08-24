@@ -3,6 +3,7 @@
 import React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
+import { THUMB_CLASS, TRACK_CLASS } from "./ui/slider";
 
 interface BufferedSliderProps {
   bufferedProgress: number;
@@ -26,7 +27,7 @@ export function BufferedSlider({
   return (
     <SliderPrimitive.Root
       className={cn(
-        "relative flex w-full touch-none select-none items-center cursor-pointer",
+        "relative flex w-full touch-none select-none items-center cursor-pointer group",
         className
       )}
       value={value}
@@ -35,16 +36,16 @@ export function BufferedSlider({
       step={step}
       disabled={disabled}
     >
-      <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-secondary">
+      <SliderPrimitive.Track className={TRACK_CLASS}>
         {/* Buffered progress background */}
         <div
-          className="absolute h-full bg-accent-foreground/30 transition-all duration-300 ease-out"
+          className="absolute h-full bg-gradient-to-r from-transparent to-accent-foreground/15 animate-pulse transition-all duration-300 ease-out"
           style={{ width: `${bufferedProgress * 100}%` }}
         />
         {/* Playback progress */}
         <SliderPrimitive.Range className="absolute h-full bg-primary" />
       </SliderPrimitive.Track>
-      <SliderPrimitive.Thumb className="block h-3 w-3 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" />
+      <SliderPrimitive.Thumb className={THUMB_CLASS} />
     </SliderPrimitive.Root>
   );
 }
