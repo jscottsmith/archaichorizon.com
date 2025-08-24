@@ -6,6 +6,7 @@ import { usePlaylist } from "../../stores/playlistStore";
 import { cn } from "@/lib/utils";
 import { CoverImage } from "./CoverImage";
 import { ArtistInfo } from "./ArtistInfo";
+import { buildReleaseRoute } from "../../utils/url";
 
 export const TrackInfo = React.memo(function TrackInfo({
   className,
@@ -18,7 +19,10 @@ export const TrackInfo = React.memo(function TrackInfo({
   return (
     <div className={cn("flex items-center gap-2 -ml-1.5 -mt-1.5", className)}>
       {currentTrack?.catNo ? (
-        <Link href={`/release/${currentTrack.catNo}`} className={linkClass}>
+        <Link
+          href={buildReleaseRoute(currentTrack.catNo)}
+          className={linkClass}
+        >
           <CoverImage />
           <ArtistInfo />
         </Link>

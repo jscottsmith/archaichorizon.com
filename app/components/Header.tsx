@@ -7,6 +7,7 @@ import Logo, { LogoAbbreviated } from "./Logo";
 import { Navigation } from "./Navigation";
 import { GalleryVerticalEnd } from "lucide-react";
 import { Button } from "./ui";
+import { ROUTES } from "../constants/routes";
 
 export default function Header() {
   const [isVisible, setIsVisible] = useState(true);
@@ -37,12 +38,15 @@ export default function Header() {
       <ThemeSwitcher />
       {/* Logo/Brand */}
       <div className="flex items-center">
-        <Link href="/" className="text-foreground/80 hover:text-foreground">
+        <Link
+          href={ROUTES.HOME}
+          className="text-foreground/80 hover:text-foreground"
+        >
           <LogoAbbreviated className="h-4 group" />
         </Link>
       </div>
       <Button asChild variant="ghost">
-        <Link href="/collection" className="flex items-center">
+        <Link href={ROUTES.COLLECTION} className="flex items-center">
           <GalleryVerticalEnd className="h-4 w-4" />
         </Link>
       </Button>

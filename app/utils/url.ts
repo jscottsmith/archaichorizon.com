@@ -18,3 +18,12 @@ export function replaceUrlParams(
 
   return result;
 }
+
+/**
+ * Construct a release route with normalized catalog number
+ * @param catNo - The catalog number
+ * @returns The release route path
+ */
+export function buildReleaseRoute(catNo: string): string {
+  return `/release/${catNo.toLowerCase()}`;
+}

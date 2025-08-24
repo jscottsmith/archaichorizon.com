@@ -4,6 +4,7 @@ import { Button } from "./components/ui";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { ROUTES } from "./constants/routes";
 
 export default function NotFound() {
   return (
@@ -31,10 +32,10 @@ export default function NotFound() {
               </p>
               <div className="flex flex-row gap-2 mt-4">
                 <Button size="sm" asChild>
-                  <Link href="/collection">Explore the Collection</Link>
+                  <Link href={ROUTES.COLLECTION}>Explore the Collection</Link>
                 </Button>
                 <Button size="sm" variant="secondary" asChild>
-                  <Link href="/">Go Home</Link>
+                  <Link href={ROUTES.HOME}>Go Home</Link>
                 </Button>
               </div>
             </article>

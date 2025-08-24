@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
 import { Button } from "./ui/button";
+import { ROUTES } from "@/app/constants/routes";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,14 +30,18 @@ export function Navigation() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
           <DropdownMenuItem asChild>
-            <Link href="/" className="flex items-center" onClick={closeMenu}>
+            <Link
+              href={ROUTES.HOME}
+              className="flex items-center"
+              onClick={closeMenu}
+            >
               <Home className="mr-2 h-4 w-4" />
               <span>Home</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link
-              href="/collection"
+              href={ROUTES.COLLECTION}
               className="flex items-center"
               onClick={closeMenu}
             >

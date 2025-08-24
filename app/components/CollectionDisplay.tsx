@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ContentWrapper } from "./ContentWrapper";
 import { PageLoading } from "./PageLoading";
+import { buildReleaseRoute } from "@/app/utils/url";
 
 // Error component
 export function CollectionError({ error }: { error: Error }) {
@@ -58,7 +59,7 @@ export function CollectionDisplay({
           <section className="grid grid-cols-1 gap-1">
             {collection.map((item) => (
               <Link
-                href={`/release/${item.cat_no?.toLowerCase()}`}
+                href={buildReleaseRoute(item.cat_no || "")}
                 key={item.identifier}
                 className="block transition-colors hover:bg-muted/50 rounded-lg p-1.5"
               >

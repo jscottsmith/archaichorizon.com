@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/app/components/ui/button";
+import { ROUTES } from "@/app/constants/routes";
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -75,7 +76,7 @@ export default function Error({ error, reset }: ErrorProps) {
             </Button>
 
             <Button variant="outline" asChild className="flex-1 sm:flex-none">
-              <Link href="/">Go Home</Link>
+              <Link href={ROUTES.HOME}>Go Home</Link>
             </Button>
           </div>
 
@@ -83,7 +84,10 @@ export default function Error({ error, reset }: ErrorProps) {
           <div className="mt-8 pt-6 border-t border-border">
             <p className="text-sm text-muted-foreground">
               Still having trouble?{" "}
-              <Link href="/collection" className="text-primary hover:underline">
+              <Link
+                href={ROUTES.COLLECTION}
+                className="text-primary hover:underline"
+              >
                 Browse our collection
               </Link>{" "}
               or{" "}

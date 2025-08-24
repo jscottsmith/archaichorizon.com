@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import { SITE } from "../constants/site";
 import { Button } from "./ui";
 import { ExternalLinkIcon } from "lucide-react";
+import { ROUTES } from "../constants/routes";
 
 export default function Footer() {
   return (
@@ -24,7 +25,7 @@ export default function Footer() {
         </p>
         <div className="text-center">
           <Button size="sm" asChild>
-            <Link href="/collection">Explore the Collection</Link>
+            <Link href={ROUTES.COLLECTION}>Explore the Collection</Link>
           </Button>
         </div>
       </div>
@@ -36,11 +37,11 @@ export default function Footer() {
           {/* Secondary links */}
           <div className="flex justify-center sm:gap-2 mb-8">
             <Button size="sm" asChild variant="ghost">
-              <Link href="/contact">Contact</Link>
+              <Link href={ROUTES.CONTACT}>Contact</Link>
             </Button>
             <Button size="sm" asChild variant="ghost">
               <Link
-                href="https://archive.org/details/archaichorizon"
+                href={ROUTES.EXTERNAL.ARCHIVE_ORG}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -50,7 +51,7 @@ export default function Footer() {
             </Button>
             <Button size="sm" asChild variant="ghost">
               <Link
-                href="https://soundcloud.com/archaichorizon"
+                href={ROUTES.EXTERNAL.SOUNDCLOUD}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -67,7 +68,7 @@ export default function Footer() {
           All design, music, and written content on Archaic Horizon is
           distributed under and protected by the Creative Commons{" "}
           <Link
-            href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+            href={ROUTES.EXTERNAL.CREATIVE_COMMONS}
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-foreground/80 transition-colors"

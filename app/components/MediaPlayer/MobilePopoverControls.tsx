@@ -18,6 +18,7 @@ import { VolumeControl } from "./VolumeControl";
 import { ArtistInfo } from "./ArtistInfo";
 import { CoverArtCarousel } from "../CoverArtCarousel";
 import { usePlaylist } from "@/app/stores/playlistStore";
+import { buildReleaseRoute } from "../../utils/url";
 
 interface MobilePopoverControlsProps {
   isOpen: boolean;
@@ -59,7 +60,7 @@ export function MobilePopoverControls({
           </div> */}
           {currentTrack?.catNo ? (
             <Link
-              href={`/release/${currentTrack.catNo}`}
+              href={buildReleaseRoute(currentTrack.catNo)}
               className="hover:bg-accent/50 transition-colors rounded-md p-1.5 -ml-1.5 -mt-1.5"
               onClick={closePopover}
             >
