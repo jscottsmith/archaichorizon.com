@@ -6,9 +6,6 @@ import { fetchRelease } from "@/app/services";
 import { Suspense } from "react";
 import { Metadata } from "next";
 
-// Force dynamic rendering to avoid build-time API calls
-export const dynamic = "force-dynamic";
-
 // Generate metadata for the page
 export async function generateMetadata({
   params,

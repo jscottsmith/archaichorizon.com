@@ -6,9 +6,6 @@ import { addThumbnailsToDocuments } from "@/app/utils/collection";
 // Use Node.js runtime instead of Edge Runtime
 // export const runtime = 'edge';
 
-// Force dynamic rendering (disable caching) - uncomment if you want fresh data every time
-// export const dynamic = 'force-dynamic';
-
 // Cache the entire route for 30 days
 export const revalidate = 2592000;
 
