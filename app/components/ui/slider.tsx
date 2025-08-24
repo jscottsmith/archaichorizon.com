@@ -4,7 +4,7 @@ import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
 
 export const TRACK_CLASS = cn(
-  "h-2 group-hover:scale-y-130 group-hover:scale-x-101 transition-all duration-300 ease-out",
+  "h-2 group-active:scale-y-150 group-active:scale-x-101 transition-all duration-300 ease-out",
   "relative w-full grow overflow-hidden rounded-full bg-secondary"
 );
 
