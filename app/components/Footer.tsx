@@ -33,8 +33,11 @@ export default function Footer() {
         <nav className="flex flex-col gap-4 md:flex-row">
           {/* Collection link */}
 
-          {/* External links */}
-          <div className="flex justify-center gap-6 mb-8">
+          {/* Secondary links */}
+          <div className="flex justify-center sm:gap-2 mb-8">
+            <Button size="sm" asChild variant="ghost">
+              <Link href="/contact">Contact</Link>
+            </Button>
             <Button size="sm" asChild variant="ghost">
               <Link
                 href="https://archive.org/details/archaichorizon"
