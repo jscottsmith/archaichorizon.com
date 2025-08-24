@@ -1,6 +1,8 @@
 import { MetadataRoute } from "next";
 import { getAllCatNos } from "./constants/releaseMap";
 import { SITE } from "./constants/site";
+import { ROUTES } from "./constants/routes";
+import { buildReleaseRoute } from "./utils/url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = SITE.url;
@@ -14,13 +16,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${baseUrl}/collection`,
+      url: `${baseUrl}${ROUTES.COLLECTION}`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/contact`,
+      url: `${baseUrl}${ROUTES.CONTACT}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.5,
@@ -29,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Dynamic release pages
   const releasePages = getAllCatNos().map((catNo) => ({
-    url: `${baseUrl}/release/${catNo}`,
+    url: `${baseUrl}${buildReleaseRoute(catNo)}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
