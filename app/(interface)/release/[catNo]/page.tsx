@@ -22,7 +22,7 @@ export async function generateMetadata({
     ? metadata.creator[0]
     : metadata.creator;
 
-  const title = `${artistName} - ${metadata.title} | Archaic Horizon`;
+  const title = `${artistName} - ${metadata.title}`;
   const description = metadata.description
     ? metadata.description.slice(0, 160) +
       (metadata.description.length > 160 ? "..." : "")
