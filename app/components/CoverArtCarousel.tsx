@@ -43,7 +43,7 @@ export function CoverArtCarousel({
           alt={images[0].alt}
           width={width}
           height={height}
-          className="rounded-md object-cover"
+          className="rounded-md object-cover w-full"
           onError={(e) => {
             e.currentTarget.style.display = "none";
           }}
@@ -53,6 +53,7 @@ export function CoverArtCarousel({
 
     return (
       <Carousel
+        className="w-full"
         opts={{
           align: "start",
           loop: true,
