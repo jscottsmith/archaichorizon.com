@@ -59,7 +59,10 @@ export const useAudio = create<AudioState>()(
             // If we were supposed to be playing, resume now that the track is ready
             const { isPlaying } = get();
             if (isPlaying) {
-              ref.play().catch(console.error);
+              ref.play().catch((error) => {
+                console.error("Failed to play audio in handleCanPlay:", error);
+                set({ isPlaying: false });
+              });
             }
           };
           const handleProgress = () => {
@@ -71,6 +74,11 @@ export const useAudio = create<AudioState>()(
             }
           };
 
+          const handleError = () => {
+            console.error("Audio element encountered an error");
+            set({ isPlaying: false, isLoading: false });
+          };
+
           ref.addEventListener("timeupdate", updateTime);
           ref.addEventListener("loadedmetadata", updateDuration);
           ref.addEventListener("play", handlePlay);
@@ -78,6 +86,7 @@ export const useAudio = create<AudioState>()(
           ref.addEventListener("loadstart", handleLoadStart);
           ref.addEventListener("canplay", handleCanPlay);
           ref.addEventListener("progress", handleProgress);
+          ref.addEventListener("error", handleError);
 
           // Store cleanup function for later use
           const cleanup = () => {
@@ -88,6 +97,7 @@ export const useAudio = create<AudioState>()(
             ref.removeEventListener("loadstart", handleLoadStart);
             ref.removeEventListener("canplay", handleCanPlay);
             ref.removeEventListener("progress", handleProgress);
+            ref.removeEventListener("error", handleError);
           };
 
           // Store cleanup function in the ref for later access
@@ -104,6 +114,8 @@ export const useAudio = create<AudioState>()(
           await audioRef.play();
         } catch (error) {
           console.error("Failed to play audio:", error);
+          // Reset isPlaying state when play fails
+          set({ isPlaying: false });
         }
       },
 
