@@ -109,7 +109,7 @@ export default function InstallPrompt() {
               </CardDescription>
             </div>
           </div>
-          <CardAction className="flex self-center gap-2 ml-4">
+          <CardAction className="flex self-center gap-2">
             <Button
               variant="outline"
               size="sm"
