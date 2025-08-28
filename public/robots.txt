@@ -5,6 +5,7 @@ Allow: /
 Sitemap: https://archaichorizon.com/sitemap.xml
 
 # Disallow admin or private areas (if any)
+Disallow: /api/
 
 # Allow important pages
 Allow: /collection
