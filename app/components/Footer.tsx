@@ -30,12 +30,12 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex flex-col w-full md:flex-row justify-between max-w-screen-lg mx-auto">
-        <nav className="flex flex-col gap-4 md:flex-row">
+      <div className="flex flex-col w-full lg:flex-row justify-between max-w-screen-lg mx-auto mt-24">
+        <nav className="flex flex-col lg:flex-row">
           {/* Collection link */}
 
           {/* Secondary links */}
-          <div className="flex justify-center sm:gap-2 mb-8">
+          <div className="flex flex-wrap justify-center sm:gap-2 mb-8 lg:shrink-0">
             <Button size="sm" asChild variant="ghost">
               <Link href={ROUTES.CONTACT}>Contact</Link>
             </Button>
@@ -59,14 +59,24 @@ export default function Footer() {
                 <ExternalLinkIcon className="w-3.5 h-3.5 inline-flex ml-1" />
               </Link>
             </Button>
+            <Button size="sm" asChild variant="ghost">
+              <Link
+                href={ROUTES.EXTERNAL.DISCOGS}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Discogs{" "}
+                <ExternalLinkIcon className="w-3.5 h-3.5 inline-flex ml-1" />
+              </Link>
+            </Button>
           </div>
         </nav>
 
         {/* Legal line */}
 
-        <p className="text-center md:text-right max-w-screen-sm text-foreground/60 text-xs text-balance">
-          All design, music, and written content on Archaic Horizon is
-          distributed under and protected by the Creative Commons{" "}
+        <p className="text-center lg:text-right max-w-lg mx-auto text-foreground/60 text-xs text-balance">
+          All design, music, and written content on Archaic Horizon is protected
+          by the Creative Commons{" "}
           <Link
             href={ROUTES.EXTERNAL.CREATIVE_COMMONS}
             target="_blank"
