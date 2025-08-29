@@ -73,9 +73,6 @@ export function CollectionDisplay({
                         width={72}
                         height={72}
                         className="h-full w-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.src = item.thumbnail || "";
-                        }}
                       />
                     )}
                   </div>
