@@ -99,6 +99,9 @@ export default function InstallPrompt() {
               width={56}
               height={56}
               className="mr-3 h-12 w-12 flex-shrink-0 rounded-lg md:h-14 md:w-14"
+              onError={(e) => {
+                e.currentTarget.src = "/icon-192x192.png";
+              }}
             />
             <div className="min-w-0 flex-1">
               <CardTitle className="truncate text-sm">

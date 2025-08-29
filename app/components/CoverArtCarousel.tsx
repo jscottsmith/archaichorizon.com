@@ -45,7 +45,7 @@ export function CoverArtCarousel({
           height={height}
           className="w-full rounded-md object-cover"
           onError={(e) => {
-            e.currentTarget.style.display = "none";
+            e.currentTarget.src = images[0].url;
           }}
         />
       );
@@ -69,6 +69,9 @@ export function CoverArtCarousel({
                   width={width}
                   height={height}
                   className="rounded-md object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = image.url;
+                  }}
                 />
               </CarouselItem>
             ))}
