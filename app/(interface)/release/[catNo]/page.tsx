@@ -6,6 +6,7 @@ import { fetchRelease } from "@/app/services";
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { SITE } from "@/app/constants/site";
+import { splitSubject } from "@/app/utils/subject";
 
 // Generate metadata for the page
 export async function generateMetadata({
@@ -32,6 +33,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    keywords: splitSubject(metadata.subject),
     openGraph: {
       title,
       description,
