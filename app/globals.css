@@ -76,6 +76,10 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  --gradient-radial-1: #ecc9b3;
+  --gradient-radial-2: #5fa9e6;
+  --gradient-radial-3: #4060d7;
 }
 
 .dark {
@@ -110,6 +114,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  --gradient-radial-1: #c5b297;
+  --gradient-radial-2: #524e75;
+  --gradient-radial-3: #211e2b;
 }
 
 @layer base {
@@ -130,11 +138,13 @@
   .bg-gradient-radial {
     background: radial-gradient(
       circle at center center,
-      #f2ebc7 0%,
-      #9dd1fc 50%,
-      #6d78a1
+      var(--gradient-radial-1) 0%,
+      var(--gradient-radial-2) 50%,
+      var(--gradient-radial-3)
     );
-    background-size: 200% 200%;
+    background-size: 300% 200%;
+    background-position-x: 50%;
+    background-position-y: 0%;
   }
 
   .markdown-content {

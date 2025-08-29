@@ -10,7 +10,7 @@ export function Background() {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden">
+    <div className="bg-gradient-radial fixed inset-0 -z-10 overflow-hidden">
       <div className="bg-background/50 absolute inset-0 z-10 saturate-200 backdrop-blur-3xl" />
       {currentTrack?.images?.cover && (
         <Image
@@ -19,7 +19,7 @@ export function Background() {
           width={16}
           height={16}
           className={cn(
-            "h-full w-full max-w-none object-cover transition-opacity duration-1000 ease-in-out",
+            "duration-3000 h-full w-full max-w-none object-cover transition-opacity ease-in-out",
             imageLoaded ? "opacity-100" : "opacity-0"
           )}
           priority
