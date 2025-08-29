@@ -5,6 +5,7 @@ import {
 import { fetchRelease } from "@/app/services";
 import { Suspense } from "react";
 import { Metadata } from "next";
+import { SITE } from "@/app/constants/site";
 
 // Generate metadata for the page
 export async function generateMetadata({
@@ -44,7 +45,7 @@ export async function generateMetadata({
           alt: `${artistName} - ${metadata.title}`,
         },
       ],
-      siteName: "Archaic Horizon",
+      siteName: SITE.name,
     },
     twitter: {
       card: "summary_large_image",
