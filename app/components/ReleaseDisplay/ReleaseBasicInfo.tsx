@@ -23,10 +23,10 @@ export function ReleaseBasicInfo({
   tracks,
 }: ReleaseBasicInfoProps) {
   return (
-    <div className="flex flex-col md:flex-row gap-6">
+    <div className="flex flex-col gap-6 md:flex-row">
       <CoverArtCarousel
         images={coverArtImages}
-        className="flex-shrink-0 max-w-[300px] mx-auto"
+        className="mx-auto max-w-[300px] flex-shrink-0"
       />
 
       {/* Basic Info */}

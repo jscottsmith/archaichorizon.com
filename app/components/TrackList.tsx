@@ -37,22 +37,22 @@ export function TrackList({
             key={index}
             variant={isCurrentTrack ? "default" : "ghost"}
             onClick={() => selectTrack(index)}
-            className={cn("w-full justify-start h-auto px-2 group")}
+            className={cn("group h-auto w-full justify-start px-2")}
             asChild
           >
-            <div className="flex items-center justify-between w-full min-w-0">
-              <div className="flex items-center space-x-3 min-w-0 flex-1">
-                <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
+            <div className="flex w-full min-w-0 items-center justify-between">
+              <div className="flex min-w-0 flex-1 items-center space-x-3">
+                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center">
                   {isPlaying ? (
                     <AudioLines
                       fill="currentColor"
-                      className="w-4 h-4 animate-pulse"
+                      className="h-4 w-4 animate-pulse"
                     />
                   ) : (
                     <Play
                       fill="currentColor"
                       className={cn(
-                        "w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity",
+                        "h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100",
                         isCurrentTrack && "opacity-100"
                       )}
                     />
@@ -60,23 +60,23 @@ export function TrackList({
                   <Badge
                     variant="outline"
                     className={cn(
-                      "font-mono text-xs justify-center absolute group-hover:opacity-0 transition-opacity",
+                      "absolute justify-center font-mono text-xs transition-opacity group-hover:opacity-0",
                       (isCurrentTrack || isPlaying) && "opacity-0"
                     )}
                   >
                     {track.track}
                   </Badge>
                 </div>
-                <div className="flex-1 text-left min-w-0">
-                  <div className="font-bold text-sm truncate">
+                <div className="min-w-0 flex-1 text-left">
+                  <div className="truncate text-sm font-bold">
                     {track.title}
                   </div>
                   {track.artist && (
-                    <div className="text-xs truncate">{track.artist}</div>
+                    <div className="truncate text-xs">{track.artist}</div>
                   )}
                 </div>
               </div>
-              <div className="flex items-center space-x-4 text-xs flex-shrink-0 ml-2">
+              <div className="ml-2 flex flex-shrink-0 items-center space-x-4 text-xs">
                 {track.album && (
                   <span className="hidden sm:inline">{track.album}</span>
                 )}

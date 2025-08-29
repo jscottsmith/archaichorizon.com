@@ -43,7 +43,7 @@ export function MobilePopoverControls({
     : [];
   return (
     <Drawer open={isOpen} onOpenChange={closePopover}>
-      <DrawerContent className={cn("max-h-[100vh] h-[90vh]", className)}>
+      <DrawerContent className={cn("h-[90vh] max-h-[100vh]", className)}>
         <DrawerHeader className="pb-2">
           <DrawerTitle className="sr-only">Player Controls</DrawerTitle>
           <DrawerDescription className="sr-only">
@@ -51,16 +51,16 @@ export function MobilePopoverControls({
             control, and track information
           </DrawerDescription>
         </DrawerHeader>
-        <div className="px-6 pb-6 flex flex-col md:flex-row md:items-center gap-8">
+        <div className="flex flex-col gap-8 px-6 pb-6 md:flex-row md:items-center">
           <CoverArtCarousel
-            className="max-w-3xs w-1/2 mx-auto md:mr-0"
+            className="max-w-3xs mx-auto w-1/2 md:mr-0"
             images={images}
           />
-          <div className="max-w-md w-full mx-auto flex flex-col gap-8 md:ml-0">
+          <div className="mx-auto flex w-full max-w-md flex-col gap-8 md:ml-0">
             {currentTrack?.catNo ? (
               <Link
                 href={buildReleaseRoute(currentTrack.catNo)}
-                className="hover:bg-accent/50 transition-colors rounded-md p-1.5 -ml-1.5 -mt-1.5"
+                className="hover:bg-accent/50 -ml-1.5 -mt-1.5 rounded-md p-1.5 transition-colors"
                 onClick={closePopover}
               >
                 <ArtistInfo />

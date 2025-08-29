@@ -30,7 +30,7 @@ export function CoverArtCarousel({
   function renderCoverArt() {
     if (!images || images.length === 0) {
       return (
-        <div className="bg-muted rounded-md flex aspect-square items-center justify-center">
+        <div className="bg-muted flex aspect-square items-center justify-center rounded-md">
           <span className="text-muted-foreground text-sm">No Cover Art</span>
         </div>
       );
@@ -43,7 +43,7 @@ export function CoverArtCarousel({
           alt={images[0].alt}
           width={width}
           height={height}
-          className="rounded-md object-cover w-full"
+          className="w-full rounded-md object-cover"
           onError={(e) => {
             e.currentTarget.style.display = "none";
           }}
@@ -59,7 +59,7 @@ export function CoverArtCarousel({
           loop: true,
         }}
       >
-        <div className="rounded-md overflow-hidden">
+        <div className="overflow-hidden rounded-md">
           <CarouselContent>
             {images.map((image) => (
               <CarouselItem key={image.url}>
@@ -80,7 +80,7 @@ export function CoverArtCarousel({
   }
 
   return (
-    <div className={cn("rounded-md overflow-hidden", className)}>
+    <div className={cn("overflow-hidden rounded-md", className)}>
       {renderCoverArt()}
     </div>
   );

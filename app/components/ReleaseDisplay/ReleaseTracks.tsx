@@ -22,7 +22,7 @@ export function ReleaseTracks({ tracks, catNo }: ReleaseTracksProps) {
     <div className="space-y-4">
       <Separator />
       <div>
-        <h3 className="font-semibold mb-2">Tracks</h3>
+        <h3 className="mb-2 font-semibold">Tracks</h3>
         <TrackList
           tracks={tracks}
           currentTrackIndex={isCurrentPlaylist ? currentTrackIndex : undefined}

@@ -89,27 +89,27 @@ export default function InstallPrompt() {
   if (!showInstallPrompt) return null;
 
   return (
-    <Card className="fixed bottom-2 left-2 right-2 md:bottom-auto md:top-4 md:left-4 md:right-4 z-50 p-0 max-w-md mx-auto md:ml-0">
+    <Card className="fixed bottom-2 left-2 right-2 z-50 mx-auto max-w-md p-0 md:bottom-auto md:left-4 md:right-4 md:top-4 md:ml-0">
       <CardContent className="p-2">
         <div className="flex items-center justify-between">
-          <div className="flex items-center flex-1 min-w-0">
+          <div className="flex min-w-0 flex-1 items-center">
             <Image
               src="/icon-192x192.png"
               alt="Archaic Horizon"
               width={56}
               height={56}
-              className="rounded-lg mr-3 w-12 h-12 md:w-14 md:h-14 flex-shrink-0"
+              className="mr-3 h-12 w-12 flex-shrink-0 rounded-lg md:h-14 md:w-14"
             />
             <div className="min-w-0 flex-1">
-              <CardTitle className="text-sm truncate">
+              <CardTitle className="truncate text-sm">
                 Install Archaic Horizon
               </CardTitle>
-              <CardDescription className="text-xs mt-1 truncate">
+              <CardDescription className="mt-1 truncate text-xs">
                 Add this app to your home screen
               </CardDescription>
             </div>
           </div>
-          <CardAction className="flex self-center gap-2">
+          <CardAction className="flex gap-2 self-center">
             <Button
               variant="outline"
               size="sm"
@@ -119,7 +119,7 @@ export default function InstallPrompt() {
               Dismiss
             </Button>
             <Button size="sm" onClick={handleInstallClick} className="text-xs">
-              <ArrowDownSquareIcon className="w-4 h-4 mr-1" />
+              <ArrowDownSquareIcon className="mr-1 h-4 w-4" />
               Install
             </Button>
           </CardAction>

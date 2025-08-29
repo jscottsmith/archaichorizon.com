@@ -14,8 +14,8 @@ export function ReleaseDescription({ description }: ReleaseDescriptionProps) {
     <div className="space-y-4">
       <Separator />
       <div>
-        <h3 className="font-semibold mb-2">Description</h3>
-        <div className="markdown-content max-w-none leading-relaxed text-sm">
+        <h3 className="mb-2 font-semibold">Description</h3>
+        <div className="markdown-content max-w-none text-sm leading-relaxed">
           <ReactMarkdown>{description}</ReactMarkdown>
         </div>
       </div>

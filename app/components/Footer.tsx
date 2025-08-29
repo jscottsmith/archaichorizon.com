@@ -7,18 +7,18 @@ import { ROUTES } from "../constants/routes";
 
 export default function Footer() {
   return (
-    <footer className="bg-background px-8 relative border-t pt-12 pb-8 rounded-t-xl md:rounded-none">
+    <footer className="bg-background relative rounded-t-xl border-t px-8 pb-8 pt-12 md:rounded-none">
       {/* Logo */}
-      <div className="flex justify-center flex-col items-center mb-8">
+      <div className="mb-8 flex flex-col items-center justify-center">
         <Logo className="h-32" />
-        <h1 className="tracking-[0.75em] text-xs uppercase -mt-4">
+        <h1 className="-mt-4 text-xs uppercase tracking-[0.75em]">
           {SITE.name}
         </h1>
       </div>
 
       {/* Main blurb */}
-      <div className="text-center mb-12">
-        <p className="text-foreground/80 text-sm text-balance max-w-2xl mx-auto mb-4 leading-relaxed">
+      <div className="mb-12 text-center">
+        <p className="text-foreground/80 mx-auto mb-4 max-w-2xl text-balance text-sm leading-relaxed">
           Archaic Horizon was an electronic music net label active from 2006 to
           2016. All music is provided for free and hosted by the Internet
           Archive.
@@ -30,12 +30,12 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex flex-col w-full lg:flex-row justify-between max-w-screen-lg mx-auto mt-24">
+      <div className="mx-auto mt-24 flex w-full max-w-screen-lg flex-col justify-between lg:flex-row">
         <nav className="flex flex-col lg:flex-row">
           {/* Collection link */}
 
           {/* Secondary links */}
-          <div className="flex flex-wrap justify-center sm:gap-2 mb-8 lg:shrink-0">
+          <div className="mb-8 flex flex-wrap justify-center sm:gap-2 lg:shrink-0">
             <Button size="sm" asChild variant="ghost">
               <Link href={ROUTES.CONTACT}>Contact</Link>
             </Button>
@@ -46,7 +46,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
               >
                 Internet Archive{" "}
-                <ExternalLinkIcon className="w-3.5 h-3.5 inline-flex ml-1" />
+                <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
               </Link>
             </Button>
             <Button size="sm" asChild variant="ghost">
@@ -56,7 +56,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
               >
                 SoundCloud{" "}
-                <ExternalLinkIcon className="w-3.5 h-3.5 inline-flex ml-1" />
+                <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
               </Link>
             </Button>
             <Button size="sm" asChild variant="ghost">
@@ -66,7 +66,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
               >
                 Discogs{" "}
-                <ExternalLinkIcon className="w-3.5 h-3.5 inline-flex ml-1" />
+                <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
               </Link>
             </Button>
           </div>
@@ -74,14 +74,14 @@ export default function Footer() {
 
         {/* Legal line */}
 
-        <p className="text-center lg:text-right max-w-lg mx-auto text-foreground/60 text-xs text-balance">
+        <p className="text-foreground/60 mx-auto max-w-lg text-balance text-center text-xs lg:text-right">
           All design, music, and written content on Archaic Horizon is protected
           by the Creative Commons{" "}
           <Link
             href={ROUTES.EXTERNAL.CREATIVE_COMMONS}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-foreground/80 transition-colors"
+            className="hover:text-foreground/80 underline transition-colors"
           >
             CC BY-NC-ND 4.0
           </Link>{" "}

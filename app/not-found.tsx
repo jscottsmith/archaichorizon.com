@@ -9,7 +9,7 @@ import { ROUTES } from "./constants/routes";
 export default function NotFound() {
   return (
     <>
-      <div className="w-full min-h-screen flex flex-col gap-4 justify-between items-center p-4 relative bg-gradient-radial">
+      <div className="bg-gradient-radial relative flex min-h-screen w-full flex-col items-center justify-between gap-4 p-4">
         <Header />
         {/* <div className="flex flex-col justify-self-start items-center justify-center">
           <Link href="/">
@@ -30,7 +30,7 @@ export default function NotFound() {
                 However while you&apos;re here feel free to browse around and
                 have a listen to some of the music we released.
               </p>
-              <div className="flex flex-row gap-2 mt-4">
+              <div className="mt-4 flex flex-row gap-2">
                 <Button size="sm" asChild>
                   <Link href={ROUTES.COLLECTION}>Explore the Collection</Link>
                 </Button>

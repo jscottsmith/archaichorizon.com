@@ -16,7 +16,7 @@ export function CollectionError({ error }: { error: Error }) {
   return (
     <div className="flex items-center justify-center p-8">
       <div className="text-center">
-        <h2 className="text-lg font-semibold text-red-800 mb-2">
+        <h2 className="mb-2 text-lg font-semibold text-red-800">
           Error Loading Collection
         </h2>
         <p className="text-red-600">{error.message}</p>
@@ -61,25 +61,25 @@ export function CollectionDisplay({
               <Link
                 href={buildReleaseRoute(item.cat_no || "")}
                 key={item.identifier}
-                className="block transition-colors hover:bg-muted/50 rounded-lg p-1.5"
+                className="hover:bg-muted/50 block rounded-lg p-1.5 transition-colors"
               >
                 <div className="flex gap-2">
                   {/* Thumbnail */}
-                  <div className="w-18 h-18 rounded-sm aspect-square overflow-hidden flex-shrink-0">
+                  <div className="w-18 h-18 aspect-square flex-shrink-0 overflow-hidden rounded-sm">
                     {item.thumbnail && (
                       <Image
                         src={item.thumbnail}
                         alt={item.title || "Album cover"}
                         width={72}
                         height={72}
-                        className="w-full h-full object-cover"
+                        className="h-full w-full object-cover"
                       />
                     )}
                   </div>
 
-                  <div className="flex flex-col justify-center min-w-0 flex-1">
+                  <div className="flex min-w-0 flex-1 flex-col justify-center">
                     {/* Title */}
-                    <h3 className="text-base font-semibold leading-tight mb-2">
+                    <h3 className="mb-2 text-base font-semibold leading-tight">
                       <span>
                         {Array.isArray(item.creator)
                           ? item.creator.join(", ")
@@ -90,14 +90,14 @@ export function CollectionDisplay({
                     </h3>
 
                     {/* Catalog Number / Date */}
-                    <div className="flex items-center gap-2 flex-wrap">
+                    <div className="flex flex-wrap items-center gap-2">
                       {item.cat_no && (
                         <Badge variant="outline" className="text-xs">
                           {item.cat_no}
                         </Badge>
                       )}
                       {item.date && (
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-muted-foreground text-sm">
                           Released on {formatDate(item.date)}
                         </span>
                       )}

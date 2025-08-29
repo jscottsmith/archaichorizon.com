@@ -7,9 +7,9 @@ interface PageLoadingProps {
 
 export function PageLoading({ message = "Loading..." }: PageLoadingProps) {
   return (
-    <ContentWrapper className="min-h-screen flex items-center justify-center">
+    <ContentWrapper className="flex min-h-screen items-center justify-center">
       <div className="flex items-center gap-2">
-        <Loader2 className="h-4 w-4 inline-flex animate-spin" />
+        <Loader2 className="inline-flex h-4 w-4 animate-spin" />
         <p className="ml-2">{message}</p>
       </div>
     </ContentWrapper>

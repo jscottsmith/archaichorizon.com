@@ -17,7 +17,7 @@ export const TrackInfo = React.memo(function TrackInfo({
   const linkClass =
     "flex items-center gap-2 hover:bg-accent/50 transition-colors rounded-md p-1.5";
   return (
-    <div className={cn("flex items-center gap-2 -ml-1.5 -mt-1.5", className)}>
+    <div className={cn("-ml-1.5 -mt-1.5 flex items-center gap-2", className)}>
       {currentTrack?.catNo ? (
         <Link
           href={buildReleaseRoute(currentTrack.catNo)}

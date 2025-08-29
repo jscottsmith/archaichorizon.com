@@ -27,7 +27,7 @@ export function BufferedSlider({
   return (
     <SliderPrimitive.Root
       className={cn(
-        "relative flex w-full touch-none select-none items-center cursor-pointer group",
+        "group relative flex w-full cursor-pointer touch-none select-none items-center",
         className
       )}
       value={value}
@@ -39,11 +39,11 @@ export function BufferedSlider({
       <SliderPrimitive.Track className={TRACK_CLASS}>
         {/* Buffered progress background */}
         <div
-          className="absolute h-full bg-gradient-to-r from-transparent to-accent-foreground/15 animate-pulse transition-all duration-300 ease-out"
+          className="to-accent-foreground/15 absolute h-full animate-pulse bg-gradient-to-r from-transparent transition-all duration-300 ease-out"
           style={{ width: `${bufferedProgress * 100}%` }}
         />
         {/* Playback progress */}
-        <SliderPrimitive.Range className="absolute h-full bg-primary" />
+        <SliderPrimitive.Range className="bg-primary absolute h-full" />
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb className={THUMB_CLASS} />
     </SliderPrimitive.Root>

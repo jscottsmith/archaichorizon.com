@@ -15,8 +15,8 @@ export function ReleaseDetails({ subject, licenseUrl }: ReleaseDetailsProps) {
     <div className="space-y-4">
       <Separator />
       <div>
-        <h3 className="font-semibold mb-4">Details</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <h3 className="mb-4 font-semibold">Details</h3>
+        <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-2">
           {subject && (
             <div className="md:col-span-1">
               <span className="font-medium">Tags:</span>
@@ -29,9 +29,9 @@ export function ReleaseDetails({ subject, licenseUrl }: ReleaseDetailsProps) {
               </div>
             </div>
           )}
-          <div className="md:col-span-1 self-end">
+          <div className="self-end md:col-span-1">
             <span className="font-medium">License:</span>
-            <Button variant="link" className="ml-2 p-0 h-auto" asChild>
+            <Button variant="link" className="ml-2 h-auto p-0" asChild>
               <a href={licenseUrl} target="_blank" rel="noopener noreferrer">
                 View License
               </a>

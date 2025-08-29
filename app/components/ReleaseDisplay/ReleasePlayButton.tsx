@@ -40,7 +40,7 @@ export function ReleasePlayButton({ catNo, tracks }: ReleasePlayButtonProps) {
   return (
     <Button
       onClick={handlePlayClick}
-      className="w-full md:w-auto self-end min-w-36"
+      className="w-full min-w-36 self-end md:w-auto"
     >
       {isCurrentlyPlaying ? (
         <>

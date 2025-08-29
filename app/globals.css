@@ -146,7 +146,7 @@
   .markdown-content h4,
   .markdown-content h5,
   .markdown-content h6 {
-    @apply text-foreground font-semibold mb-2;
+    @apply text-foreground mb-2 font-semibold;
   }
   .markdown-content h1 {
     @apply text-xl;
@@ -170,13 +170,13 @@
     @apply text-foreground/70 italic;
   }
   .markdown-content code {
-    @apply bg-muted text-foreground px-1 py-0.5 rounded text-sm font-mono;
+    @apply bg-muted text-foreground rounded px-1 py-0.5 font-mono text-sm;
   }
   .markdown-content pre {
-    @apply bg-muted text-foreground p-3 rounded-lg overflow-x-auto mb-3;
+    @apply bg-muted text-foreground mb-3 overflow-x-auto rounded-lg p-3;
   }
   .markdown-content blockquote {
-    @apply border-l-4 border-muted-foreground/30 pl-4 italic text-foreground/70 mb-3;
+    @apply border-muted-foreground/30 text-foreground/70 mb-3 border-l-4 pl-4 italic;
   }
   .markdown-content ul,
   .markdown-content ol {

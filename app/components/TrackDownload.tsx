@@ -35,11 +35,11 @@ export function TrackDownload({ track }: TrackDownloadProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="hidden md:flex h-6 w-6 transition-opacity"
+          className="hidden h-6 w-6 transition-opacity md:flex"
           onClick={(e) => e.stopPropagation()}
           aria-label={`Download ${track.title}`}
         >
-          <Download className="w-3 h-3" />
+          <Download className="h-3 w-3" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

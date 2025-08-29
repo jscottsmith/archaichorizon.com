@@ -17,7 +17,7 @@ export const CoverImage = React.memo(function CoverImage({
 
   return (
     // width/height must be set to match the size prop
-    <div className={cn("flex-shrink-0 w-16 h-16", className)}>
+    <div className={cn("h-16 w-16 flex-shrink-0", className)}>
       {currentTrack?.images?.thumbnail || currentTrack?.images?.cover ? (
         <Image
           priority
@@ -33,10 +33,10 @@ export const CoverImage = React.memo(function CoverImage({
       ) : (
         <div
           className={cn(
-            "flex-shrink-0 w-full aspect-square bg-muted rounded-sm flex items-center justify-center"
+            "bg-muted flex aspect-square w-full flex-shrink-0 items-center justify-center rounded-sm"
           )}
         >
-          <span className="text-muted-foreground text-xs text-center">
+          <span className="text-muted-foreground text-center text-xs">
             <ImageOff size={16} />
           </span>
         </div>

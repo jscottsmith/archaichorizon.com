@@ -24,7 +24,7 @@ export function ReleaseError({ error }: { error: Error }) {
     <ContentWrapper>
       <Card className="border-red-200 bg-red-50">
         <CardContent className="p-6">
-          <h2 className="text-xl font-semibold text-red-800 mb-2">
+          <h2 className="mb-2 text-xl font-semibold text-red-800">
             Error Loading Release
           </h2>
           <p className="text-red-600">{error.message}</p>

@@ -17,13 +17,13 @@ export default function Error({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="max-w-md mx-auto text-center px-6">
+    <div className="bg-background flex min-h-screen items-center justify-center">
+      <div className="mx-auto max-w-md px-6 text-center">
         {/* Error Icon */}
         <div className="mb-8">
-          <div className="mx-auto w-16 h-16 bg-destructive/10 rounded-full flex items-center justify-center">
+          <div className="bg-destructive/10 mx-auto flex h-16 w-16 items-center justify-center rounded-full">
             <svg
-              className="w-8 h-8 text-destructive"
+              className="text-destructive h-8 w-8"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -41,7 +41,7 @@ export default function Error({ error, reset }: ErrorProps) {
 
         {/* Error Content */}
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold text-foreground">
+          <h1 className="text-foreground text-3xl font-bold">
             Something went wrong
           </h1>
 
@@ -53,15 +53,15 @@ export default function Error({ error, reset }: ErrorProps) {
           {/* Error Details (Development Only) */}
           {process.env.NODE_ENV === "development" && (
             <details className="mt-6 text-left">
-              <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
+              <summary className="text-muted-foreground hover:text-foreground cursor-pointer text-sm">
                 Error Details
               </summary>
-              <div className="mt-2 p-4 bg-muted rounded-md">
-                <p className="text-sm font-mono text-destructive break-all">
+              <div className="bg-muted mt-2 rounded-md p-4">
+                <p className="text-destructive break-all font-mono text-sm">
                   {error.message}
                 </p>
                 {error.digest && (
-                  <p className="text-xs text-muted-foreground mt-2">
+                  <p className="text-muted-foreground mt-2 text-xs">
                     Error ID: {error.digest}
                   </p>
                 )}
@@ -70,7 +70,7 @@ export default function Error({ error, reset }: ErrorProps) {
           )}
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Button onClick={reset} className="flex-1 sm:flex-none">
               Try Again
             </Button>
@@ -81,8 +81,8 @@ export default function Error({ error, reset }: ErrorProps) {
           </div>
 
           {/* Additional Help */}
-          <div className="mt-8 pt-6 border-t border-border">
-            <p className="text-sm text-muted-foreground">
+          <div className="border-border mt-8 border-t pt-6">
+            <p className="text-muted-foreground text-sm">
               Still having trouble?{" "}
               <Link
                 href={ROUTES.COLLECTION}

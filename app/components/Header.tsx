@@ -31,7 +31,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 flex px-4 h-20 justify-between items-center transition-transform duration-300 ease-in-out ${
+      className={`fixed left-0 right-0 top-0 z-50 flex h-20 items-center justify-between px-4 transition-transform duration-300 ease-in-out ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -42,7 +42,7 @@ export default function Header() {
           href={ROUTES.HOME}
           className="text-foreground/80 hover:text-foreground"
         >
-          <LogoAbbreviated className="h-4 group" />
+          <LogoAbbreviated className="group h-4" />
         </Link>
       </div>
       <Button asChild variant="ghost">

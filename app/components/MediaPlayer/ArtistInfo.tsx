@@ -24,24 +24,24 @@ export const ArtistInfo = React.memo(function ArtistInfo({
   }
 
   return (
-    <div className={cn("flex-1 text-left min-w-0", className)}>
+    <div className={cn("min-w-0 flex-1 text-left", className)}>
       {currentTrack?.title && (
-        <h3 className="font-semibold text-sm flex whitespace-nowrap gap-2 items-center min-w-0">
+        <h3 className="flex min-w-0 items-center gap-2 whitespace-nowrap text-sm font-semibold">
           <span className="truncate">{currentTrack.title}</span>
           {!hideTrackNumbers && (
-            <span className="text-xs text-muted-foreground flex-shrink-0">
+            <span className="text-muted-foreground flex-shrink-0 text-xs">
               {currentTrackIndex + 1} of {totalTracks}
             </span>
           )}
         </h3>
       )}
       {currentTrack?.artist && !hideArtist && (
-        <p className="text-sm text-muted-foreground truncate">
+        <p className="text-muted-foreground truncate text-sm">
           {currentTrack.artist}
         </p>
       )}
       {currentTrack?.album && !hideAlbum && (
-        <p className="text-xs text-muted-foreground truncate">
+        <p className="text-muted-foreground truncate text-xs">
           {currentTrack.album}
         </p>
       )}

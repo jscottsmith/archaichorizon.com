@@ -13,14 +13,14 @@ export default function Interface(props: { children: React.ReactNode }) {
       <Background />
       <Header />
 
-      <main className="min-h-screen mb-4">
+      <main className="mb-4 min-h-screen">
         {props.children}
-        <div className="sticky bottom-[calc(env(safe-area-inset-bottom)_+_0.5rem)] mx-2 left-0 right-0 z-50">
-          <div className="flex flex-col gap-2 max-w-screen-md mx-auto">
+        <div className="sticky bottom-[calc(env(safe-area-inset-bottom)_+_0.5rem)] left-0 right-0 z-50 mx-2">
+          <div className="mx-auto flex max-w-screen-md flex-col gap-2">
             <Suspense fallback={null}>
               <Playlist />
             </Suspense>
-            <MediaPlayer className="md:block hidden" />
+            <MediaPlayer className="hidden md:block" />
             <MediaPlayerMobile className="md:hidden" />
           </div>
         </div>

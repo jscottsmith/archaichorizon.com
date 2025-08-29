@@ -20,13 +20,13 @@ const Slider = React.forwardRef<
   <SliderPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex w-full touch-none select-none items-center cursor-pointer group",
+      "group relative flex w-full cursor-pointer touch-none select-none items-center",
       className
     )}
     {...props}
   >
     <SliderPrimitive.Track className={TRACK_CLASS}>
-      <SliderPrimitive.Range className="absolute h-full bg-primary" />
+      <SliderPrimitive.Range className="bg-primary absolute h-full" />
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb className={THUMB_CLASS} />
   </SliderPrimitive.Root>
