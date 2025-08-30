@@ -16,7 +16,8 @@ export function replaceUrlParams(
     result = result.replace(regex, String(value));
   });
 
-  return result;
+  // Encode the result to handle special characters
+  return encodeURI(result);
 }
 
 /**
