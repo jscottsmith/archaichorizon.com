@@ -73,6 +73,8 @@ export function ReleaseDisplay({
             coverArtImages={coverArtImages}
             catNo={catNo}
             tracks={tracks}
+            files={release.data.files}
+            identifier={metadata.identifier}
           />
 
           {/* Track List */}
