@@ -29,7 +29,12 @@ export function TrackList({
   // Group tracks by album
   const tracksByAlbum = tracks.reduce(
     (acc, track, index) => {
-      const albumName = track.album || "Unknown Album";
+      const albumName = track.album;
+
+      if (!albumName) {
+        return acc;
+      }
+
       if (!acc[albumName]) {
         acc[albumName] = [];
       }
