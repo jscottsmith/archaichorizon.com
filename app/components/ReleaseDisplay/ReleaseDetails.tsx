@@ -1,5 +1,3 @@
-"use client";
-
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
@@ -7,7 +5,7 @@ import { splitSubject } from "../../utils/subject";
 
 interface ReleaseDetailsProps {
   subject?: string;
-  licenseUrl: string;
+  licenseUrl?: string;
 }
 
 export function ReleaseDetails({ subject, licenseUrl }: ReleaseDetailsProps) {
