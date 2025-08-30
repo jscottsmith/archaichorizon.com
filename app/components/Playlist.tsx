@@ -72,7 +72,7 @@ export function Playlist(props: { className?: string }) {
 
   return (
     <div ref={playlistRef} className={props.className}>
-      <Card className="py-2">
+      <Card className="max-h-[calc(100vh-12rem)] overflow-y-auto py-2">
         <CardContent className="px-2">
           <TrackList
             tracks={playlistTracks}
