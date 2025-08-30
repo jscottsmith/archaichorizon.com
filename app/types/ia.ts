@@ -128,7 +128,7 @@ export interface IAMetadata {
   date: string;
   year: string;
   subject: string;
-  licenseurl: string;
+  licenseurl?: string;
   publicdate: string;
   addeddate: string;
   uploader: string;

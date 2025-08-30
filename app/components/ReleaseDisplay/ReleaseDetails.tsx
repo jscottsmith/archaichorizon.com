@@ -29,14 +29,16 @@ export function ReleaseDetails({ subject, licenseUrl }: ReleaseDetailsProps) {
               </div>
             </div>
           )}
-          <div className="self-end md:col-span-1">
-            <span className="font-medium">License:</span>
-            <Button variant="link" className="ml-2 h-auto p-0" asChild>
-              <a href={licenseUrl} target="_blank" rel="noopener noreferrer">
-                View License
-              </a>
-            </Button>
-          </div>
+          {licenseUrl && (
+            <div className="self-end md:col-span-1">
+              <span className="font-medium">License:</span>
+              <Button variant="link" className="ml-2 h-auto p-0" asChild>
+                <a href={licenseUrl} target="_blank" rel="noopener noreferrer">
+                  View License
+                </a>
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
