@@ -147,30 +147,6 @@ export function getReleaseZip(files: IAFile[]): IAFile[] {
 }
 
 /**
- * Get clean filename for ZIP downloads by removing catalog number and .zip extension
- * @param filename - Original ZIP filename (e.g., "AH001_Artist_Album.zip")
- * @param catNo - Catalog number to remove from filename
- * @returns Clean filename without catalog number and extension
- */
-export function getCleanZipFilename(filename: string, catNo: string): string {
-  // Remove .zip extension
-  let cleanName = filename.replace(/\.zip$/i, "");
-
-  // If the filename matches the catNo exactly, return "MP3"
-  if (cleanName.toUpperCase() === catNo.toUpperCase()) {
-    return "MP3";
-  }
-
-  // Remove catalog number prefix (e.g., "AH001_")
-  const catNoPrefix = `${catNo.toUpperCase()}_`;
-  if (cleanName.startsWith(catNoPrefix)) {
-    cleanName = cleanName.substring(catNoPrefix.length);
-  }
-
-  return cleanName;
-}
-
-/**
  * Add URL to IAFile objects for cover art
  * @param files - Array of IAFile objects
  * @param identifier - Internet Archive identifier

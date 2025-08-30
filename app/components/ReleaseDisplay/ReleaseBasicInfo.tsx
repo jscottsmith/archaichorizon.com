@@ -3,10 +3,7 @@
 import { CoverArtCarousel } from "../CoverArtCarousel";
 import { formatDate } from "../../utils/date";
 import { ReleasePlayButton } from "./ReleasePlayButton";
-import { ReleaseDownloadButton } from "./ReleaseDownloadButton";
-import { getReleaseZip, getCleanZipFilename } from "../../utils/files";
-import { replaceUrlParams } from "../../utils/url";
-import { IA } from "../../constants/ia";
+import { ReleaseDownloadDropdown } from "./ReleaseDownloadDropdown";
 import type { Track } from "../../utils/tracks";
 import type { IAFile } from "../../types/ia";
 
@@ -55,18 +52,9 @@ export function ReleaseBasicInfo({
           )}
         </div>
 
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
           <ReleasePlayButton catNo={catNo} tracks={tracks} />
-          {getReleaseZip(files).map((zipFile) => (
-            <ReleaseDownloadButton
-              key={zipFile.name}
-              url={replaceUrlParams(IA.serve.url, {
-                identifier,
-                filename: zipFile.name,
-              })}
-              filename={getCleanZipFilename(zipFile.name, catNo)}
-            />
-          ))}
+          <ReleaseDownloadDropdown files={files} identifier={identifier} />
         </div>
       </div>
     </div>
