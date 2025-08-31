@@ -38,15 +38,13 @@ export function ReleaseBasicInfo({
       {/* Basic Info */}
       <div className="flex-1 content-center space-y-4">
         <div className="flex-1 space-y-2">
-          <h2 className="text-2xl font-semibold">
-            <span>{creator}</span>
-            <span> - </span>
-            <span>{title}</span>
-          </h2>
-
+          <div>
+            <h2 className="text-balance text-xl">{creator}</h2>
+            <h3 className="text-balance text-4xl font-light">{title}</h3>
+          </div>
           {date && (
-            <p>
-              <span className="font-medium">Released on: </span>
+            <p className="text-muted-foreground text-sm">
+              <span className="font-semibold">Released on: </span>
               <span>{formatDate(date)}</span>
             </p>
           )}
