@@ -80,7 +80,13 @@ export function CoverArtCarousel({
   }
 
   return (
-    <div className={cn("overflow-hidden rounded-md", className)}>
+    <div
+      className={cn(
+        "bg-muted/50 aspect-square overflow-hidden rounded-md",
+        className
+      )}
+      style={{ width, height }}
+    >
       {renderCoverArt()}
     </div>
   );
