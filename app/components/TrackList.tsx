@@ -55,14 +55,9 @@ export function TrackList({
 
         return (
           <div key={albumName} className="space-y-2">
-            {/* Album header - only show if multiple albums */}
-            {hasMultipleAlbums && (
-              <div className="px-2 py-1">
-                <h3 className="text-muted-foreground text-sm font-semibold">
-                  {albumName}
-                </h3>
-              </div>
-            )}
+            <div className="px-2 py-1">
+              <h3 className="text-muted-foreground text-sm">{albumName}</h3>
+            </div>
 
             {/* Tracks for this album */}
             {albumTracks.map((track, j) => {
