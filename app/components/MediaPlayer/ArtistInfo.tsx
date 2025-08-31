@@ -24,10 +24,15 @@ export const ArtistInfo = React.memo(function ArtistInfo({
   }
 
   return (
-    <div className={cn("min-w-0 flex-1 text-left", className)}>
+    <div
+      className={cn(
+        "min-w-0 flex-1 overflow-hidden text-left text-xs",
+        className
+      )}
+    >
       {currentTrack?.title && (
-        <h3 className="flex min-w-0 items-center gap-2 whitespace-nowrap text-sm font-semibold">
-          <span className="truncate">{currentTrack.title}</span>
+        <h3 className="flex min-w-0 items-center gap-2 overflow-hidden text-sm font-semibold">
+          <span className="min-w-0 truncate">{currentTrack.title}</span>
           {!hideTrackNumbers && (
             <span className="text-muted-foreground flex-shrink-0 text-xs">
               {currentTrackIndex + 1} of {totalTracks}
@@ -36,12 +41,12 @@ export const ArtistInfo = React.memo(function ArtistInfo({
         </h3>
       )}
       {currentTrack?.artist && !hideArtist && (
-        <p className="text-muted-foreground truncate text-sm">
+        <p className="text-muted-foreground min-w-0 truncate">
           {currentTrack.artist}
         </p>
       )}
       {currentTrack?.album && !hideAlbum && (
-        <p className="text-muted-foreground truncate text-xs">
+        <p className="text-muted-foreground min-w-0 truncate">
           {currentTrack.album}
         </p>
       )}

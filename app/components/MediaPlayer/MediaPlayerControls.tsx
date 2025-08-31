@@ -8,12 +8,12 @@ import { PlaylistToggle } from "./PlaylistToggle";
 
 export const MediaPlayerControls = React.memo(function MediaPlayerControls() {
   return (
-    <div className="grid grid-cols-2 items-center justify-between sm:grid-cols-3">
-      <TrackInfo className="col-span-1" />
+    <div className="grid grid-cols-12 items-center justify-between">
+      <TrackInfo className="col-span-5" />
 
-      <MainControls className="col-span-1 justify-end sm:justify-center" />
+      <MainControls className="col-span-2 justify-center" />
 
-      <div className="col-span-3 flex items-center justify-between gap-2 sm:col-span-1 sm:justify-end">
+      <div className="col-span-5 flex items-center justify-end gap-2">
         <VolumeControl />
         <PlaylistToggle />
       </div>
