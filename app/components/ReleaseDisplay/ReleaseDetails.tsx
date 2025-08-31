@@ -1,4 +1,3 @@
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import { splitSubject } from "../../utils/subject";
@@ -11,7 +10,6 @@ interface ReleaseDetailsProps {
 export function ReleaseDetails({ subject, licenseUrl }: ReleaseDetailsProps) {
   return (
     <div className="space-y-4">
-      <Separator />
       <div>
         <h3 className="mb-4 font-semibold">Details</h3>
         <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-2">

@@ -12,6 +12,7 @@ import { ReleaseBasicInfo } from "./ReleaseBasicInfo";
 import { ReleaseTracks } from "./ReleaseTracks";
 import { ReleaseDetails } from "./ReleaseDetails";
 import { PageLoading } from "../PageLoading";
+import { Separator } from "@/components/ui/separator";
 
 // Loading component
 export function ReleaseLoading() {
@@ -62,9 +63,10 @@ export function ReleaseDisplay({
 
   return (
     <ContentWrapper>
-      <Card className="pt-3">
+      <Card className="gap-2 pt-3">
         <ReleaseHeader catNo={catNo} />
         <CardContent className="space-y-6 px-3 md:px-6">
+          <Separator />
           {/* Cover Art and Basic Info */}
           <ReleaseBasicInfo
             title={metadata.title}
@@ -76,13 +78,13 @@ export function ReleaseDisplay({
             files={release.data.files}
             identifier={metadata.identifier}
           />
-
+          <Separator />
           {/* Track List */}
           <ReleaseTracks tracks={tracks} catNo={catNo} />
-
+          <Separator />
           {/* Description */}
           <ReleaseDescription description={metadata.description} />
-
+          <Separator />
           {/* Additional metadata */}
           <ReleaseDetails
             subject={metadata.subject}

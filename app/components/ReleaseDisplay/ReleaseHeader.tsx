@@ -3,7 +3,6 @@
 import { Button } from "@/app/components/ui/button";
 import { CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, X } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/app/constants/routes";
@@ -32,7 +31,6 @@ export function ReleaseHeader({ catNo }: ReleaseHeaderProps) {
           </Link>
         </Button>
       </div>
-      <Separator />
     </CardHeader>
   );
 }

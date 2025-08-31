@@ -1,6 +1,5 @@
 "use client";
 
-import { Separator } from "@/components/ui/separator";
 import { TrackList } from "../TrackList";
 import { usePlaylist } from "../../stores/playlistStore";
 import type { Track } from "../../utils/tracks";
@@ -20,7 +19,6 @@ export function ReleaseTracks({ tracks, catNo }: ReleaseTracksProps) {
 
   return (
     <div className="space-y-4">
-      <Separator />
       <div>
         <h3 className="mb-2 font-semibold">Tracks</h3>
         <TrackList
