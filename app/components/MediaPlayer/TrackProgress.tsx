@@ -4,6 +4,7 @@ import React from "react";
 import { useAudio } from "../../stores/audioStore";
 import { cn } from "@/lib/utils";
 import { BufferedSlider } from "../BufferedSlider";
+import { AudioTrackCurrentTime, AudioTrackDuration } from "./LabeledElements";
 
 export const TrackProgress = React.memo(function TrackProgress({
   className,
@@ -41,8 +42,10 @@ export const TrackProgress = React.memo(function TrackProgress({
         className="w-full"
       />
       <div className="text-muted-foreground flex justify-between text-xs">
-        <span>{formatTime(currentTime)}</span>
-        <span>{formatTime(duration)}</span>
+        <AudioTrackCurrentTime enableId>
+          {formatTime(currentTime)}
+        </AudioTrackCurrentTime>
+        <AudioTrackDuration enableId>{formatTime(duration)}</AudioTrackDuration>
       </div>
     </div>
   );

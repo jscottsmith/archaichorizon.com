@@ -10,6 +10,7 @@ import { NextButton } from "./NextButton";
 import { MobilePopoverControls } from "./MobilePopoverControls";
 import { useMobilePopover } from "@/app/hooks/useMobilePopover";
 import { ArtistInfo } from "./ArtistInfo";
+import { ids } from "@/app/constants/ids";
 
 export function MediaPlayerMobile({ className }: { className?: string }) {
   const { isOpen, open, close } = useMobilePopover();
@@ -17,6 +18,7 @@ export function MediaPlayerMobile({ className }: { className?: string }) {
   return (
     <>
       <Card
+        id={ids.mediaPlayerMobile}
         className={cn(
           "hover:bg-accent/50 mx-auto inline-flex w-full cursor-pointer flex-row items-center justify-between gap-2 rounded-lg p-2 px-2 transition-colors",
           className

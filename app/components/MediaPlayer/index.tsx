@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { MediaPlayerControls } from "./MediaPlayerControls";
 import { TrackProgress } from "./TrackProgress";
+import { ids } from "@/app/constants/ids";
 
 // Export all individual components
 export { CoverImage } from "./CoverImage";
@@ -25,7 +26,10 @@ export { NextButton } from "./NextButton";
 // Main MediaPlayer Component
 export function MediaPlayer({ className }: { className?: string }) {
   return (
-    <Card className={cn("space-y-4 rounded-lg p-4", className)}>
+    <Card
+      className={cn("space-y-4 rounded-lg p-4", className)}
+      id={ids.mediaPlayer}
+    >
       <MediaPlayerControls />
       <TrackProgress />
     </Card>
