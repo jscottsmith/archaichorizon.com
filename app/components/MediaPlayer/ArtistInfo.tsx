@@ -3,6 +3,13 @@
 import React from "react";
 import { usePlaylist } from "../../stores/playlistStore";
 import { cn } from "@/lib/utils";
+import {
+  AudioTrackTitle,
+  AudioTrackArtist,
+  AudioTrackAlbum,
+  AudioTrackCurrentTrackNumber,
+  AudioTrackTotalsTracks,
+} from "./LabeledElements";
 
 export const ArtistInfo = React.memo(function ArtistInfo({
   className,
@@ -32,22 +39,28 @@ export const ArtistInfo = React.memo(function ArtistInfo({
     >
       {currentTrack?.title && (
         <h3 className="flex min-w-0 items-center gap-2 overflow-hidden text-sm font-semibold">
-          <span className="min-w-0 truncate">{currentTrack.title}</span>
+          <AudioTrackTitle enableId>{currentTrack.title}</AudioTrackTitle>
           {!hideTrackNumbers && (
             <span className="text-muted-foreground flex-shrink-0 text-xs">
-              {currentTrackIndex + 1} of {totalTracks}
+              <AudioTrackCurrentTrackNumber enableId>
+                {currentTrackIndex + 1}
+              </AudioTrackCurrentTrackNumber>{" "}
+              of{" "}
+              <AudioTrackTotalsTracks enableId>
+                {totalTracks}
+              </AudioTrackTotalsTracks>
             </span>
           )}
         </h3>
       )}
       {currentTrack?.artist && !hideArtist && (
         <p className="text-muted-foreground min-w-0 truncate">
-          {currentTrack.artist}
+          <AudioTrackArtist enableId>{currentTrack.artist}</AudioTrackArtist>
         </p>
       )}
       {currentTrack?.album && !hideAlbum && (
         <p className="text-muted-foreground min-w-0 truncate">
-          {currentTrack.album}
+          <AudioTrackAlbum enableId>{currentTrack.album}</AudioTrackAlbum>
         </p>
       )}
     </div>

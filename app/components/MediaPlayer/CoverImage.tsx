@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePlaylist } from "../../stores/playlistStore";
 import { cn } from "@/lib/utils";
 import { ImageOff } from "lucide-react";
+import { classes, ids } from "@/app/constants/ids";
 
 export const CoverImage = React.memo(function CoverImage({
   className,
@@ -21,11 +22,15 @@ export const CoverImage = React.memo(function CoverImage({
       {currentTrack?.images?.thumbnail || currentTrack?.images?.cover ? (
         <Image
           priority
+          id={ids.mediaPlayerCoverImage}
           src={currentTrack!.images.thumbnail || currentTrack!.images.cover!}
           alt={`${currentTrack!.title || "Track"} cover art`}
           width={size}
           height={size}
-          className="rounded-sm object-cover"
+          className={cn(
+            "rounded-sm object-cover",
+            classes.mediaPlayerCoverImage
+          )}
           onError={(e) => {
             e.currentTarget.style.display = "none";
           }}
