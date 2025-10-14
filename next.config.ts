@@ -22,6 +22,25 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Turbopack configuration for GLSL files
+  turbopack: {
+    rules: {
+      "*.{glsl,vs,fs,vert,frag}": {
+        loaders: ["raw-loader"],
+        as: "*.js",
+      },
+    },
+  },
+  // Webpack configuration (fallback when not using Turbopack)
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(glsl|vs|fs|vert|frag)$/,
+      exclude: /node_modules/,
+      use: ["raw-loader", "glslify-loader"],
+    });
+
+    return config;
+  },
 };
 
 export default nextConfig;
