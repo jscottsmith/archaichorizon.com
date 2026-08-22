@@ -179,15 +179,14 @@ export const useAudio = create<AudioState>()(
     })),
     {
       name: "audio-store", // unique name for localStorage key
+      // Defer localStorage rehydration until after mount so SSR HTML matches
+      // the first client render (avoids React hydration error #418).
+      skipHydration: true,
       partialize: (state) => ({
-        // Only persist these state properties, not the audio element ref or actions
+        // Only persist volume preferences — not playback position/duration,
+        // which would mismatch the server-rendered "0:00" times.
         volume: state.volume,
         isMuted: state.isMuted,
-        currentTime: state.currentTime,
-        duration: state.duration,
-        // isPlaying: state.isPlaying,
-        // isLoading: state.isLoading,
-        // bufferedProgress: state.bufferedProgress,
       }),
     }
   )

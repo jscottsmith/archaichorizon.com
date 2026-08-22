@@ -27,15 +27,16 @@ export function AudioProvider() {
   // Get audio store actions and state
   const { setAudioRef, isPlaying, resetForNewTrack } = useAudioStore();
 
-  // Set up audio element ref
+  // Rehydrate persisted volume prefs after mount, then wire up the audio element
   useEffect(() => {
     setAudioRef(audioRef.current);
 
-    // Sync persisted state with audio element when it's available
-    if (audioRef.current) {
-      const { volume, isMuted } = useAudioStore.getState();
-      audioRef.current.volume = isMuted ? 0 : volume;
-    }
+    void useAudioStore.persist.rehydrate().then(() => {
+      if (audioRef.current) {
+        const { volume, isMuted } = useAudioStore.getState();
+        audioRef.current.volume = isMuted ? 0 : volume;
+      }
+    });
 
     // Cleanup on unmount
     return () => {
