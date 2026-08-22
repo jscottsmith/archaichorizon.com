@@ -22,7 +22,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools initialIsOpen={false} position="top" /> */}
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
