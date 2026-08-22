@@ -31,7 +31,7 @@ export function AudioProvider() {
   useEffect(() => {
     setAudioRef(audioRef.current);
 
-    void useAudioStore.persist.rehydrate().then(() => {
+    void Promise.resolve(useAudioStore.persist.rehydrate()).then(() => {
       if (audioRef.current) {
         const { volume, isMuted } = useAudioStore.getState();
         audioRef.current.volume = isMuted ? 0 : volume;
