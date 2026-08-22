@@ -67,7 +67,14 @@ function isNextDataRequest(request, url) {
 }
 
 function cachePut(request, response) {
-  if (!response || !response.ok || response.type === "opaque") {
+  // Cache API only accepts complete responses — 206 Partial Content (range
+  // requests for audio/video) throws if you try to put it.
+  if (
+    !response ||
+    response.status !== 200 ||
+    response.type === "opaque" ||
+    request.headers.has("Range")
+  ) {
     return;
   }
 
@@ -81,7 +88,7 @@ function networkFirst(request, { fallbackToShell = false } = {}) {
       cachePut(request, response);
       if (
         fallbackToShell &&
-        response.ok &&
+        response.status === 200 &&
         new URL(request.url).pathname === "/"
       ) {
         cachePut("/", response);
