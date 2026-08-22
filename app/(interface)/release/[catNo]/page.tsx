@@ -1,7 +1,7 @@
 import {
   ReleaseDisplay,
   ReleaseLoading,
-} from "@/app/components/ReleaseDisplay"; // eslint-disable-line import/no-unresolved
+} from "@/app/components/ReleaseDisplay";
 import { fetchRelease } from "@/app/services";
 import { Suspense } from "react";
 import { Metadata } from "next";
