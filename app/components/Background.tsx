@@ -3,7 +3,6 @@
 import { usePlaylist } from "../stores/playlistStore";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 
 interface AnimatedBackgroundImageProps {
   src: string;

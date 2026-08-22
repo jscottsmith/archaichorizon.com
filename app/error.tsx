@@ -57,7 +57,7 @@ export default function Error({ error, reset }: ErrorProps) {
                 Error Details
               </summary>
               <div className="bg-muted mt-2 rounded-md p-4">
-                <p className="text-destructive break-all font-mono text-sm">
+                <p className="text-destructive font-mono text-sm break-all">
                   {error.message}
                 </p>
                 {error.digest && (

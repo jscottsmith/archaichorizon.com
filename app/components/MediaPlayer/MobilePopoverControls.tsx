@@ -53,14 +53,14 @@ export function MobilePopoverControls({
         </DrawerHeader>
         <div className="flex flex-col gap-8 px-6 pb-6 md:flex-row md:items-center">
           <CoverArtCarousel
-            className="max-w-3xs mx-auto w-1/2 md:mr-0"
+            className="mx-auto w-1/2 max-w-3xs md:mr-0"
             images={images}
           />
           <div className="mx-auto flex w-full max-w-md flex-col gap-8 md:ml-0">
             {currentTrack?.catNo ? (
               <Link
                 href={buildReleaseRoute(currentTrack.catNo)}
-                className="hover:bg-accent/50 -ml-1.5 -mt-1.5 rounded-md p-1.5 transition-colors"
+                className="hover:bg-accent/50 -mt-1.5 -ml-1.5 rounded-md p-1.5 transition-colors"
                 onClick={closePopover}
               >
                 <ArtistInfo />

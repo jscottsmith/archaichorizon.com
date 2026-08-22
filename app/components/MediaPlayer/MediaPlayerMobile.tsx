@@ -28,7 +28,9 @@ export function MediaPlayerMobile({ className }: { className?: string }) {
         <CoverImage size={48} className="h-12 w-12" />
         <ArtistInfo hideArtist hideAlbum hideTrackNumbers />
         <div
+          role="presentation"
           onClick={(e) => e.stopPropagation()}
+          onKeyDown={(e) => e.stopPropagation()}
           className={cn(
             "flex items-center justify-center gap-1 md:gap-2 lg:gap-4",
             className

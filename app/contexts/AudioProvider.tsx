@@ -88,6 +88,8 @@ export function AudioProvider() {
 
   return (
     <figure className="sr-only">
+      {/* Music player has no captions track by design */}
+      {/* oxlint-disable-next-line jsx-a11y/media-has-caption */}
       <audio
         id={ids.mediaPlayerAudioElement}
         ref={audioRef}

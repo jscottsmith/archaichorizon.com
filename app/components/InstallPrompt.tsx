@@ -6,12 +6,11 @@ import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
-  CardHeader,
   CardTitle,
   CardDescription,
   CardAction,
 } from "@/components/ui/card";
-import { ArrowBigDown, ArrowDownSquareIcon } from "lucide-react";
+import { ArrowDownSquareIcon } from "lucide-react";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
@@ -89,7 +88,7 @@ export default function InstallPrompt() {
   if (!showInstallPrompt) return null;
 
   return (
-    <Card className="fixed bottom-2 left-2 right-2 z-50 mx-auto max-w-md p-0 md:bottom-auto md:left-4 md:right-4 md:top-4 md:ml-0">
+    <Card className="fixed right-2 bottom-2 left-2 z-50 mx-auto max-w-md p-0 md:top-4 md:right-4 md:bottom-auto md:left-4 md:ml-0">
       <CardContent className="p-2">
         <div className="flex items-center justify-between">
           <div className="flex min-w-0 flex-1 items-center">
