@@ -16,7 +16,8 @@ NEXT_PUBLIC_APP_BASE_URL=http://localhost:3000
 ## Development
 
 ```bash
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 ## Features
