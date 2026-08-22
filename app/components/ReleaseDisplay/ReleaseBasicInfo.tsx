@@ -39,8 +39,8 @@ export function ReleaseBasicInfo({
       <div className="flex-1 content-center space-y-4">
         <div className="flex-1 space-y-2">
           <div>
-            <h2 className="text-balance text-xl">{creator}</h2>
-            <h3 className="text-balance text-4xl font-light">{title}</h3>
+            <h2 className="text-xl text-balance">{creator}</h2>
+            <h3 className="text-4xl font-light text-balance">{title}</h3>
           </div>
           {date && (
             <p className="text-muted-foreground text-sm">

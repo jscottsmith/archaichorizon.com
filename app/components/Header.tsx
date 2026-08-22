@@ -3,8 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useEventListener } from "usehooks-ts";
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
-import Logo, { LogoAbbreviated } from "./Logo";
-import { Navigation } from "./Navigation";
+import { LogoAbbreviated } from "./Logo";
 import { GalleryVerticalEnd } from "lucide-react";
 import { Button } from "./ui";
 import { ROUTES } from "../constants/routes";
@@ -31,7 +30,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed left-0 right-0 top-0 z-50 flex h-20 items-center justify-between px-4 transition-transform duration-300 ease-in-out ${
+      className={`fixed top-0 right-0 left-0 z-50 flex h-20 items-center justify-between px-4 transition-transform duration-300 ease-in-out ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -50,7 +49,6 @@ export default function Header() {
           <GalleryVerticalEnd className="h-4 w-4" />
         </Link>
       </Button>
-      {/* <Navigation /> */}
     </header>
   );
 }

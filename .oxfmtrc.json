@@ -8,9 +8,5 @@
   "useTabs": false,
   "sortPackageJson": false,
   "sortTailwindcss": {},
-  "ignorePatterns": [
-    "public/",
-    "*.min.js",
-    "*.min.css"
-  ]
+  "ignorePatterns": ["public/", "*.min.js", "*.min.css"]
 }

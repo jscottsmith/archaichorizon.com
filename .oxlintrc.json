@@ -3,5 +3,14 @@
   "plugins": ["typescript", "react", "nextjs", "jsx-a11y", "import"],
   "categories": {
     "correctness": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["components/ui/**", "app/components/ui/**"],
+      "rules": {
+        "react/set-state-in-effect": "off",
+        "jsx-a11y/prefer-tag-over-role": "off"
+      }
+    }
+  ]
 }

@@ -65,7 +65,7 @@ export function CollectionDisplay({
               >
                 <div className="flex gap-2">
                   {/* Thumbnail */}
-                  <div className="w-18 h-18 aspect-square flex-shrink-0 overflow-hidden rounded-sm">
+                  <div className="aspect-square h-18 w-18 flex-shrink-0 overflow-hidden rounded-sm">
                     {item.thumbnail && (
                       <Image
                         src={item.thumbnail}
@@ -79,7 +79,7 @@ export function CollectionDisplay({
 
                   <div className="flex min-w-0 flex-1 flex-col justify-center">
                     {/* Title */}
-                    <h3 className="mb-2 text-base font-semibold leading-tight">
+                    <h3 className="mb-2 text-base leading-tight font-semibold">
                       <span>
                         {Array.isArray(item.creator)
                           ? item.creator.join(", ")
