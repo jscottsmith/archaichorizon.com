@@ -102,7 +102,7 @@ export function AudioProvider() {
       <figcaption>
         <h2>Now Playing</h2>
         {currentTrack?.images?.cover && (
-          // eslint-disable-next-line @next/next/no-img-element
+          // oxlint-disable-next-line nextjs/no-img-element
           <img
             src={currentTrack.images.cover}
             alt={`Cover art for ${currentTrack.title}`}
