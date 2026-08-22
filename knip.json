@@ -1,0 +1,13 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["public/sw.js"],
+  "ignoreIssues": {
+    "components/ui/**": ["exports", "types"],
+    "app/components/ui/**": ["exports", "types"],
+    "app/components/MediaPlayer/index.tsx": ["exports"],
+    "app/components/ui/index.ts": ["exports"],
+    "app/constants/**": ["exports"],
+    "app/utils/**": ["exports"],
+    "app/types/**": ["exports", "types"]
+  }
+}
