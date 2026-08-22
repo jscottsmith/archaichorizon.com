@@ -61,6 +61,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/*
+          Inline so a new service worker can reload the page even when
+          hashed Next chunks 404 after a deploy (React never boots).
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(()=>{if(!("serviceWorker"in navigator))return;let r=false;navigator.serviceWorker.addEventListener("controllerchange",()=>{if(r)return;r=true;location.reload()})})();`,
+          }}
+        />
         <Providers>{children}</Providers>
         <Analytics />
         <PWA />
