@@ -13,7 +13,7 @@ export default function Interface(props: { children: React.ReactNode }) {
       <Background />
       <Header />
 
-      <main className="mb-4 min-h-screen">
+      <main className="mb-4 flex min-h-screen flex-col">
         {props.children}
         <div className="sticky right-0 bottom-[calc(env(safe-area-inset-bottom)_+_0.5rem)] left-0 z-50 mx-2">
           <div className="mx-auto flex max-w-4xl flex-col gap-2">
