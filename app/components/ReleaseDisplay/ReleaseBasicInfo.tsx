@@ -43,7 +43,7 @@ export function ReleaseBasicInfo({
             <h3 className="text-4xl font-light text-balance">{title}</h3>
           </div>
           {date && (
-            <p className="text-muted-foreground text-sm">
+            <p className="text-sm text-muted-foreground">
               <span className="font-semibold">Released on: </span>
               <span>{formatDate(date)}</span>
             </p>

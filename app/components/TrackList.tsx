@@ -56,7 +56,7 @@ export function TrackList({
         return (
           <div key={albumName} className="space-y-2">
             <div className="px-2 py-1">
-              <h3 className="text-muted-foreground text-sm">{albumName}</h3>
+              <h3 className="text-sm text-muted-foreground">{albumName}</h3>
             </div>
 
             {/* Tracks for this album */}

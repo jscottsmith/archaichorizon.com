@@ -17,13 +17,13 @@ export default function Error({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="bg-background flex min-h-screen items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center bg-background">
       <div className="mx-auto max-w-md px-6 text-center">
         {/* Error Icon */}
         <div className="mb-8">
-          <div className="bg-destructive/10 mx-auto flex h-16 w-16 items-center justify-center rounded-full">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
             <svg
-              className="text-destructive h-8 w-8"
+              className="h-8 w-8 text-destructive"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -41,7 +41,7 @@ export default function Error({ error, reset }: ErrorProps) {
 
         {/* Error Content */}
         <div className="space-y-4">
-          <h1 className="text-foreground text-3xl font-bold">
+          <h1 className="text-3xl font-bold text-foreground">
             Something went wrong
           </h1>
 
@@ -53,15 +53,15 @@ export default function Error({ error, reset }: ErrorProps) {
           {/* Error Details (Development Only) */}
           {process.env.NODE_ENV === "development" && (
             <details className="mt-6 text-left">
-              <summary className="text-muted-foreground hover:text-foreground cursor-pointer text-sm">
+              <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
                 Error Details
               </summary>
-              <div className="bg-muted mt-2 rounded-md p-4">
-                <p className="text-destructive font-mono text-sm break-all">
+              <div className="mt-2 rounded-md bg-muted p-4">
+                <p className="font-mono text-sm break-all text-destructive">
                   {error.message}
                 </p>
                 {error.digest && (
-                  <p className="text-muted-foreground mt-2 text-xs">
+                  <p className="mt-2 text-xs text-muted-foreground">
                     Error ID: {error.digest}
                   </p>
                 )}
@@ -81,8 +81,8 @@ export default function Error({ error, reset }: ErrorProps) {
           </div>
 
           {/* Additional Help */}
-          <div className="border-border mt-8 border-t pt-6">
-            <p className="text-muted-foreground text-sm">
+          <div className="mt-8 border-t border-border pt-6">
+            <p className="text-sm text-muted-foreground">
               Still having trouble?{" "}
               <Link
                 href={ROUTES.COLLECTION}

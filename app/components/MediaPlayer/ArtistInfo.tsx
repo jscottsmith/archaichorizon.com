@@ -41,7 +41,7 @@ export const ArtistInfo = React.memo(function ArtistInfo({
         <h3 className="flex min-w-0 items-center gap-2 overflow-hidden text-sm font-semibold">
           <AudioTrackTitle enableId>{currentTrack.title}</AudioTrackTitle>
           {!hideTrackNumbers && (
-            <span className="text-muted-foreground flex-shrink-0 text-xs">
+            <span className="flex-shrink-0 text-xs text-muted-foreground">
               <AudioTrackCurrentTrackNumber enableId>
                 {currentTrackIndex + 1}
               </AudioTrackCurrentTrackNumber>{" "}
@@ -54,12 +54,12 @@ export const ArtistInfo = React.memo(function ArtistInfo({
         </h3>
       )}
       {currentTrack?.artist && !hideArtist && (
-        <p className="text-muted-foreground min-w-0 truncate">
+        <p className="min-w-0 truncate text-muted-foreground">
           <AudioTrackArtist enableId>{currentTrack.artist}</AudioTrackArtist>
         </p>
       )}
       {currentTrack?.album && !hideAlbum && (
-        <p className="text-muted-foreground min-w-0 truncate">
+        <p className="min-w-0 truncate text-muted-foreground">
           <AudioTrackAlbum enableId>{currentTrack.album}</AudioTrackAlbum>
         </p>
       )}

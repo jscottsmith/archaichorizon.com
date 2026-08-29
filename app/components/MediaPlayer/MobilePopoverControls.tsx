@@ -60,7 +60,7 @@ export function MobilePopoverControls({
             {currentTrack?.catNo ? (
               <Link
                 href={buildReleaseRoute(currentTrack.catNo)}
-                className="hover:bg-accent/50 -mt-1.5 -ml-1.5 rounded-md p-1.5 transition-colors"
+                className="-mt-1.5 -ml-1.5 rounded-md p-1.5 transition-colors hover:bg-accent/50"
                 onClick={closePopover}
               >
                 <ArtistInfo />

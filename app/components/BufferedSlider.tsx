@@ -39,11 +39,11 @@ export function BufferedSlider({
       <SliderPrimitive.Track className={TRACK_CLASS}>
         {/* Buffered progress background */}
         <div
-          className="to-accent-foreground/15 absolute h-full animate-pulse bg-gradient-to-r from-transparent transition-all duration-300 ease-out"
+          className="absolute h-full animate-pulse bg-gradient-to-r from-transparent to-accent-foreground/15 transition-all duration-300 ease-out"
           style={{ width: `${bufferedProgress * 100}%` }}
         />
         {/* Playback progress */}
-        <SliderPrimitive.Range className="bg-primary absolute h-full" />
+        <SliderPrimitive.Range className="absolute h-full bg-primary" />
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb className={THUMB_CLASS} />
     </SliderPrimitive.Root>

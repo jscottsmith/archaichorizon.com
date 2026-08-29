@@ -7,7 +7,7 @@ import { ROUTES } from "../constants/routes";
 
 export default function Footer() {
   return (
-    <footer className="bg-background relative rounded-t-xl border-t px-8 pt-12 pb-8 md:rounded-none">
+    <footer className="relative rounded-t-xl border-t bg-background px-8 pt-12 pb-8 md:rounded-none">
       {/* Logo */}
       <div className="mb-8 flex flex-col items-center justify-center">
         <Logo className="h-32" />
@@ -18,7 +18,7 @@ export default function Footer() {
 
       {/* Main blurb */}
       <div className="mb-12 text-center">
-        <p className="text-foreground/80 mx-auto mb-4 max-w-2xl text-sm leading-relaxed text-balance">
+        <p className="mx-auto mb-4 max-w-2xl text-sm leading-relaxed text-balance text-foreground/80">
           Archaic Horizon was an electronic music net label active from 2006 to
           2016. All music is provided for free and hosted by the Internet
           Archive.
@@ -74,14 +74,14 @@ export default function Footer() {
 
         {/* Legal line */}
 
-        <p className="text-foreground/60 mx-auto max-w-lg text-center text-xs text-balance lg:text-right">
+        <p className="mx-auto max-w-lg text-center text-xs text-balance text-foreground/60 lg:text-right">
           All design, music, and written content on Archaic Horizon is protected
           by the Creative Commons{" "}
           <Link
             href={ROUTES.EXTERNAL.CREATIVE_COMMONS}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-foreground/80 underline transition-colors"
+            className="underline transition-colors hover:text-foreground/80"
           >
             CC BY-NC-ND 4.0
           </Link>{" "}

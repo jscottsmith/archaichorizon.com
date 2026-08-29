@@ -25,6 +25,7 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -60,6 +61,7 @@
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
@@ -98,6 +100,7 @@
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
@@ -156,7 +159,7 @@
   .markdown-content h4,
   .markdown-content h5,
   .markdown-content h6 {
-    @apply text-foreground mb-2 font-semibold;
+    @apply mb-2 font-semibold text-foreground;
   }
   .markdown-content h1 {
     @apply text-xl;
@@ -168,32 +171,32 @@
     @apply text-base;
   }
   .markdown-content p {
-    @apply text-foreground/80 mb-3;
+    @apply mb-3 text-foreground/80;
   }
   .markdown-content a {
-    @apply text-primary hover:text-primary/80 underline;
+    @apply text-primary underline hover:text-primary/80;
   }
   .markdown-content strong {
-    @apply text-foreground font-semibold;
+    @apply font-semibold text-foreground;
   }
   .markdown-content em {
     @apply text-foreground/70 italic;
   }
   .markdown-content code {
-    @apply bg-muted text-foreground rounded px-1 py-0.5 font-mono text-sm;
+    @apply rounded bg-muted px-1 py-0.5 font-mono text-sm text-foreground;
   }
   .markdown-content pre {
-    @apply bg-muted text-foreground mb-3 overflow-x-auto rounded-lg p-3;
+    @apply mb-3 overflow-x-auto rounded-lg bg-muted p-3 text-foreground;
   }
   .markdown-content blockquote {
-    @apply border-muted-foreground/30 text-foreground/70 mb-3 border-l-4 pl-4 italic;
+    @apply mb-3 border-l-4 border-muted-foreground/30 pl-4 text-foreground/70 italic;
   }
   .markdown-content ul,
   .markdown-content ol {
-    @apply text-foreground/80 mb-3 pl-6;
+    @apply mb-3 pl-6 text-foreground/80;
   }
   .markdown-content li {
-    @apply text-foreground/80 mb-1;
+    @apply mb-1 text-foreground/80;
   }
   .markdown-content ul {
     @apply list-disc;
