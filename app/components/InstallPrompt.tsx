@@ -17,6 +17,8 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
+const DISMISS_KEY = "install-prompt-dismissed";
+
 export default function InstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
@@ -25,9 +27,7 @@ export default function InstallPrompt() {
   useEffect(() => {
     const handler = (e: Event) => {
       e.preventDefault();
-      // Debug: log the event object to see its structure
-      console.log("beforeinstallprompt event:", e);
-      console.log("Event properties:", Object.getOwnPropertyNames(e));
+      if (sessionStorage.getItem(DISMISS_KEY)) return;
 
       // Store the event for later use
       setDeferredPrompt(e as BeforeInstallPromptEvent);
@@ -81,6 +81,7 @@ export default function InstallPrompt() {
   };
 
   const handleDismiss = () => {
+    sessionStorage.setItem(DISMISS_KEY, "true");
     setShowInstallPrompt(false);
     setDeferredPrompt(null);
   };
