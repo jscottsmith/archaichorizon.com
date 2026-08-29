@@ -16,6 +16,7 @@ export const PlaylistToggle = React.memo(function PlaylistToggle({
 
   return (
     <Button
+      data-playlist-toggle
       variant={isPlaylistVisible ? "default" : "ghost"}
       size="icon"
       onClick={togglePlaylist}
