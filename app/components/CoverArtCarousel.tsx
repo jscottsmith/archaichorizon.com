@@ -30,8 +30,8 @@ export function CoverArtCarousel({
   function renderCoverArt() {
     if (!images || images.length === 0) {
       return (
-        <div className="bg-muted flex aspect-square items-center justify-center rounded-md">
-          <span className="text-muted-foreground text-sm">No Cover Art</span>
+        <div className="flex aspect-square items-center justify-center rounded-md bg-muted">
+          <span className="text-sm text-muted-foreground">No Cover Art</span>
         </div>
       );
     }

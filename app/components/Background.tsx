@@ -31,7 +31,7 @@ export function Background() {
 
   return (
     <div className="bg-gradient-radial fixed inset-0 -z-10 overflow-hidden">
-      <div className="bg-background/50 absolute inset-0 z-10 saturate-200 backdrop-blur-3xl" />
+      <div className="absolute inset-0 z-10 bg-background/50 saturate-200 backdrop-blur-3xl" />
       <AnimatePresence mode="wait">
         {currentTrack?.images?.cover && (
           <AnimatedBackgroundImage

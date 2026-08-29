@@ -41,7 +41,7 @@ export const TrackProgress = React.memo(function TrackProgress({
         step={0.1}
         className="w-full"
       />
-      <div className="text-muted-foreground flex justify-between text-xs">
+      <div className="flex justify-between text-xs text-muted-foreground">
         <AudioTrackCurrentTime enableId>
           {formatTime(currentTime)}
         </AudioTrackCurrentTime>

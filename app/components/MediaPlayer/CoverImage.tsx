@@ -41,7 +41,7 @@ export const CoverImage = React.memo(function CoverImage({
             "bg-muted flex aspect-square w-full flex-shrink-0 items-center justify-center rounded-sm"
           )}
         >
-          <span className="text-muted-foreground text-center text-xs">
+          <span className="text-center text-xs text-muted-foreground">
             <ImageOff size={16} />
           </span>
         </div>

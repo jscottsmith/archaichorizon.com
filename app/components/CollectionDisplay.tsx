@@ -61,7 +61,7 @@ export function CollectionDisplay({
               <Link
                 href={buildReleaseRoute(item.cat_no || "")}
                 key={item.identifier}
-                className="hover:bg-muted/50 block rounded-lg p-1.5 transition-colors"
+                className="block rounded-lg p-1.5 transition-colors hover:bg-muted/50"
               >
                 <div className="flex gap-2">
                   {/* Thumbnail */}
@@ -97,7 +97,7 @@ export function CollectionDisplay({
                         </Badge>
                       )}
                       {item.date && (
-                        <span className="text-muted-foreground text-sm">
+                        <span className="text-sm text-muted-foreground">
                           Released on {formatDate(item.date)}
                         </span>
                       )}
