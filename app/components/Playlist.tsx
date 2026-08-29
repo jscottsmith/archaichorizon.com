@@ -55,6 +55,7 @@ export function Playlist(props: { className?: string }) {
   const playlistRef = useHandleClickOutside({
     enabled: isPlaylistVisible,
     onOutsideClick: togglePlaylist,
+    excludeSelector: "[data-playlist-toggle]",
   });
 
   // Set tracks when the release is fetched
