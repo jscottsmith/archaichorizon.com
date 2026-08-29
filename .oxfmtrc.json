@@ -7,6 +7,8 @@
   "tabWidth": 2,
   "useTabs": false,
   "sortPackageJson": false,
-  "sortTailwindcss": {},
+  "sortTailwindcss": {
+    "stylesheet": "app/globals.css"
+  },
   "ignorePatterns": ["public/", "*.min.js", "*.min.css"]
 }
