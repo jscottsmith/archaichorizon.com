@@ -1,4 +1,4 @@
-const CACHE_NAME = "archaic-horizon-v2";
+const CACHE_NAME = "archaic-horizon-v3";
 const PRECACHE_URLS = [
   "/",
   "/favicon.ico",
@@ -40,6 +40,21 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+function isLocalDev(url) {
+  return (
+    url.hostname === "localhost" ||
+    url.hostname === "127.0.0.1" ||
+    url.hostname === "[::1]"
+  );
+}
+
+function isNextDevAsset(url) {
+  return (
+    url.pathname.startsWith("/_next/webpack-hmr") ||
+    url.pathname.startsWith("/_next/turbopack")
+  );
+}
+
 function isNavigationRequest(request) {
   return (
     request.mode === "navigate" ||
@@ -49,12 +64,9 @@ function isNavigationRequest(request) {
 }
 
 function isImmutableStaticAsset(url) {
-  return (
-    url.pathname.startsWith("/_next/static/") ||
-    /\.(?:js|css|woff2?|ttf|otf|png|jpg|jpeg|gif|webp|svg|ico)$/i.test(
-      url.pathname
-    )
-  );
+  // Only content-hashed build output belongs under /_next/static/. Do not
+  // cache-first arbitrary .js/.css — dev chunks and public scripts change.
+  return url.pathname.startsWith("/_next/static/");
 }
 
 function isNextDataRequest(request, url) {
@@ -148,8 +160,13 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(event.request.url);
 
+  // Never intercept dev/HMR traffic — stale chunks break Turbopack module graph.
+  if (isLocalDev(url) || isNextDevAsset(url)) {
+    return;
+  }
+
   // Never cache the service worker script itself.
-  if (url.pathname === "/sw.js") {
+  if (url.pathname === "/sw.js" || url.pathname === "/sw-reload.js") {
     return;
   }
 

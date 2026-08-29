@@ -61,12 +61,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/*
-          External file so a new service worker can reload the page even when
-          hashed Next chunks 404 after a deploy (React never boots). React 19
-          does not execute inline script tags rendered from components.
-        */}
-        <script async src="/sw-reload.js" />
+        {process.env.NODE_ENV === "production" ? (
+          <>
+            {/*
+              External file so a new service worker can reload the page even when
+              hashed Next chunks 404 after a deploy (React never boots). React 19
+              does not execute inline script tags rendered from components.
+            */}
+            <script async src="/sw-reload.js" />
+          </>
+        ) : null}
         <Providers>{children}</Providers>
         <Analytics />
         <PWA />
