@@ -30,7 +30,7 @@ export function CoverArtCarousel({
   function renderCoverArt() {
     if (!images || images.length === 0) {
       return (
-        <div className="flex aspect-square items-center justify-center rounded-md bg-muted">
+        <div className="flex aspect-square w-full items-center justify-center rounded-md bg-muted">
           <span className="text-sm text-muted-foreground">No Cover Art</span>
         </div>
       );
@@ -38,16 +38,18 @@ export function CoverArtCarousel({
 
     if (images.length === 1) {
       return (
-        <Image
-          src={images[0].url}
-          alt={images[0].alt}
-          width={width}
-          height={height}
-          className="w-full rounded-md object-cover"
-          onError={(e) => {
-            e.currentTarget.style.display = "none";
-          }}
-        />
+        <div className="aspect-square w-full overflow-hidden rounded-md bg-muted/50">
+          <Image
+            src={images[0].url}
+            alt={images[0].alt}
+            width={width}
+            height={height}
+            className="h-full w-full object-cover"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        </div>
       );
     }
 
@@ -59,16 +61,16 @@ export function CoverArtCarousel({
           loop: true,
         }}
       >
-        <div className="overflow-hidden rounded-md">
-          <CarouselContent>
+        <div className="aspect-square w-full overflow-hidden rounded-md">
+          <CarouselContent className="h-full">
             {images.map((image) => (
-              <CarouselItem key={image.url}>
+              <CarouselItem key={image.url} className="h-full">
                 <Image
                   src={image.url}
                   alt={image.alt}
                   width={width}
                   height={height}
-                  className="rounded-md object-cover"
+                  className="h-full w-full rounded-md object-cover"
                 />
               </CarouselItem>
             ))}
@@ -79,15 +81,5 @@ export function CoverArtCarousel({
     );
   }
 
-  return (
-    <div
-      className={cn(
-        "bg-muted/50 aspect-square overflow-hidden rounded-md",
-        className
-      )}
-      style={{ width, height }}
-    >
-      {renderCoverArt()}
-    </div>
-  );
+  return <div className={cn("w-full", className)}>{renderCoverArt()}</div>;
 }
