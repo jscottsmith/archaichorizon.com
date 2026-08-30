@@ -231,6 +231,66 @@ function CarouselNext({
   )
 }
 
+function CarouselDots({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  const { api } = useCarousel()
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([])
+
+  const onDotButtonClick = React.useCallback(
+    (index: number) => {
+      if (!api) return
+      api.scrollTo(index)
+    },
+    [api]
+  )
+
+  const onInit = React.useCallback((carouselApi: CarouselApi | undefined) => {
+    if (!carouselApi) return
+    setScrollSnaps(carouselApi.scrollSnapList())
+  }, [])
+
+  const onSelect = React.useCallback((carouselApi: CarouselApi | undefined) => {
+    if (!carouselApi) return
+    setSelectedIndex(carouselApi.selectedScrollSnap())
+  }, [])
+
+  React.useEffect(() => {
+    if (!api) return
+
+    onInit(api)
+    onSelect(api)
+    api.on("reInit", onInit)
+    api.on("select", onSelect)
+
+    return () => {
+      api.off("select", onSelect)
+    }
+  }, [api, onInit, onSelect])
+
+  return (
+    <div
+      className={cn("flex justify-center gap-2", className)}
+      data-slot="carousel-dots"
+      {...props}
+    >
+      {scrollSnaps.map((_, index) => (
+        <Button
+          key={index}
+          variant={selectedIndex === index ? "default" : "outline"}
+          size="sm"
+          className="h-1.5 w-1.5 rounded-full p-0"
+          onClick={() => onDotButtonClick(index)}
+        >
+          <span className="sr-only">Go to slide {index + 1}</span>
+        </Button>
+      ))}
+    </div>
+  )
+}
+
 export {
   type CarouselApi,
   Carousel,
@@ -238,5 +298,6 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselDots,
   useCarousel,
 }
