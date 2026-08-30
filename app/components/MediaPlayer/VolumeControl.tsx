@@ -9,10 +9,10 @@ import { cn } from "@/lib/utils";
 
 export const VolumeControl = React.memo(function VolumeControl({
   className,
-  width,
+  expanded = false,
 }: {
   className?: string;
-  width?: string;
+  expanded?: boolean;
 }) {
   const volume = useAudio((state) => state.volume);
   const isMuted = useAudio((state) => state.isMuted);
@@ -25,12 +25,12 @@ export const VolumeControl = React.memo(function VolumeControl({
   };
 
   return (
-    <div className={cn("flex items-center gap-2", className)}>
+    <div className={cn("flex min-w-0 items-center gap-2", className)}>
       <Button
         variant="ghost"
         size="icon"
         onClick={toggleMute}
-        className="h-8 w-8"
+        className="h-8 w-8 shrink-0"
         aria-label={isMuted ? "Unmute" : "Mute"}
       >
         {isMuted ? <VolumeX size={16} /> : <Volume size={16} />}
@@ -40,13 +40,13 @@ export const VolumeControl = React.memo(function VolumeControl({
         onValueChange={handleVolumeChange}
         max={100}
         step={1}
-        className={cn("w-24 shrink-0", width)}
+        className={cn(expanded ? "min-w-0 flex-1" : "w-24 shrink-0")}
       />
       <Button
         variant="ghost"
         size="icon"
         onClick={() => setVolume(1)}
-        className="h-8 w-8"
+        className="h-8 w-8 shrink-0"
         aria-label="Set volume to maximum"
       >
         {volume < 0.5 ? <Volume1 size={16} /> : <Volume2 size={16} />}
