@@ -33,7 +33,10 @@ export function ReleaseDetails({ subject, licenseUrl }: ReleaseDetailsProps) {
                 href={licenseUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={cn(buttonVariants({ variant: "link" }), "ml-2 h-auto p-0")}
+                className={cn(
+                  buttonVariants({ variant: "link" }),
+                  "ml-2 h-auto p-0"
+                )}
               >
                 View License
               </a>

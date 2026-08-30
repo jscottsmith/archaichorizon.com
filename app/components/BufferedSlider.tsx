@@ -23,9 +23,7 @@ export function BufferedSlider({
   className,
   disabled = false,
 }: BufferedSliderProps) {
-  function handleValueChange(
-    nextValue: number | readonly number[]
-  ) {
+  function handleValueChange(nextValue: number | readonly number[]) {
     const values = Array.isArray(nextValue) ? [...nextValue] : [nextValue];
     onValueChange(values);
   }

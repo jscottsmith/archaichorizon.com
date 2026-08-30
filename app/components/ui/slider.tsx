@@ -31,9 +31,7 @@ function Slider({
       ? defaultValue
       : [min, max];
 
-  function handleValueChange(
-    nextValue: number | readonly number[]
-  ) {
+  function handleValueChange(nextValue: number | readonly number[]) {
     if (!onValueChange) return;
     const values = Array.isArray(nextValue) ? [...nextValue] : [nextValue];
     onValueChange(values);

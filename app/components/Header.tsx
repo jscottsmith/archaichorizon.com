@@ -47,7 +47,10 @@ export default function Header() {
       </div>
       <Link
         href={ROUTES.COLLECTION}
-        className={cn(buttonVariants({ variant: "ghost" }), "flex items-center")}
+        className={cn(
+          buttonVariants({ variant: "ghost" }),
+          "flex items-center"
+        )}
       >
         <GalleryVerticalEnd className="h-4 w-4" />
       </Link>

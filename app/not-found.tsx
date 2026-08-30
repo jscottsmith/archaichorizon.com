@@ -39,7 +39,9 @@ export default function NotFound() {
                 </Link>
                 <Link
                   href={ROUTES.HOME}
-                  className={cn(buttonVariants({ size: "sm", variant: "secondary" }))}
+                  className={cn(
+                    buttonVariants({ size: "sm", variant: "secondary" })
+                  )}
                 >
                   Go Home
                 </Link>
