@@ -74,7 +74,7 @@ export function MobilePopoverControls({
               <PlayPauseButton iconSize={32} />
               <NextButton iconSize={24} />
             </div>
-            <VolumeControl className="flex-1" width="w-full" />
+            <VolumeControl className="w-full" expanded />
           </div>
         </div>
       </DrawerContent>
