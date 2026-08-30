@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import { SITE } from "../constants/site";
-import { Button } from "./ui";
+import { buttonVariants } from "@/components/ui/button";
 import { ExternalLinkIcon } from "lucide-react";
 import { ROUTES } from "../constants/routes";
+import { cn } from "@/lib/utils";
 
 export default function Footer() {
   return (
@@ -24,9 +25,12 @@ export default function Footer() {
           Archive.
         </p>
         <div className="text-center">
-          <Button size="sm" render={<Link href={ROUTES.COLLECTION} />}>
+          <Link
+            href={ROUTES.COLLECTION}
+            className={cn(buttonVariants({ size: "sm" }))}
+          >
             Explore the Collection
-          </Button>
+          </Link>
         </div>
       </div>
 
@@ -36,51 +40,39 @@ export default function Footer() {
 
           {/* Secondary links */}
           <div className="mb-8 flex flex-wrap justify-center sm:gap-2 lg:shrink-0">
-            <Button size="sm" variant="ghost" render={<Link href={ROUTES.CONTACT} />}>
+            <Link
+              href={ROUTES.CONTACT}
+              className={cn(buttonVariants({ size: "sm", variant: "ghost" }))}
+            >
               Contact
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              render={
-                <Link
-                  href={ROUTES.EXTERNAL.ARCHIVE_ORG}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                />
-              }
+            </Link>
+            <Link
+              href={ROUTES.EXTERNAL.ARCHIVE_ORG}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ size: "sm", variant: "ghost" }))}
             >
               Internet Archive{" "}
               <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              render={
-                <Link
-                  href={ROUTES.EXTERNAL.SOUNDCLOUD}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                />
-              }
+            </Link>
+            <Link
+              href={ROUTES.EXTERNAL.SOUNDCLOUD}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ size: "sm", variant: "ghost" }))}
             >
               SoundCloud{" "}
               <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              render={
-                <Link
-                  href={ROUTES.EXTERNAL.DISCOGS}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                />
-              }
+            </Link>
+            <Link
+              href={ROUTES.EXTERNAL.DISCOGS}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ size: "sm", variant: "ghost" }))}
             >
               Discogs{" "}
               <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
-            </Button>
+            </Link>
           </div>
         </nav>
 

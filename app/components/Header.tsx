@@ -5,8 +5,9 @@ import { useEventListener } from "usehooks-ts";
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
 import { LogoAbbreviated } from "./Logo";
 import { GalleryVerticalEnd } from "lucide-react";
-import { Button } from "./ui";
+import { buttonVariants } from "@/components/ui/button";
 import { ROUTES } from "../constants/routes";
+import { cn } from "@/lib/utils";
 
 export default function Header() {
   const [isVisible, setIsVisible] = useState(true);
@@ -44,9 +45,12 @@ export default function Header() {
           <LogoAbbreviated className="group h-4" />
         </Link>
       </div>
-      <Button variant="ghost" render={<Link href={ROUTES.COLLECTION} className="flex items-center" />}>
+      <Link
+        href={ROUTES.COLLECTION}
+        className={cn(buttonVariants({ variant: "ghost" }), "flex items-center")}
+      >
         <GalleryVerticalEnd className="h-4 w-4" />
-      </Button>
+      </Link>
     </header>
   );
 }

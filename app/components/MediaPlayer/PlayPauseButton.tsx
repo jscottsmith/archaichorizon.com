@@ -3,7 +3,7 @@
 import React from "react";
 import { useAudio } from "../../stores/audioStore";
 import { usePlaylist } from "../../stores/playlistStore";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { Play, Pause, Loader2 } from "lucide-react";
 
 export const PlayPauseButton = React.memo(function PlayPauseButton({

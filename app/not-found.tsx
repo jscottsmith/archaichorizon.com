@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { Button } from "./components/ui";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { ROUTES } from "./constants/routes";
+import { cn } from "@/lib/utils";
 
 export default function NotFound() {
   return (
@@ -30,12 +31,18 @@ export default function NotFound() {
                 have a listen to some of the music we released.
               </p>
               <div className="mt-4 flex flex-row gap-2">
-                <Button size="sm" render={<Link href={ROUTES.COLLECTION} />}>
+                <Link
+                  href={ROUTES.COLLECTION}
+                  className={cn(buttonVariants({ size: "sm" }))}
+                >
                   Explore the Collection
-                </Button>
-                <Button size="sm" variant="secondary" render={<Link href={ROUTES.HOME} />}>
+                </Link>
+                <Link
+                  href={ROUTES.HOME}
+                  className={cn(buttonVariants({ size: "sm", variant: "secondary" }))}
+                >
                   Go Home
-                </Button>
+                </Link>
               </div>
             </article>
           </CardContent>
