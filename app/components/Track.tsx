@@ -27,9 +27,8 @@ export const Track = React.memo(function Track({
       variant={isCurrentTrack ? "default" : "ghost"}
       onClick={() => onSelect(track.originalIndex)}
       className={cn("group h-auto w-full justify-start px-2")}
-      asChild
+      render={<div className="flex w-full min-w-0 items-center justify-between" />}
     >
-      <div className="flex w-full min-w-0 items-center justify-between">
         <div className="flex min-w-0 flex-1 items-center space-x-3">
           <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center">
             {isPlaying ? (
@@ -73,7 +72,6 @@ export const Track = React.memo(function Track({
           )}
           <TrackDownload track={track} />
         </div>
-      </div>
     </Button>
   );
 });

@@ -44,10 +44,8 @@ export default function Header() {
           <LogoAbbreviated className="group h-4" />
         </Link>
       </div>
-      <Button asChild variant="ghost">
-        <Link href={ROUTES.COLLECTION} className="flex items-center">
-          <GalleryVerticalEnd className="h-4 w-4" />
-        </Link>
+      <Button variant="ghost" render={<Link href={ROUTES.COLLECTION} className="flex items-center" />}>
+        <GalleryVerticalEnd className="h-4 w-4" />
       </Button>
     </header>
   );

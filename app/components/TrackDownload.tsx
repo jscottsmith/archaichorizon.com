@@ -31,16 +31,18 @@ export function TrackDownload({ track }: TrackDownloadProps) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="hidden h-7 w-7 md:flex"
-          onClick={(e) => e.stopPropagation()}
-          aria-label={`Download ${track.title}`}
-        >
-          <Download className="h-4 w-4" />
-        </Button>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden h-7 w-7 md:flex"
+            onClick={(e) => e.stopPropagation()}
+            aria-label={`Download ${track.title}`}
+          />
+        }
+      >
+        <Download className="h-4 w-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {track.media.mp3.url && (

@@ -75,8 +75,8 @@ export default function Error({ error, reset }: ErrorProps) {
               Try Again
             </Button>
 
-            <Button variant="outline" asChild className="flex-1 sm:flex-none">
-              <Link href={ROUTES.HOME}>Go Home</Link>
+            <Button variant="outline" className="flex-1 sm:flex-none" render={<Link href={ROUTES.HOME} />}>
+              Go Home
             </Button>
           </div>
 

@@ -57,12 +57,12 @@ export function ReleaseDownloadDropdown({
   // Multiple files - show as dropdown
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="flex items-center gap-2">
-          <Download className="h-4 w-4" />
-          Download
-          <ChevronDown className="h-4 w-4" />
-        </Button>
+      <DropdownMenuTrigger
+        render={<Button variant="ghost" className="flex items-center gap-2" />}
+      >
+        <Download className="h-4 w-4" />
+        Download
+        <ChevronDown className="h-4 w-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {zipFiles.map((file) => {
