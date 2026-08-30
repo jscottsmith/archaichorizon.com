@@ -24,8 +24,8 @@ export default function Footer() {
           Archive.
         </p>
         <div className="text-center">
-          <Button size="sm" asChild>
-            <Link href={ROUTES.COLLECTION}>Explore the Collection</Link>
+          <Button size="sm" render={<Link href={ROUTES.COLLECTION} />}>
+            Explore the Collection
           </Button>
         </div>
       </div>
@@ -36,38 +36,50 @@ export default function Footer() {
 
           {/* Secondary links */}
           <div className="mb-8 flex flex-wrap justify-center sm:gap-2 lg:shrink-0">
-            <Button size="sm" asChild variant="ghost">
-              <Link href={ROUTES.CONTACT}>Contact</Link>
+            <Button size="sm" variant="ghost" render={<Link href={ROUTES.CONTACT} />}>
+              Contact
             </Button>
-            <Button size="sm" asChild variant="ghost">
-              <Link
-                href={ROUTES.EXTERNAL.ARCHIVE_ORG}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Internet Archive{" "}
-                <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
-              </Link>
+            <Button
+              size="sm"
+              variant="ghost"
+              render={
+                <Link
+                  href={ROUTES.EXTERNAL.ARCHIVE_ORG}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              }
+            >
+              Internet Archive{" "}
+              <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
             </Button>
-            <Button size="sm" asChild variant="ghost">
-              <Link
-                href={ROUTES.EXTERNAL.SOUNDCLOUD}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                SoundCloud{" "}
-                <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
-              </Link>
+            <Button
+              size="sm"
+              variant="ghost"
+              render={
+                <Link
+                  href={ROUTES.EXTERNAL.SOUNDCLOUD}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              }
+            >
+              SoundCloud{" "}
+              <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
             </Button>
-            <Button size="sm" asChild variant="ghost">
-              <Link
-                href={ROUTES.EXTERNAL.DISCOGS}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Discogs{" "}
-                <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
-              </Link>
+            <Button
+              size="sm"
+              variant="ghost"
+              render={
+                <Link
+                  href={ROUTES.EXTERNAL.DISCOGS}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              }
+            >
+              Discogs{" "}
+              <ExternalLinkIcon className="ml-1 inline-flex h-3.5 w-3.5" />
             </Button>
           </div>
         </nav>

@@ -30,11 +30,11 @@ export default function NotFound() {
                 have a listen to some of the music we released.
               </p>
               <div className="mt-4 flex flex-row gap-2">
-                <Button size="sm" asChild>
-                  <Link href={ROUTES.COLLECTION}>Explore the Collection</Link>
+                <Button size="sm" render={<Link href={ROUTES.COLLECTION} />}>
+                  Explore the Collection
                 </Button>
-                <Button size="sm" variant="secondary" asChild>
-                  <Link href={ROUTES.HOME}>Go Home</Link>
+                <Button size="sm" variant="secondary" render={<Link href={ROUTES.HOME} />}>
+                  Go Home
                 </Button>
               </div>
             </article>
