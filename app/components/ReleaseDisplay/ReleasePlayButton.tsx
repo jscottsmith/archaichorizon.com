@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Play, AudioLines } from "lucide-react";
 import { usePlaylist } from "../../stores/playlistStore";
 import { useAudio } from "../../stores/audioStore";

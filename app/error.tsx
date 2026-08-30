@@ -2,8 +2,9 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { Button } from "@/app/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { ROUTES } from "@/app/constants/routes";
+import { cn } from "@/lib/utils";
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -75,9 +76,15 @@ export default function Error({ error, reset }: ErrorProps) {
               Try Again
             </Button>
 
-            <Button variant="outline" className="flex-1 sm:flex-none" render={<Link href={ROUTES.HOME} />}>
+            <Link
+              href={ROUTES.HOME}
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "flex-1 sm:flex-none"
+              )}
+            >
               Go Home
-            </Button>
+            </Link>
           </div>
 
           {/* Additional Help */}

@@ -41,7 +41,10 @@ function Slider({
 
   return (
     <SliderPrimitive.Root
-      className={cn("group w-full cursor-pointer data-horizontal:w-full", className)}
+      className={cn(
+        "group relative flex w-full min-w-0 cursor-pointer touch-none select-none items-center",
+        className
+      )}
       data-slot="slider"
       defaultValue={defaultValue}
       value={value}
@@ -51,7 +54,7 @@ function Slider({
       onValueChange={onValueChange ? handleValueChange : undefined}
       {...props}
     >
-      <SliderPrimitive.Control className="relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col">
+      <SliderPrimitive.Control className="relative flex w-full min-w-0 touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col">
         <SliderPrimitive.Track data-slot="slider-track" className={TRACK_CLASS}>
           <SliderPrimitive.Indicator
             data-slot="slider-range"

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePlaylist } from "../../stores/playlistStore";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { SkipBack } from "lucide-react";
 
 export const PreviousButton = React.memo(function PreviousButton({

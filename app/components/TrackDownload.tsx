@@ -1,6 +1,6 @@
 import type { Track } from "@/app/utils/tracks";
 import { triggerDownload } from "@/app/utils/download";
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,

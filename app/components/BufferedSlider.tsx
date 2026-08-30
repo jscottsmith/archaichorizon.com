@@ -32,7 +32,10 @@ export function BufferedSlider({
 
   return (
     <SliderPrimitive.Root
-      className={cn("group w-full cursor-pointer", className)}
+      className={cn(
+        "group relative flex w-full min-w-0 cursor-pointer touch-none select-none items-center",
+        className
+      )}
       data-slot="slider"
       value={value}
       onValueChange={handleValueChange}
@@ -41,7 +44,7 @@ export function BufferedSlider({
       disabled={disabled}
       thumbAlignment="edge"
     >
-      <SliderPrimitive.Control className="relative flex w-full touch-none items-center select-none data-disabled:opacity-50">
+      <SliderPrimitive.Control className="relative flex w-full min-w-0 touch-none items-center select-none data-disabled:opacity-50">
         <SliderPrimitive.Track data-slot="slider-track" className={TRACK_CLASS}>
           <div
             className="absolute h-full animate-pulse bg-gradient-to-r from-transparent to-accent-foreground/15 transition-all duration-300 ease-out"

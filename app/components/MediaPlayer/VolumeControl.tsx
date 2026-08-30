@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useAudio } from "../../stores/audioStore";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { Slider } from "../ui/slider";
 import { Volume, Volume1, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -40,7 +40,7 @@ export const VolumeControl = React.memo(function VolumeControl({
         onValueChange={handleVolumeChange}
         max={100}
         step={1}
-        className={cn("w-24", width)}
+        className={cn("w-24 shrink-0", width)}
       />
       <Button
         variant="ghost"
