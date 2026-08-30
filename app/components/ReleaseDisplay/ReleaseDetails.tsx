@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/app/components/ui/button";
+import { buttonVariants } from "@/app/components/ui/button";
+import { cn } from "@/lib/utils";
 import { splitSubject } from "../../utils/subject";
 
 interface ReleaseDetailsProps {
@@ -28,15 +29,14 @@ export function ReleaseDetails({ subject, licenseUrl }: ReleaseDetailsProps) {
           {licenseUrl && (
             <div className="self-end md:col-span-1">
               <span className="font-medium">License:</span>
-              <Button
-                variant="link"
-                className="ml-2 h-auto p-0"
-                render={
-                  <a href={licenseUrl} target="_blank" rel="noopener noreferrer" />
-                }
+              <a
+                href={licenseUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(buttonVariants({ variant: "link" }), "ml-2 h-auto p-0")}
               >
                 View License
-              </Button>
+              </a>
             </div>
           )}
         </div>

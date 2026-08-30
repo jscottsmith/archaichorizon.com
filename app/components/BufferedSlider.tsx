@@ -23,12 +23,19 @@ export function BufferedSlider({
   className,
   disabled = false,
 }: BufferedSliderProps) {
+  function handleValueChange(
+    nextValue: number | readonly number[]
+  ) {
+    const values = Array.isArray(nextValue) ? [...nextValue] : [nextValue];
+    onValueChange(values);
+  }
+
   return (
     <SliderPrimitive.Root
       className={cn("group w-full cursor-pointer", className)}
       data-slot="slider"
       value={value}
-      onValueChange={onValueChange}
+      onValueChange={handleValueChange}
       max={max}
       step={step}
       disabled={disabled}

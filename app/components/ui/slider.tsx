@@ -12,19 +12,32 @@ export const THUMB_CLASS = cn(
   "block h-3 w-3 shrink-0 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
 );
 
+type SliderProps = Omit<SliderPrimitive.Root.Props, "onValueChange"> & {
+  onValueChange?: (value: number[]) => void;
+};
+
 function Slider({
   className,
   defaultValue,
   value,
   min = 0,
   max = 100,
+  onValueChange,
   ...props
-}: SliderPrimitive.Root.Props) {
+}: SliderProps) {
   const _values = Array.isArray(value)
     ? value
     : Array.isArray(defaultValue)
       ? defaultValue
       : [min, max];
+
+  function handleValueChange(
+    nextValue: number | readonly number[]
+  ) {
+    if (!onValueChange) return;
+    const values = Array.isArray(nextValue) ? [...nextValue] : [nextValue];
+    onValueChange(values);
+  }
 
   return (
     <SliderPrimitive.Root
@@ -35,6 +48,7 @@ function Slider({
       min={min}
       max={max}
       thumbAlignment="edge"
+      onValueChange={onValueChange ? handleValueChange : undefined}
       {...props}
     >
       <SliderPrimitive.Control className="relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col">
