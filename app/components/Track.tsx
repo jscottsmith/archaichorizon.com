@@ -70,7 +70,9 @@ export const Track = React.memo(function Track({
               <span className="hidden sm:inline">{track.album}</span>
             )}
             {track.length && (
-              <span className="font-mono">{formatTrackLength(track.length)}</span>
+              <span className="font-mono">
+                {formatTrackLength(track.length)}
+              </span>
             )}
           </div>
         </div>
