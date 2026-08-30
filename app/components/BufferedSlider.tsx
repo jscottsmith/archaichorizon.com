@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import * as SliderPrimitive from "@radix-ui/react-slider";
+import { Slider as SliderPrimitive } from "@base-ui/react/slider";
 import { cn } from "@/lib/utils";
 import { THUMB_CLASS, TRACK_CLASS } from "./ui/slider";
 
@@ -26,26 +25,34 @@ export function BufferedSlider({
 }: BufferedSliderProps) {
   return (
     <SliderPrimitive.Root
-      className={cn(
-        "group relative flex w-full cursor-pointer touch-none select-none items-center",
-        className
-      )}
+      className={cn("group w-full cursor-pointer", className)}
+      data-slot="slider"
       value={value}
       onValueChange={onValueChange}
       max={max}
       step={step}
       disabled={disabled}
+      thumbAlignment="edge"
     >
-      <SliderPrimitive.Track className={TRACK_CLASS}>
-        {/* Buffered progress background */}
-        <div
-          className="absolute h-full animate-pulse bg-gradient-to-r from-transparent to-accent-foreground/15 transition-all duration-300 ease-out"
-          style={{ width: `${bufferedProgress * 100}%` }}
-        />
-        {/* Playback progress */}
-        <SliderPrimitive.Range className="absolute h-full bg-primary" />
-      </SliderPrimitive.Track>
-      <SliderPrimitive.Thumb className={THUMB_CLASS} />
+      <SliderPrimitive.Control className="relative flex w-full touch-none items-center select-none data-disabled:opacity-50">
+        <SliderPrimitive.Track data-slot="slider-track" className={TRACK_CLASS}>
+          <div
+            className="absolute h-full animate-pulse bg-gradient-to-r from-transparent to-accent-foreground/15 transition-all duration-300 ease-out"
+            style={{ width: `${bufferedProgress * 100}%` }}
+          />
+          <SliderPrimitive.Indicator
+            data-slot="slider-range"
+            className="absolute h-full bg-primary"
+          />
+        </SliderPrimitive.Track>
+        {Array.from({ length: value.length }, (_, index) => (
+          <SliderPrimitive.Thumb
+            data-slot="slider-thumb"
+            key={index}
+            className={THUMB_CLASS}
+          />
+        ))}
+      </SliderPrimitive.Control>
     </SliderPrimitive.Root>
   );
 }
