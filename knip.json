@@ -5,7 +5,6 @@
     "components/ui/**": ["exports", "types"],
     "app/components/ui/**": ["exports", "types"],
     "app/components/MediaPlayer/index.tsx": ["exports"],
-    "app/components/ui/index.ts": ["exports"],
     "app/constants/**": ["exports"],
     "app/utils/**": ["exports"],
     "app/types/**": ["exports", "types"]
