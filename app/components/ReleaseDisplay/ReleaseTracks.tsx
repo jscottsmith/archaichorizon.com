@@ -1,7 +1,7 @@
 "use client";
 
 import { TrackList } from "../TrackList";
-import { usePlaylist } from "../../stores/playlistStore";
+import { usePlaylist, selectCurrentTrack } from "../../stores/playlistStore";
 import type { Track } from "../../utils/tracks";
 
 interface ReleaseTracksProps {
@@ -13,7 +13,7 @@ export function ReleaseTracks({ tracks, catNo }: ReleaseTracksProps) {
   const currentTrackIndex = usePlaylist((state) => state.currentTrackIndex);
   const selectTrack = usePlaylist((state) => state.selectTrack);
   const setTracks = usePlaylist((state) => state.setTracks);
-  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const currentTrack = usePlaylist(selectCurrentTrack);
 
   const isCurrentPlaylist = catNo === currentTrack?.catNo?.toLowerCase();
 

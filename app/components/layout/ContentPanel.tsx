@@ -15,24 +15,24 @@ import { buttonVariants } from "@/components/ui/button";
 import { ROUTES } from "@/app/constants/routes";
 import { cn } from "@/lib/utils";
 import { usePlaylist } from "@/app/stores/playlistStore";
-import { PlaylistPanel } from "../Playlist";
+import { PlaylistPanel } from "../PlaylistPanel";
 import {
   getPanelTitle,
   isContentRoute,
-  showRightPanel,
+  showContentPanel,
 } from "./layout-utils";
 
 const CLOSE_ANIMATION_MS = 450;
 
-export function RightPanel(props: { children: React.ReactNode }) {
+export function ContentPanel(props: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const isDesktop = useMediaQuery("(min-width: 768px)", {
     initializeWithValue: false,
   });
-  const isPlaylistVisible = usePlaylist((state) => state.isPlaylistVisible);
-  const togglePlaylist = usePlaylist((state) => state.togglePlaylist);
-  const panelVisible = showRightPanel(pathname, isPlaylistVisible);
+  const isPlaylistPanelOpen = usePlaylist((state) => state.isPlaylistPanelOpen);
+  const closePlaylistPanel = usePlaylist((state) => state.closePlaylistPanel);
+  const panelVisible = showContentPanel(pathname, isPlaylistPanelOpen);
   const [open, setOpen] = useState(panelVisible);
 
   useEffect(() => {
@@ -41,8 +41,8 @@ export function RightPanel(props: { children: React.ReactNode }) {
 
   function handleOpenChange(nextOpen: boolean) {
     if (!nextOpen) {
-      if (isPlaylistVisible) {
-        togglePlaylist();
+      if (isPlaylistPanelOpen) {
+        closePlaylistPanel();
 
         if (isContentRoute(pathname)) {
           setOpen(true);
@@ -69,12 +69,12 @@ export function RightPanel(props: { children: React.ReactNode }) {
     return null;
   }
 
-  const panelContent = isPlaylistVisible ? <PlaylistPanel /> : props.children;
+  const panelContent = isPlaylistPanelOpen ? <PlaylistPanel /> : props.children;
 
   if (isDesktop) {
     return (
       <div className="absolute inset-0 z-10 flex flex-col bg-background/80 backdrop-blur-sm">
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-4">
           {panelContent}
         </div>
       </div>
@@ -90,7 +90,9 @@ export function RightPanel(props: { children: React.ReactNode }) {
     >
       <DrawerContent className="h-dvh max-h-dvh">
         <DrawerHeader className="flex-row items-center justify-between gap-2 pb-2">
-          <DrawerTitle>{getPanelTitle(pathname, isPlaylistVisible)}</DrawerTitle>
+          <DrawerTitle>
+            {getPanelTitle(pathname, isPlaylistPanelOpen)}
+          </DrawerTitle>
           <DrawerClose
             className={cn(
               buttonVariants({ variant: "ghost", size: "icon-sm" })

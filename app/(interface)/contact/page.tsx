@@ -1,10 +1,11 @@
 import { SITE } from "@/app/constants/site";
-import { PanelContent } from "@/app/components/PanelContent";
+import { ContentWrapper } from "@/app/components/ContentWrapper";
+import { PanelHeader } from "@/app/components/PanelHeader";
 
 export default function ContactPage() {
   return (
-    <PanelContent>
-      <h1 className="mb-4 text-2xl font-bold">Contact</h1>
+    <ContentWrapper>
+      <PanelHeader title="Contact" />
       <p className="text-sm leading-relaxed text-foreground/80">
         Reach out to us at{" "}
         <a
@@ -14,6 +15,6 @@ export default function ContactPage() {
           {SITE.email}
         </a>
       </p>
-    </PanelContent>
+    </ContentWrapper>
   );
 }

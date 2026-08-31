@@ -1,6 +1,6 @@
 "use client";
 
-import { usePlaylist } from "../stores/playlistStore";
+import { usePlaylist, selectCurrentTrack } from "../stores/playlistStore";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 
@@ -27,7 +27,7 @@ function AnimatedBackgroundImage({ src, alt }: AnimatedBackgroundImageProps) {
 }
 
 export function Background() {
-  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const currentTrack = usePlaylist(selectCurrentTrack);
 
   return (
     <div className="bg-gradient-radial fixed inset-0 -z-10 overflow-hidden">

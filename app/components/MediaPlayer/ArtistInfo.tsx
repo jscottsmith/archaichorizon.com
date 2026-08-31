@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { usePlaylist } from "../../stores/playlistStore";
+import { usePlaylist, selectCurrentTrack } from "../../stores/playlistStore";
 import { cn } from "@/lib/utils";
 import {
   AudioTrackTitle,
@@ -22,7 +22,7 @@ export const ArtistInfo = React.memo(function ArtistInfo({
   hideAlbum?: boolean;
   hideTrackNumbers?: boolean;
 }) {
-  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const currentTrack = usePlaylist(selectCurrentTrack);
   const totalTracks = usePlaylist((state) => state.tracks.length);
   const currentTrackIndex = usePlaylist((state) => state.currentTrackIndex);
 
