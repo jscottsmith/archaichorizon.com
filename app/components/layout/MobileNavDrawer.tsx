@@ -24,7 +24,7 @@ export function MobileNavDrawer() {
       swipeDirection="down"
       showSwipeHandle
     >
-      <DrawerContent className="h-[90vh] max-h-dvh">
+      <DrawerContent className="panel-surface h-[90vh] max-h-dvh">
         <DrawerHeader className="pb-2">
           <DrawerTitle className="sr-only">Navigation</DrawerTitle>
           <DrawerDescription className="sr-only">

@@ -73,7 +73,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
 
   if (isDesktop) {
     return (
-      <div className="absolute inset-0 z-10 flex flex-col bg-background/80 backdrop-blur-sm">
+      <div className="panel-surface absolute inset-0 z-10 flex flex-col">
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-4">
           {panelContent}
         </div>
@@ -88,7 +88,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
       swipeDirection="right"
       showSwipeHandle={false}
     >
-      <DrawerContent className="h-dvh max-h-dvh">
+      <DrawerContent className="panel-surface h-dvh max-h-dvh">
         <DrawerHeader className="flex-row items-center justify-between gap-2 pb-2">
           <DrawerTitle>
             {getPanelTitle(pathname, isPlaylistPanelOpen)}
