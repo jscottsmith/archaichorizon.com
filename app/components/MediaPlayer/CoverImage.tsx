@@ -18,7 +18,7 @@ export const CoverImage = React.memo(function CoverImage({
 
   return (
     // width/height must be set to match the size prop
-    <div className={cn("h-16 w-16 flex-shrink-0", className)}>
+    <div className={cn("h-10 w-10 flex-shrink-0", className)}>
       {currentTrack?.images?.thumbnail || currentTrack?.images?.cover ? (
         <Image
           priority

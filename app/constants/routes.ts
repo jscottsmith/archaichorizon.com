@@ -4,6 +4,7 @@ export const ROUTES = {
   HOME: "/",
   COLLECTION: "/collection",
   CONTACT: "/contact",
+  ABOUT: "/about",
 
   // External links
   EXTERNAL: {

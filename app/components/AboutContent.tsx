@@ -1,15 +1,14 @@
 import Link from "next/link";
-import Logo from "./Logo";
-import { SITE } from "../constants/site";
+import Logo from "@/app/components/Logo";
+import { SITE } from "@/app/constants/site";
 import { buttonVariants } from "@/components/ui/button";
 import { ExternalLinkIcon } from "lucide-react";
-import { ROUTES } from "../constants/routes";
+import { ROUTES } from "@/app/constants/routes";
 import { cn } from "@/lib/utils";
 
-export default function Footer() {
+export function AboutContent() {
   return (
-    <footer className="relative rounded-t-xl border-t bg-background px-8 pt-12 pb-8 md:rounded-none">
-      {/* Logo */}
+    <div className="px-8 pt-12 pb-8">
       <div className="mb-8 flex flex-col items-center justify-center">
         <Logo className="h-32" />
         <h1 className="-mt-4 text-xs tracking-[0.75em] uppercase">
@@ -17,7 +16,6 @@ export default function Footer() {
         </h1>
       </div>
 
-      {/* Main blurb */}
       <div className="mb-12 text-center">
         <p className="mx-auto mb-4 max-w-2xl text-sm leading-relaxed text-balance text-foreground/80">
           Archaic Horizon was an electronic music net label active from 2006 to
@@ -36,9 +34,6 @@ export default function Footer() {
 
       <div className="mx-auto mt-24 flex w-full max-w-screen-lg flex-col justify-between lg:flex-row">
         <nav className="flex flex-col lg:flex-row">
-          {/* Collection link */}
-
-          {/* Secondary links */}
           <div className="mb-8 flex flex-wrap justify-center sm:gap-2 lg:shrink-0">
             <Link
               href={ROUTES.CONTACT}
@@ -76,8 +71,6 @@ export default function Footer() {
           </div>
         </nav>
 
-        {/* Legal line */}
-
         <p className="mx-auto max-w-lg text-center text-xs text-balance text-foreground/60 lg:text-right">
           All design, music, and written content on Archaic Horizon is protected
           by the Creative Commons{" "}
@@ -92,6 +85,6 @@ export default function Footer() {
           License unless otherwise specified.
         </p>
       </div>
-    </footer>
+    </div>
   );
 }
