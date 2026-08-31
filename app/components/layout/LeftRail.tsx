@@ -134,7 +134,7 @@ export function LeftRail(props: { className?: string }) {
   return (
     <aside
       className={cn(
-        "flex h-dvh shrink-0 flex-col border-r bg-background/80 backdrop-blur-sm transition-[width] duration-200",
+        "flex h-dvh shrink-0 flex-col border-r panel-surface transition-[width] duration-200",
         isMinimized ? "w-16" : "w-64",
         props.className
       )}

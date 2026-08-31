@@ -39,6 +39,8 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-panel: var(--panel);
+  --blur-panel: var(--panel-blur);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -87,6 +89,13 @@
   --gradient-radial-3: #4060d7;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+  --panel-opacity: 0.4;
+  --panel-blur: 10px;
+  --panel: color-mix(
+    in oklch,
+    var(--background) calc(var(--panel-opacity) * 100%),
+    transparent
+  );
 }
 
 .dark {
@@ -147,6 +156,10 @@
 }
 
 @layer components {
+  .panel-surface {
+    @apply bg-panel backdrop-blur-panel;
+  }
+
   .bg-gradient-radial {
     background: radial-gradient(
       circle at center center,

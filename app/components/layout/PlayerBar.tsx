@@ -15,7 +15,7 @@ export function PlayerBar(props: { className?: string }) {
     <div
       id={ids.mediaPlayer}
       className={cn(
-        "hidden shrink-0 space-y-3 border-t bg-background/80 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur-sm md:block",
+        "hidden shrink-0 space-y-3 border-t panel-surface px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] md:block",
         props.className
       )}
     >
