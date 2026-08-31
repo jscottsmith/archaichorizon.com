@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { usePlaylist } from "../../stores/playlistStore";
+import { usePlaylist, selectCurrentTrack } from "../../stores/playlistStore";
 import { cn } from "@/lib/utils";
 import { ImageOff } from "lucide-react";
 import { classes, ids } from "@/app/constants/ids";
@@ -14,7 +14,7 @@ export const CoverImage = React.memo(function CoverImage({
   className?: string;
   size?: number;
 }) {
-  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const currentTrack = usePlaylist(selectCurrentTrack);
 
   return (
     // width/height must be set to match the size prop

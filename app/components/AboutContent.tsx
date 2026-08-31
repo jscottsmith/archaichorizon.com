@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export function AboutContent() {
   return (
-    <div className="px-8 pt-12 pb-8">
+    <div className="space-y-8">
       <div className="mb-8 flex flex-col items-center justify-center">
         <Logo className="h-32" />
         <h1 className="-mt-4 text-xs tracking-[0.75em] uppercase">

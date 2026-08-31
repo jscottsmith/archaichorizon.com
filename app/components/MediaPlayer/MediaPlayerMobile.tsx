@@ -7,42 +7,27 @@ import { CoverImage } from "./CoverImage";
 import { PreviousButton } from "./PreviousButton";
 import { PlayPauseButton } from "./PlayPauseButton";
 import { NextButton } from "./NextButton";
-import { MobilePopoverControls } from "./MobilePopoverControls";
-import { useMobilePopover } from "@/app/hooks/useMobilePopover";
 import { ArtistInfo } from "./ArtistInfo";
+import { PlaylistToggle } from "./PlaylistToggle";
 import { ids } from "@/app/constants/ids";
 
 export function MediaPlayerMobile({ className }: { className?: string }) {
-  const { isOpen, open, close } = useMobilePopover();
-
   return (
-    <>
-      <Card
-        id={ids.mediaPlayerMobile}
-        className={cn(
-          "hover:bg-accent/50 mx-auto inline-flex w-full cursor-pointer flex-row items-center justify-between gap-2 rounded-lg p-2 px-2 transition-colors",
-          className
-        )}
-        onClick={open}
-      >
-        <CoverImage size={48} className="h-12 w-12" />
-        <ArtistInfo hideArtist hideAlbum hideTrackNumbers />
-        <div
-          role="presentation"
-          onClick={(e) => e.stopPropagation()}
-          onKeyDown={(e) => e.stopPropagation()}
-          className={cn(
-            "flex items-center justify-center gap-1 md:gap-2 lg:gap-4",
-            className
-          )}
-        >
-          <PreviousButton iconSize={20} />
-          <PlayPauseButton iconSize={20} />
-          <NextButton iconSize={20} />
-        </div>
-      </Card>
-
-      <MobilePopoverControls isOpen={isOpen} closePopover={close} />
-    </>
+    <Card
+      id={ids.mediaPlayerMobile}
+      className={cn(
+        "mx-auto inline-flex w-full flex-row items-center justify-between gap-2 rounded-lg p-2 px-2",
+        className
+      )}
+    >
+      <CoverImage size={48} className="h-12 w-12 shrink-0" />
+      <ArtistInfo hideArtist hideAlbum hideTrackNumbers />
+      <div className="flex items-center justify-center gap-1">
+        <PreviousButton iconSize={20} />
+        <PlayPauseButton iconSize={20} />
+        <NextButton iconSize={20} />
+        <PlaylistToggle />
+      </div>
+    </Card>
   );
 }

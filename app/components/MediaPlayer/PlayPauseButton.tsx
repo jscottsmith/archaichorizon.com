@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useAudio } from "../../stores/audioStore";
-import { usePlaylist } from "../../stores/playlistStore";
+import { usePlaylist, selectCurrentTrack } from "../../stores/playlistStore";
 import { Button } from "@/components/ui/button";
 import { Play, Pause, Loader2 } from "lucide-react";
 
@@ -17,7 +17,7 @@ export const PlayPauseButton = React.memo(function PlayPauseButton({
   const isLoading = useAudio((state) => state.isLoading);
   const play = useAudio((state) => state.play);
   const pause = useAudio((state) => state.pause);
-  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const currentTrack = usePlaylist(selectCurrentTrack);
 
   const handlePlay = async () => {
     await play();

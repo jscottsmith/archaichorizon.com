@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { ArtistInfo } from "../MediaPlayer/ArtistInfo";
 import { CoverArtCarousel } from "../CoverArtCarousel";
-import { usePlaylist } from "@/app/stores/playlistStore";
+import { usePlaylist, selectCurrentTrack } from "@/app/stores/playlistStore";
 import { buildReleaseRoute } from "@/app/utils/url";
 import { cn } from "@/lib/utils";
 
 export function NowPlayingDetails(props: { className?: string }) {
-  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const currentTrack = usePlaylist(selectCurrentTrack);
 
   const images = currentTrack?.images?.cover
     ? [

@@ -6,7 +6,6 @@ interface AppShellContextValue {
   isNavOpen: boolean;
   openNav: () => void;
   closeNav: () => void;
-  toggleNav: () => void;
 }
 
 const AppShellContext = createContext<AppShellContextValue | null>(null);
@@ -20,7 +19,6 @@ export function AppShellProvider(props: { children: React.ReactNode }) {
         isNavOpen,
         openNav: () => setIsNavOpen(true),
         closeNav: () => setIsNavOpen(false),
-        toggleNav: () => setIsNavOpen((open) => !open),
       }}
     >
       {props.children}

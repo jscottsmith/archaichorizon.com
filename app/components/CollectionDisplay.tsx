@@ -8,6 +8,7 @@ import type { IADocument } from "@/app/types/ia";
 import { Badge } from "@/components/ui/badge";
 import { ContentWrapper } from "./ContentWrapper";
 import { PageLoading } from "./PageLoading";
+import { PanelHeader } from "./PanelHeader";
 import { buildReleaseRoute } from "@/app/utils/url";
 
 // Error component
@@ -53,6 +54,7 @@ export function CollectionDisplay({
 
   return (
     <ContentWrapper>
+      <PanelHeader title="Collection" />
       <section className="grid grid-cols-1 gap-1">
         {collection.map((item) => (
           <Link

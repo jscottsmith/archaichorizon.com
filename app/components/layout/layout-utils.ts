@@ -18,18 +18,18 @@ export function isContentRoute(pathname: string): boolean {
   return CONTENT_ROUTES.some((route) => pathname === route);
 }
 
-export function showRightPanel(
+export function showContentPanel(
   pathname: string,
-  isPlaylistVisible: boolean
+  isPlaylistPanelOpen: boolean
 ): boolean {
-  return isContentRoute(pathname) || isPlaylistVisible;
+  return isContentRoute(pathname) || isPlaylistPanelOpen;
 }
 
 export function getPanelTitle(
   pathname: string,
-  isPlaylistVisible: boolean
+  isPlaylistPanelOpen: boolean
 ): string {
-  if (isPlaylistVisible) {
+  if (isPlaylistPanelOpen) {
     return "Playlist";
   }
 

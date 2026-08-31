@@ -33,12 +33,12 @@ const NAV_LINKS: {
 
 function NavLinks(props: { isMinimized?: boolean; onNavigate?: () => void }) {
   const pathname = usePathname();
-  const isPlaylistVisible = usePlaylist((state) => state.isPlaylistVisible);
-  const togglePlaylist = usePlaylist((state) => state.togglePlaylist);
+  const isPlaylistPanelOpen = usePlaylist((state) => state.isPlaylistPanelOpen);
+  const closePlaylistPanel = usePlaylist((state) => state.closePlaylistPanel);
 
   function handleNavigate() {
-    if (isPlaylistVisible) {
-      togglePlaylist();
+    if (isPlaylistPanelOpen) {
+      closePlaylistPanel();
     }
 
     props.onNavigate?.();

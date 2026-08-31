@@ -1,8 +1,6 @@
 "use client";
 
-import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 import { ids } from "@/app/constants/ids";
 import {
   CoverImage,
@@ -12,7 +10,7 @@ import {
   TrackProgress,
 } from "../MediaPlayer";
 
-export function PlayerTopBar(props: { className?: string }) {
+export function PlayerBar(props: { className?: string }) {
   return (
     <div
       id={ids.mediaPlayer}

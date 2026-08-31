@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import { usePlaylist } from "../stores/playlistStore";
+import { usePlaylist, selectCurrentTrack } from "../stores/playlistStore";
 import {
   useAudio as useAudioStore,
   cleanupAudioStore,
@@ -20,7 +20,7 @@ export function AudioProvider() {
 
   // Get current track from playlist store
   const nextTrack = usePlaylist((state) => state.nextTrack);
-  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const currentTrack = usePlaylist(selectCurrentTrack);
   const totalTracks = usePlaylist((state) => state.tracks.length);
   const currentTrackIndex = usePlaylist((state) => state.currentTrackIndex);
 
