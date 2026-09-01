@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { X } from "lucide-react";
-import { useMediaQuery } from "usehooks-ts";
+import { useMediaQuery, useIsClient } from "usehooks-ts";
 import {
   Drawer,
   DrawerClose,
@@ -27,9 +27,11 @@ const CLOSE_ANIMATION_MS = 450;
 export function ContentPanel(props: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const isClient = useIsClient();
   const isDesktop = useMediaQuery("(min-width: 768px)", {
-    initializeWithValue: false,
+    defaultValue: true,
   });
+  const showMobileDrawer = isClient && !isDesktop;
   const isPlaylistPanelOpen = usePlaylist((state) => state.isPlaylistPanelOpen);
   const closePlaylistPanel = usePlaylist((state) => state.closePlaylistPanel);
   const panelVisible = showContentPanel(pathname, isPlaylistPanelOpen);
@@ -71,7 +73,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
 
   const panelContent = isPlaylistPanelOpen ? <PlaylistPanel /> : props.children;
 
-  if (isDesktop) {
+  if (!showMobileDrawer) {
     return (
       <div className="panel-surface absolute inset-0 z-10 flex flex-col">
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-4">
@@ -87,6 +89,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
       onOpenChange={handleOpenChange}
       swipeDirection="right"
       showSwipeHandle={false}
+      modal={false}
     >
       <DrawerContent className="panel-surface h-dvh max-h-dvh">
         <DrawerHeader className="flex-row items-center justify-between gap-2 pb-2">
