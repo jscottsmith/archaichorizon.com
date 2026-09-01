@@ -52,6 +52,10 @@ export const usePlaylist = create<PlaylistState>()(
     },
 
     setTracks: (newTracks: Track[], currentTrackIndex?: number) => {
+      if (newTracks.length === 0 && get().tracks.length > 0) {
+        return;
+      }
+
       set({
         tracks: newTracks,
         currentTrackIndex: currentTrackIndex ?? 0,
