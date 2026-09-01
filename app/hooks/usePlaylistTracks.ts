@@ -37,7 +37,7 @@ export function usePlaylistTracks() {
   const tracks = useNormalizeTracks(release.data);
 
   useEffect(() => {
-    if (playlistTracks.length === 0) {
+    if (playlistTracks.length === 0 && tracks.length > 0) {
       setTracks(tracks);
     }
   }, [tracks, playlistTracks.length, setTracks]);
