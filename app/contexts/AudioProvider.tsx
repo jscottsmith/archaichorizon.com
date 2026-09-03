@@ -91,7 +91,6 @@ export function AudioProvider() {
         id={ids.mediaPlayerAudioElement}
         ref={audioRef}
         preload="metadata"
-        autoPlay
         crossOrigin="anonymous"
         data-title={currentTrack?.title}
         data-artist={currentTrack?.artist}
