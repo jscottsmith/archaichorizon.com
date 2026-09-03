@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/drawer";
 import { LeftRailContent } from "./LeftRail";
 import { useAppShell } from "./AppShellContext";
+import { panelSurface } from "./shell-classes";
+import { cn } from "@/lib/utils";
 
 export function MobileNavDrawer() {
   const { isNavOpen, closeNav } = useAppShell();
@@ -25,7 +27,7 @@ export function MobileNavDrawer() {
       showSwipeHandle
       modal={false}
     >
-      <DrawerContent className="panel-surface h-[90vh] max-h-dvh">
+      <DrawerContent className={cn(panelSurface, "h-[90vh] max-h-dvh")}>
         <DrawerHeader className="pb-2">
           <DrawerTitle className="sr-only">Navigation</DrawerTitle>
           <DrawerDescription className="sr-only">

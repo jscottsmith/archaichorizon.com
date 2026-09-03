@@ -6,12 +6,15 @@ interface AppShellContextValue {
   isNavOpen: boolean;
   openNav: () => void;
   closeNav: () => void;
+  isSidebarCollapsed: boolean;
+  toggleSidebarCollapsed: () => void;
 }
 
 const AppShellContext = createContext<AppShellContextValue | null>(null);
 
 export function AppShellProvider(props: { children: React.ReactNode }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   return (
     <AppShellContext.Provider
@@ -19,6 +22,9 @@ export function AppShellProvider(props: { children: React.ReactNode }) {
         isNavOpen,
         openNav: () => setIsNavOpen(true),
         closeNav: () => setIsNavOpen(false),
+        isSidebarCollapsed,
+        toggleSidebarCollapsed: () =>
+          setIsSidebarCollapsed((collapsed) => !collapsed),
       }}
     >
       {props.children}

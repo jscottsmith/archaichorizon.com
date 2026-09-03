@@ -49,6 +49,11 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --spacing-shell-inset: 0.75rem;
+  --spacing-shell-gap: 0.75rem;
+  --spacing-sidebar: 16rem;
+  --spacing-sidebar-collapsed: 4rem;
+  --shadow-panel-inset: inset 0 0 4rem oklch(from var(--border) l c h / 0.05);
 }
 
 :root {
@@ -141,10 +146,12 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: color-mix(in oklch, var(--ring) 50%, transparent);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
     position: relative;
   }
   img {
@@ -153,15 +160,11 @@
     user-select: none;
   }
   html {
-    @apply font-sans;
+    font-family: var(--font-sans);
   }
 }
 
 @layer components {
-  .panel-surface {
-    @apply bg-panel backdrop-blur-panel;
-  }
-
   .bg-gradient-radial {
     background: radial-gradient(
       circle at center center,
