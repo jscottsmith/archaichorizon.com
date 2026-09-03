@@ -1,6 +1,8 @@
 "use client";
 
+import { Suspense } from "react";
 import { AppShellProvider } from "./AppShellContext";
+import { PlaylistBootstrap } from "./PlaylistBootstrap";
 import { CenterLogo } from "./CenterLogo";
 import { LeftRail } from "./LeftRail";
 import { MobileNavDrawer } from "./MobileNavDrawer";
@@ -12,6 +14,9 @@ import { MediaPlayerMobile } from "../MediaPlayer";
 export function AppShell(props: { children: React.ReactNode }) {
   return (
     <AppShellProvider>
+      <Suspense fallback={null}>
+        <PlaylistBootstrap />
+      </Suspense>
       <div className="relative flex h-dvh overflow-hidden">
         <LeftRail className="hidden md:flex" />
 

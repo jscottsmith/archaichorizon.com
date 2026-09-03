@@ -3,15 +3,14 @@
 import { useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { usePlaylist } from "@/app/stores/playlistStore";
+import { useAudio } from "@/app/stores/audioStore";
 import { useRelease } from "@/app/hooks/useRelease";
 import { useNormalizeTracks } from "@/app/hooks/useNormalizeTracks";
 import { getAllCatNos } from "@/app/constants/releaseMap";
 
-export function usePlaylistTracks() {
+export function usePlaylistBootstrap() {
   const params = useParams();
   const playlistTracks = usePlaylist((state) => state.tracks);
-  const currentTrackIndex = usePlaylist((state) => state.currentTrackIndex);
-  const selectTrack = usePlaylist((state) => state.selectTrack);
   const setTracks = usePlaylist((state) => state.setTracks);
 
   const getDateBasedRandomCatNo = useMemo(() => {
@@ -39,12 +38,7 @@ export function usePlaylistTracks() {
   useEffect(() => {
     if (playlistTracks.length === 0 && tracks.length > 0) {
       setTracks(tracks);
+      useAudio.getState().setIsPlaying(true);
     }
   }, [tracks, playlistTracks.length, setTracks]);
-
-  return {
-    playlistTracks,
-    currentTrackIndex,
-    selectTrack,
-  };
 }
