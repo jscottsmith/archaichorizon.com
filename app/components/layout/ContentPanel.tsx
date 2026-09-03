@@ -21,6 +21,7 @@ import {
   isContentRoute,
   showContentPanel,
 } from "./layout-utils";
+import { panelSurface, shellFreePl } from "./shell-classes";
 
 const CLOSE_ANIMATION_MS = 450;
 
@@ -75,9 +76,16 @@ export function ContentPanel(props: { children: React.ReactNode }) {
 
   if (!showMobileDrawer) {
     return (
-      <div className="panel-surface absolute inset-0 z-10 flex flex-col">
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-4">
-          {panelContent}
+      <div
+        className={cn(panelSurface, "absolute inset-0 z-10 flex flex-col")}
+      >
+        <div
+          className={cn(
+            "min-h-0 flex-1 overflow-y-auto overscroll-contain pt-4 pr-4 pb-[calc(var(--spacing-shell-inset)+8rem)]",
+            shellFreePl
+          )}
+        >
+          <div className="mx-auto w-full max-w-[80ch]">{panelContent}</div>
         </div>
       </div>
     );
@@ -91,7 +99,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
       showSwipeHandle={false}
       modal={false}
     >
-      <DrawerContent className="panel-surface h-dvh max-h-dvh">
+      <DrawerContent className={cn(panelSurface, "h-dvh max-h-dvh")}>
         <DrawerHeader className="flex-row items-center justify-between gap-2 pb-2">
           <DrawerTitle>
             {getPanelTitle(pathname, isPlaylistPanelOpen)}
@@ -106,7 +114,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
           </DrawerClose>
         </DrawerHeader>
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-4">
-          {panelContent}
+          <div className="mx-auto w-full max-w-[80ch]">{panelContent}</div>
         </div>
       </DrawerContent>
     </Drawer>

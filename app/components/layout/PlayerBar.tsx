@@ -9,29 +9,37 @@ import {
   PlaylistToggle,
   TrackProgress,
 } from "../MediaPlayer";
+import { FloatingPanel } from "./FloatingPanel";
+import { shellFreeLeft } from "./shell-classes";
 
 export function PlayerBar(props: { className?: string }) {
   return (
     <div
-      id={ids.mediaPlayer}
       className={cn(
-        "hidden shrink-0 space-y-3 border-t panel-surface px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] md:block",
+        "pointer-events-none fixed z-30 hidden md:block",
+        "right-shell-inset bottom-[calc(var(--spacing-shell-inset)+env(safe-area-inset-bottom,0px))]",
+        shellFreeLeft,
         props.className
       )}
     >
-      <div className="grid grid-cols-12 items-center justify-between">
-        <div className="col-span-5 flex items-center">
-          <CoverImage />
-        </div>
+      <FloatingPanel
+        id={ids.mediaPlayer}
+        className="pointer-events-auto mx-auto w-full max-w-4xl space-y-3 px-4 py-3"
+      >
+        <div className="grid grid-cols-12 items-center justify-between">
+          <div className="col-span-5 flex items-center">
+            <CoverImage />
+          </div>
 
-        <MainControls className="col-span-2 justify-center" />
+          <MainControls className="col-span-2 justify-center" />
 
-        <div className="col-span-5 flex items-center justify-end gap-2">
-          <VolumeControl />
-          <PlaylistToggle />
+          <div className="col-span-5 flex items-center justify-end gap-2">
+            <VolumeControl />
+            <PlaylistToggle />
+          </div>
         </div>
-      </div>
-      <TrackProgress />
+        <TrackProgress />
+      </FloatingPanel>
     </div>
   );
 }

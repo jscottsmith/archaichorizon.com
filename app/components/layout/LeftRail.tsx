@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -18,6 +17,7 @@ import { cn } from "@/lib/utils";
 import { LogoAbbreviated } from "../Logo";
 import { SITE } from "@/app/constants/site";
 import { NowPlayingDetails } from "./NowPlayingDetails";
+import { FloatingPanel } from "./FloatingPanel";
 import { useAppShell } from "./AppShellContext";
 import { usePlaylist } from "@/app/stores/playlistStore";
 
@@ -93,7 +93,7 @@ function RailLogo(props: { isMinimized: boolean; onNavigate?: () => void }) {
           : "flex flex-col items-start gap-1"
       )}
     >
-      <LogoAbbreviated className="h-4" />
+      <LogoAbbreviated className="size-8" />
       <span className="sr-only">{SITE.name}</span>
     </Link>
   );
@@ -129,22 +129,22 @@ function RailCollapseToggle(props: {
 }
 
 export function LeftRail(props: { className?: string }) {
-  const [isMinimized, setIsMinimized] = useState(false);
+  const { isSidebarCollapsed, toggleSidebarCollapsed } = useAppShell();
 
   return (
-    <aside
+    <FloatingPanel
+      as="aside"
       className={cn(
-        "flex h-dvh shrink-0 flex-col border-r panel-surface transition-[width] duration-200",
-        isMinimized ? "w-16" : "w-64",
+        "fixed top-shell-inset bottom-shell-inset left-shell-inset z-30 flex w-sidebar flex-col overflow-hidden transition-[width] duration-200 group-data-[sidebar-collapsed=true]/shell:w-sidebar-collapsed",
         props.className
       )}
     >
       <LeftRailContent
         collapsible
-        isMinimized={isMinimized}
-        onToggleMinimized={() => setIsMinimized((minimized) => !minimized)}
+        isMinimized={isSidebarCollapsed}
+        onToggleMinimized={toggleSidebarCollapsed}
       />
-    </aside>
+    </FloatingPanel>
   );
 }
 
@@ -171,7 +171,9 @@ export function LeftRailContent(props: {
 
         <ThemeSwitcher />
 
-        <div className={cn("mt-auto w-full", isMinimized && "flex justify-center")}>
+        <div
+          className={cn("mt-auto w-full", isMinimized && "flex justify-center")}
+        >
           <RailCollapseToggle
             collapsible={collapsible}
             isMinimized={isMinimized}
