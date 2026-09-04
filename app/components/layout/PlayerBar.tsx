@@ -9,7 +9,7 @@ import {
   PlaylistToggle,
   TrackProgress,
 } from "../MediaPlayer";
-import { FloatingPanel } from "./FloatingPanel";
+import { Card } from "@/components/ui/card";
 import { shellFreeLeft } from "./shell-classes";
 
 export function PlayerBar(props: { className?: string }) {
@@ -22,9 +22,9 @@ export function PlayerBar(props: { className?: string }) {
         props.className
       )}
     >
-      <FloatingPanel
+      <Card
         id={ids.mediaPlayer}
-        className="pointer-events-auto mx-auto w-full max-w-4xl space-y-3 px-4 py-3"
+        className="pointer-events-auto mx-auto w-full max-w-4xl gap-3 px-4 py-3"
       >
         <div className="grid grid-cols-12 items-center justify-between">
           <div className="col-span-5 flex items-center">
@@ -39,7 +39,7 @@ export function PlayerBar(props: { className?: string }) {
           </div>
         </div>
         <TrackProgress />
-      </FloatingPanel>
+      </Card>
     </div>
   );
 }

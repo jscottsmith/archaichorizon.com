@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { LogoAbbreviated } from "../Logo";
 import { SITE } from "@/app/constants/site";
 import { NowPlayingDetails } from "./NowPlayingDetails";
-import { FloatingPanel } from "./FloatingPanel";
+import { Card } from "@/components/ui/card";
 import { useAppShell } from "./AppShellContext";
 import { usePlaylist } from "@/app/stores/playlistStore";
 
@@ -132,10 +132,9 @@ export function LeftRail(props: { className?: string }) {
   const { isSidebarCollapsed, toggleSidebarCollapsed } = useAppShell();
 
   return (
-    <FloatingPanel
-      as="aside"
+    <Card
       className={cn(
-        "fixed top-shell-inset bottom-shell-inset left-shell-inset z-30 flex w-sidebar flex-col overflow-hidden transition-[width] duration-200 group-data-[sidebar-collapsed=true]/shell:w-sidebar-collapsed",
+        "fixed top-shell-inset bottom-shell-inset left-shell-inset z-30 flex w-sidebar flex-col overflow-hidden py-0 transition-[width] duration-200 group-data-[sidebar-collapsed=true]/shell:w-sidebar-collapsed",
         props.className
       )}
     >
@@ -144,7 +143,7 @@ export function LeftRail(props: { className?: string }) {
         isMinimized={isSidebarCollapsed}
         onToggleMinimized={toggleSidebarCollapsed}
       />
-    </FloatingPanel>
+    </Card>
   );
 }
 
@@ -161,8 +160,8 @@ export function LeftRailContent(props: {
     <div className="flex h-full min-h-0 flex-col">
       <div
         className={cn(
-          "flex min-h-0 flex-1 flex-col gap-6",
-          isMinimized ? "items-center p-2" : "p-4"
+          "flex min-h-0 flex-1 flex-col gap-6 p-4",
+          isMinimized && "items-center"
         )}
       >
         <RailLogo isMinimized={isMinimized} onNavigate={closeNav} />
