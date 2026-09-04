@@ -11,7 +11,12 @@ export function PanelHeader(props: {
   className?: string;
 }) {
   return (
-    <div className={cn("mb-4 flex items-start justify-between gap-2", props.className)}>
+    <div
+      className={cn(
+        "mb-4 hidden items-start justify-between gap-2 md:flex",
+        props.className
+      )}
+    >
       <h1 className="text-2xl font-bold">{props.title}</h1>
       {props.onClose && (
         <button

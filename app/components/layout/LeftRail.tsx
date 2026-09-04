@@ -157,7 +157,7 @@ export function LeftRailContent(props: {
   const isMinimized = collapsible ? props.isMinimized ?? false : false;
 
   return (
-    <div className="flex h-full min-h-0 flex-col">
+    <div className={cn("flex min-h-0 flex-col", collapsible ? "h-full" : "min-h-full")}>
       <div
         className={cn(
           "flex min-h-0 flex-1 flex-col gap-6 p-4",

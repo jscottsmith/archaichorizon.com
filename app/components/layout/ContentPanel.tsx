@@ -95,11 +95,10 @@ export function ContentPanel(props: { children: React.ReactNode }) {
     <Drawer
       open={open}
       onOpenChange={handleOpenChange}
-      swipeDirection="right"
-      showSwipeHandle={false}
+      showSwipeHandle
       modal={false}
     >
-      <DrawerContent className={cn(panelSurface, "h-dvh max-h-dvh")}>
+      <DrawerContent className="[--drawer-content-height:90vh]">
         <DrawerHeader className="flex-row items-center justify-between gap-2 pb-2">
           <DrawerTitle>
             {getPanelTitle(pathname, isPlaylistPanelOpen)}
@@ -113,7 +112,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
             <X className="h-4 w-4" />
           </DrawerClose>
         </DrawerHeader>
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-4">
+        <div className="px-4 pb-4">
           <div className="mx-auto w-full max-w-[80ch]">{panelContent}</div>
         </div>
       </DrawerContent>
