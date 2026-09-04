@@ -16,7 +16,7 @@ export function MediaPlayerMobile({ className }: { className?: string }) {
     <Card
       id={ids.mediaPlayerMobile}
       className={cn(
-        "mx-auto inline-flex w-full flex-row items-center justify-between gap-2 rounded-lg p-2 px-2",
+        "mx-auto inline-flex w-full flex-row items-center justify-between gap-2 p-2",
         className
       )}
     >
