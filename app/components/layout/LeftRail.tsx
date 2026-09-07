@@ -62,7 +62,7 @@ function NavLinks(props: { isMinimized?: boolean; onNavigate?: () => void }) {
             onClick={handleNavigate}
             className={cn(
               buttonVariants({
-                variant: isActive ? "secondary" : "ghost",
+                variant: isActive ? "default" : "ghost",
                 size: props.isMinimized ? "icon-sm" : "sm",
               }),
               props.isMinimized ? "h-8 w-8" : "justify-start gap-2"
@@ -157,7 +157,12 @@ export function LeftRailContent(props: {
   const isMinimized = collapsible ? props.isMinimized ?? false : false;
 
   return (
-    <div className={cn("flex min-h-0 flex-col", collapsible ? "h-full" : "min-h-full")}>
+    <div
+      className={cn(
+        "flex min-h-0 flex-col",
+        collapsible ? "h-full" : "min-h-full"
+      )}
+    >
       <div
         className={cn(
           "flex min-h-0 flex-1 flex-col gap-6 p-4",
