@@ -193,14 +193,3 @@ export const useAudio = create<AudioState>()(
     }
   )
 );
-
-// Cleanup function to remove event listeners when component unmounts
-export const cleanupAudioStore = () => {
-  const { audioRef } = useAudio.getState();
-  const audioWithCleanup = audioRef as HTMLAudioElement & {
-    _cleanup?: () => void;
-  };
-  if (audioWithCleanup && audioWithCleanup._cleanup) {
-    audioWithCleanup._cleanup();
-  }
-};
