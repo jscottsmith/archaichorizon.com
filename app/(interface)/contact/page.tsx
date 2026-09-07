@@ -4,17 +4,19 @@ import { PanelHeader } from "@/app/components/PanelHeader";
 
 export default function ContactPage() {
   return (
-    <ContentWrapper>
+    <>
       <PanelHeader title="Contact" />
-      <p className="text-sm leading-relaxed text-foreground/80">
-        Reach out to us at{" "}
-        <a
-          href={`mailto:${SITE.email}`}
-          className="underline transition-colors hover:text-foreground"
-        >
-          {SITE.email}
-        </a>
-      </p>
-    </ContentWrapper>
+      <ContentWrapper>
+        <p className="text-sm leading-relaxed text-foreground/80">
+          Reach out to us at{" "}
+          <a
+            href={`mailto:${SITE.email}`}
+            className="underline transition-colors hover:text-foreground"
+          >
+            {SITE.email}
+          </a>
+        </p>
+      </ContentWrapper>
+    </>
   );
 }

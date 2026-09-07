@@ -24,30 +24,3 @@ export function showContentPanel(
 ): boolean {
   return isContentRoute(pathname) || isPlaylistPanelOpen;
 }
-
-export function getPanelTitle(
-  pathname: string,
-  isPlaylistPanelOpen: boolean
-): string {
-  if (isPlaylistPanelOpen) {
-    return "Playlist";
-  }
-
-  if (pathname === ROUTES.COLLECTION) {
-    return "Collection";
-  }
-
-  if (pathname === ROUTES.CONTACT) {
-    return "Contact";
-  }
-
-  if (pathname === ROUTES.ABOUT) {
-    return "About";
-  }
-
-  if (pathname.startsWith("/release/")) {
-    return "Release";
-  }
-
-  return "Content";
-}

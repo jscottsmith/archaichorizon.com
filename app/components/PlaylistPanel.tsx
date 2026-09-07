@@ -12,17 +12,20 @@ export function PlaylistPanel() {
   const selectTrack = usePlaylist((state) => state.selectTrack);
 
   return (
-    <ContentWrapper>
+    <>
       <PanelHeader
         title="Playlist"
+        onBack={closePlaylistPanel}
         onClose={closePlaylistPanel}
         closeLabel="Close playlist"
       />
-      <TrackList
-        tracks={playlistTracks}
-        currentTrackIndex={currentTrackIndex}
-        selectTrack={selectTrack}
-      />
-    </ContentWrapper>
+      <ContentWrapper>
+        <TrackList
+          tracks={playlistTracks}
+          currentTrackIndex={currentTrackIndex}
+          selectTrack={selectTrack}
+        />
+      </ContentWrapper>
+    </>
   );
 }
