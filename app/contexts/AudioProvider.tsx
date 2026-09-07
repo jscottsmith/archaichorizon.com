@@ -2,9 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import { usePlaylist, selectCurrentTrack } from "../stores/playlistStore";
-import {
-  useAudio as useAudioStore,
-} from "@/app/stores/audioStore";
+import { useAudio as useAudioStore } from "@/app/stores/audioStore";
 import { ids } from "../constants/ids";
 import {
   AudioTrackTitle,

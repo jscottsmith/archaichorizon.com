@@ -154,7 +154,7 @@ export function LeftRailContent(props: {
 }) {
   const { closeNav } = useAppShell();
   const collapsible = props.collapsible ?? false;
-  const isMinimized = collapsible ? props.isMinimized ?? false : false;
+  const isMinimized = collapsible ? (props.isMinimized ?? false) : false;
 
   return (
     <div

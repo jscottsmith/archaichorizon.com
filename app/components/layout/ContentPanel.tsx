@@ -76,9 +76,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
 
   if (!showMobileDrawer) {
     return (
-      <div
-        className={cn(panelSurface, "absolute inset-0 z-10 flex flex-col")}
-      >
+      <div className={cn(panelSurface, "absolute inset-0 z-10 flex flex-col")}>
         <div
           className={cn(
             "min-h-0 flex-1 overflow-y-auto overscroll-contain pt-4 pr-4 pb-[calc(var(--spacing-shell-inset)+8rem)]",
