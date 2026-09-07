@@ -7,13 +7,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 import { Download } from "lucide-react";
 
 interface TrackDownloadProps {
   track: Track;
+  isCurrentTrack?: boolean;
 }
 
-export function TrackDownload({ track }: TrackDownloadProps) {
+export function TrackDownload({
+  track,
+  isCurrentTrack = false,
+}: TrackDownloadProps) {
   const handleDownload = (format: "mp3" | "ogg" | "flac") => {
     const url = track.media[format]?.url;
     if (url) {
@@ -36,7 +41,11 @@ export function TrackDownload({ track }: TrackDownloadProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="hidden h-7 w-7 md:flex"
+            className={cn(
+              "hidden h-7 w-7 md:flex",
+              isCurrentTrack &&
+                "text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+            )}
             onClick={(e) => e.stopPropagation()}
             aria-label={`Download ${track.title}`}
           />
