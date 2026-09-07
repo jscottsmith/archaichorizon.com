@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
@@ -17,21 +16,15 @@ import { NextButton } from "./NextButton";
 import { VolumeControl } from "./VolumeControl";
 import { ArtistInfo } from "./ArtistInfo";
 import { CoverArtCarousel } from "../CoverArtCarousel";
-import { usePlaylist } from "@/app/stores/playlistStore";
+import { usePlaylist, selectCurrentTrack } from "@/app/stores/playlistStore";
 import { buildReleaseRoute } from "../../utils/url";
 
-interface MobilePopoverControlsProps {
+export function MobilePopoverControls(props: {
   isOpen: boolean;
-  closePopover: () => void;
+  onOpenChange: (open: boolean) => void;
   className?: string;
-}
-
-export function MobilePopoverControls({
-  isOpen,
-  closePopover,
-  className,
-}: MobilePopoverControlsProps) {
-  const currentTrack = usePlaylist((state) => state.currentTrack);
+}) {
+  const currentTrack = usePlaylist(selectCurrentTrack);
 
   const images = currentTrack?.images?.cover
     ? [
@@ -41,9 +34,20 @@ export function MobilePopoverControls({
         },
       ]
     : [];
+
+  function close() {
+    props.onOpenChange(false);
+  }
+
   return (
-    <Drawer open={isOpen} onOpenChange={closePopover}>
-      <DrawerContent className={cn("h-[90vh] max-h-[100vh]", className)}>
+    <Drawer
+      open={props.isOpen}
+      onOpenChange={props.onOpenChange}
+      showSwipeHandle
+    >
+      <DrawerContent
+        className={cn("[--drawer-content-height:90vh]", props.className)}
+      >
         <DrawerHeader className="pb-2">
           <DrawerTitle className="sr-only">Player Controls</DrawerTitle>
           <DrawerDescription className="sr-only">
@@ -51,17 +55,17 @@ export function MobilePopoverControls({
             control, and track information
           </DrawerDescription>
         </DrawerHeader>
-        <div className="flex flex-col gap-8 px-6 pb-6 md:flex-row md:items-center">
+        <div className="flex flex-col gap-8 px-6 pb-6">
           <CoverArtCarousel
-            className="mx-auto w-1/2 max-w-3xs md:mr-0"
+            className="mx-auto w-1/2 max-w-3xs"
             images={images}
           />
-          <div className="mx-auto flex w-full max-w-md flex-col gap-8 md:ml-0">
+          <div className="mx-auto flex w-full max-w-md flex-col gap-8">
             {currentTrack?.catNo ? (
               <Link
                 href={buildReleaseRoute(currentTrack.catNo)}
                 className="-mt-1.5 -ml-1.5 rounded-md p-1.5 transition-colors hover:bg-accent/50"
-                onClick={closePopover}
+                onClick={close}
               >
                 <ArtistInfo />
               </Link>

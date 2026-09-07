@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Play, AudioLines } from "lucide-react";
-import { usePlaylist } from "../../stores/playlistStore";
+import { usePlaylist, selectCurrentTrack } from "../../stores/playlistStore";
 import { useAudio } from "../../stores/audioStore";
 import type { Track } from "../../utils/tracks";
 
@@ -12,7 +12,7 @@ interface ReleasePlayButtonProps {
 }
 
 export function ReleasePlayButton({ catNo, tracks }: ReleasePlayButtonProps) {
-  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const currentTrack = usePlaylist(selectCurrentTrack);
   const setTracks = usePlaylist((state) => state.setTracks);
 
   const isPlaying = useAudio((state) => state.isPlaying);

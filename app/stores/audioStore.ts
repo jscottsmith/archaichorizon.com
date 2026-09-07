@@ -59,10 +59,7 @@ export const useAudio = create<AudioState>()(
             // If we were supposed to be playing, resume now that the track is ready
             const { isPlaying } = get();
             if (isPlaying) {
-              ref.play().catch((error) => {
-                console.error("Failed to play audio in handleCanPlay:", error);
-                set({ isPlaying: false });
-              });
+              void get().play();
             }
           };
           const handleProgress = () => {
@@ -113,8 +110,13 @@ export const useAudio = create<AudioState>()(
         try {
           await audioRef.play();
         } catch (error) {
-          console.error("Failed to play audio:", error);
-          // Reset isPlaying state when play fails
+          // Browsers block unmuted autoplay until the user has interacted with
+          // the page. Treat that as expected; surface other failures.
+          const isAutoplayBlocked =
+            error instanceof DOMException && error.name === "NotAllowedError";
+          if (!isAutoplayBlocked) {
+            console.error("Failed to play audio:", error);
+          }
           set({ isPlaying: false });
         }
       },

@@ -3,16 +3,16 @@
 import { useRelease } from "@/app/hooks/useRelease";
 import type { IAMetadataResponse } from "../../types/ia";
 import { useNormalizeTracks } from "@/app/hooks/useNormalizeTracks";
-import { Card, CardContent } from "@/components/ui/card";
 import { ContentWrapper } from "../ContentWrapper";
 import { addCoverArtUrls, getOriginalCoverArt } from "../../utils/files";
 import { ReleaseDescription } from "./ReleaseDescription";
-import { ReleaseHeader } from "./ReleaseHeader";
 import { ReleaseBasicInfo } from "./ReleaseBasicInfo";
 import { ReleaseTracks } from "./ReleaseTracks";
 import { ReleaseDetails } from "./ReleaseDetails";
 import { PageLoading } from "../PageLoading";
 import { Separator } from "@/components/ui/separator";
+import { PanelHeader } from "../PanelHeader";
+import { ROUTES } from "@/app/constants/routes";
 
 // Loading component
 export function ReleaseLoading() {
@@ -23,14 +23,12 @@ export function ReleaseLoading() {
 export function ReleaseError({ error }: { error: Error }) {
   return (
     <ContentWrapper>
-      <Card className="border-red-200 bg-red-50">
-        <CardContent className="p-6">
-          <h2 className="mb-2 text-xl font-semibold text-red-800">
-            Error Loading Release
-          </h2>
-          <p className="text-red-600">{error.message}</p>
-        </CardContent>
-      </Card>
+      <div className="rounded-lg border border-red-200 bg-red-50 p-6">
+        <h2 className="mb-2 text-xl font-semibold text-red-800">
+          Error Loading Release
+        </h2>
+        <p className="text-red-600">{error.message}</p>
+      </div>
     </ContentWrapper>
   );
 }
@@ -62,12 +60,14 @@ export function ReleaseDisplay({
   }));
 
   return (
-    <ContentWrapper>
-      <Card className="gap-2 pt-3">
-        <ReleaseHeader catNo={catNo} />
-        <CardContent className="space-y-6 px-3 md:px-6">
-          <Separator />
-          {/* Cover Art and Basic Info */}
+    <>
+      <PanelHeader
+        title={catNo}
+        backHref={ROUTES.COLLECTION}
+        closeHref={ROUTES.HOME}
+      />
+      <ContentWrapper>
+        <div className="space-y-6">
           <ReleaseBasicInfo
             title={metadata.title}
             creator={metadata.creator}
@@ -79,19 +79,16 @@ export function ReleaseDisplay({
             identifier={metadata.identifier}
           />
           <Separator />
-          {/* Track List */}
           <ReleaseTracks tracks={tracks} catNo={catNo} />
           <Separator />
-          {/* Description */}
           <ReleaseDescription description={metadata.description} />
           <Separator />
-          {/* Additional metadata */}
           <ReleaseDetails
             subject={metadata.subject}
             licenseUrl={metadata.licenseurl}
           />
-        </CardContent>
-      </Card>
-    </ContentWrapper>
+        </div>
+      </ContentWrapper>
+    </>
   );
 }

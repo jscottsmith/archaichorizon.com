@@ -11,17 +11,16 @@ export const PlaylistToggle = React.memo(function PlaylistToggle({
 }: {
   className?: string;
 }) {
-  const isPlaylistVisible = usePlaylist((state) => state.isPlaylistVisible);
-  const togglePlaylist = usePlaylist((state) => state.togglePlaylist);
+  const isPlaylistPanelOpen = usePlaylist((state) => state.isPlaylistPanelOpen);
+  const togglePlaylistPanel = usePlaylist((state) => state.togglePlaylistPanel);
 
   return (
     <Button
-      data-playlist-toggle
-      variant={isPlaylistVisible ? "default" : "ghost"}
+      variant={isPlaylistPanelOpen ? "default" : "ghost"}
       size="icon"
-      onClick={togglePlaylist}
+      onClick={togglePlaylistPanel}
       className={cn("h-8 w-8", className)}
-      aria-label={isPlaylistVisible ? "Hide playlist" : "Show playlist"}
+      aria-label={isPlaylistPanelOpen ? "Hide playlist" : "Show playlist"}
     >
       <List size={16} />
     </Button>

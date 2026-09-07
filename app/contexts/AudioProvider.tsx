@@ -1,11 +1,8 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import { usePlaylist } from "../stores/playlistStore";
-import {
-  useAudio as useAudioStore,
-  cleanupAudioStore,
-} from "@/app/stores/audioStore";
+import { usePlaylist, selectCurrentTrack } from "../stores/playlistStore";
+import { useAudio as useAudioStore } from "@/app/stores/audioStore";
 import { ids } from "../constants/ids";
 import {
   AudioTrackTitle,
@@ -15,19 +12,31 @@ import {
   AudioTrackTotalsTracks,
 } from "../components/MediaPlayer/LabeledElements";
 
+function normalizeAudioUrl(url: string) {
+  if (!url) {
+    return "";
+  }
+
+  try {
+    return new URL(url, window.location.href).href;
+  } catch {
+    return url;
+  }
+}
+
 export function AudioProvider() {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Get current track from playlist store
   const nextTrack = usePlaylist((state) => state.nextTrack);
-  const currentTrack = usePlaylist((state) => state.currentTrack);
+  const currentTrack = usePlaylist(selectCurrentTrack);
   const totalTracks = usePlaylist((state) => state.tracks.length);
   const currentTrackIndex = usePlaylist((state) => state.currentTrackIndex);
 
   // Get audio store actions and state
-  const { setAudioRef, isPlaying, resetForNewTrack } = useAudioStore();
+  const setAudioRef = useAudioStore((state) => state.setAudioRef);
+  const resetForNewTrack = useAudioStore((state) => state.resetForNewTrack);
 
-  // Rehydrate persisted volume prefs after mount, then wire up the audio element
   useEffect(() => {
     setAudioRef(audioRef.current);
 
@@ -37,40 +46,25 @@ export function AudioProvider() {
         audioRef.current.volume = isMuted ? 0 : volume;
       }
     });
-
-    // Cleanup on unmount
-    return () => {
-      cleanupAudioStore();
-      setAudioRef(null);
-    };
   }, [setAudioRef]);
 
-  // Sync audio with playlist track
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !currentTrack?.url) return;
+    const sourceUrl = currentTrack?.url;
+    if (!audio || !sourceUrl) return;
 
-    // Only set src if it's a different track
-    if (audio.src !== currentTrack.media.mp3.url) {
-      const wasPlaying = isPlaying;
-      audio.src = currentTrack.media.mp3.url;
-      resetForNewTrack();
-
-      // If it was playing before, keep the isPlaying state true
-      // The canplay event will handle resuming playback
-      if (wasPlaying) {
-        useAudioStore.getState().setIsPlaying(true);
-      }
+    if (normalizeAudioUrl(audio.src) === normalizeAudioUrl(sourceUrl)) {
+      return;
     }
-  }, [
-    currentTrack?.url,
-    currentTrack?.media.mp3.url,
-    isPlaying,
-    nextTrack,
-    resetForNewTrack,
-  ]);
 
-  // Handle track ending
+    const wasPlaying = useAudioStore.getState().isPlaying;
+    audio.src = sourceUrl;
+    resetForNewTrack();
+
+    if (wasPlaying) {
+      useAudioStore.getState().setIsPlaying(true);
+    }
+  }, [currentTrack?.url, resetForNewTrack]);
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -95,7 +89,6 @@ export function AudioProvider() {
         id={ids.mediaPlayerAudioElement}
         ref={audioRef}
         preload="metadata"
-        autoPlay
         crossOrigin="anonymous"
         data-title={currentTrack?.title}
         data-artist={currentTrack?.artist}

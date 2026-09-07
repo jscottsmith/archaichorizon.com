@@ -5,10 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatDate } from "@/app/utils/date";
 import type { IADocument } from "@/app/types/ia";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ContentWrapper } from "./ContentWrapper";
 import { PageLoading } from "./PageLoading";
+import { PanelHeader } from "./PanelHeader";
 import { buildReleaseRoute } from "@/app/utils/url";
 
 // Error component
@@ -44,71 +44,70 @@ export function CollectionDisplay({
 
   if (!collection || collection.length === 0) {
     return (
-      <ContentWrapper>
-        <div className="flex items-center justify-center p-8">
-          <p>No items found in the collection.</p>
-        </div>
-      </ContentWrapper>
+      <>
+        <PanelHeader title="Collection" />
+        <ContentWrapper>
+          <div className="flex items-center justify-center p-8">
+            <p>No items found in the collection.</p>
+          </div>
+        </ContentWrapper>
+      </>
     );
   }
 
   return (
-    <ContentWrapper>
-      <Card className="py-1">
-        <CardContent className="p-1">
-          <section className="grid grid-cols-1 gap-1">
-            {collection.map((item) => (
-              <Link
-                href={buildReleaseRoute(item.cat_no || "")}
-                key={item.identifier}
-                className="block rounded-lg p-1.5 transition-colors hover:bg-muted/50"
-              >
-                <div className="flex gap-2">
-                  {/* Thumbnail */}
-                  <div className="aspect-square h-18 w-18 flex-shrink-0 overflow-hidden rounded-sm">
-                    {item.thumbnail && (
-                      <Image
-                        src={item.thumbnail}
-                        alt={item.title || "Album cover"}
-                        width={72}
-                        height={72}
-                        className="h-full w-full object-cover"
-                      />
+    <>
+      <PanelHeader title="Collection" />
+      <ContentWrapper>
+        <section className="grid grid-cols-1 gap-1">
+          {collection.map((item) => (
+            <Link
+              href={buildReleaseRoute(item.cat_no || "")}
+              key={item.identifier}
+              className="block rounded-lg p-1.5 transition-colors hover:bg-muted/50"
+            >
+              <div className="flex gap-2">
+                <div className="aspect-square h-18 w-18 flex-shrink-0 overflow-hidden rounded-sm">
+                  {item.thumbnail && (
+                    <Image
+                      src={item.thumbnail}
+                      alt={item.title || "Album cover"}
+                      width={72}
+                      height={72}
+                      className="h-full w-full object-cover"
+                    />
+                  )}
+                </div>
+
+                <div className="flex min-w-0 flex-1 flex-col justify-center">
+                  <h3 className="mb-2 text-base leading-tight font-semibold">
+                    <span>
+                      {Array.isArray(item.creator)
+                        ? item.creator.join(", ")
+                        : item.creator}
+                    </span>
+                    <span> - </span>
+                    <span>{item.title || "Untitled"}</span>
+                  </h3>
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    {item.cat_no && (
+                      <Badge variant="outline" className="text-xs">
+                        {item.cat_no}
+                      </Badge>
+                    )}
+                    {item.date && (
+                      <span className="text-sm text-muted-foreground">
+                        Released on {formatDate(item.date)}
+                      </span>
                     )}
                   </div>
-
-                  <div className="flex min-w-0 flex-1 flex-col justify-center">
-                    {/* Title */}
-                    <h3 className="mb-2 text-base leading-tight font-semibold">
-                      <span>
-                        {Array.isArray(item.creator)
-                          ? item.creator.join(", ")
-                          : item.creator}
-                      </span>
-                      <span> - </span>
-                      <span>{item.title || "Untitled"}</span>
-                    </h3>
-
-                    {/* Catalog Number / Date */}
-                    <div className="flex flex-wrap items-center gap-2">
-                      {item.cat_no && (
-                        <Badge variant="outline" className="text-xs">
-                          {item.cat_no}
-                        </Badge>
-                      )}
-                      {item.date && (
-                        <span className="text-sm text-muted-foreground">
-                          Released on {formatDate(item.date)}
-                        </span>
-                      )}
-                    </div>
-                  </div>
                 </div>
-              </Link>
-            ))}
-          </section>
-        </CardContent>
-      </Card>
-    </ContentWrapper>
+              </div>
+            </Link>
+          ))}
+        </section>
+      </ContentWrapper>
+    </>
   );
 }
