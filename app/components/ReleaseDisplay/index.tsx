@@ -6,12 +6,13 @@ import { useNormalizeTracks } from "@/app/hooks/useNormalizeTracks";
 import { ContentWrapper } from "../ContentWrapper";
 import { addCoverArtUrls, getOriginalCoverArt } from "../../utils/files";
 import { ReleaseDescription } from "./ReleaseDescription";
-import { ReleaseHeader } from "./ReleaseHeader";
 import { ReleaseBasicInfo } from "./ReleaseBasicInfo";
 import { ReleaseTracks } from "./ReleaseTracks";
 import { ReleaseDetails } from "./ReleaseDetails";
 import { PageLoading } from "../PageLoading";
 import { Separator } from "@/components/ui/separator";
+import { PanelHeader } from "../PanelHeader";
+import { ROUTES } from "@/app/constants/routes";
 
 // Loading component
 export function ReleaseLoading() {
@@ -59,30 +60,35 @@ export function ReleaseDisplay({
   }));
 
   return (
-    <ContentWrapper>
-      <div className="space-y-6">
-        <ReleaseHeader catNo={catNo} />
-        <Separator />
-        <ReleaseBasicInfo
-          title={metadata.title}
-          creator={metadata.creator}
-          date={metadata.date}
-          coverArtImages={coverArtImages}
-          catNo={catNo}
-          tracks={tracks}
-          files={release.data.files}
-          identifier={metadata.identifier}
-        />
-        <Separator />
-        <ReleaseTracks tracks={tracks} catNo={catNo} />
-        <Separator />
-        <ReleaseDescription description={metadata.description} />
-        <Separator />
-        <ReleaseDetails
-          subject={metadata.subject}
-          licenseUrl={metadata.licenseurl}
-        />
-      </div>
-    </ContentWrapper>
+    <>
+      <PanelHeader
+        title={catNo}
+        backHref={ROUTES.COLLECTION}
+        closeHref={ROUTES.HOME}
+      />
+      <ContentWrapper>
+        <div className="space-y-6">
+          <ReleaseBasicInfo
+            title={metadata.title}
+            creator={metadata.creator}
+            date={metadata.date}
+            coverArtImages={coverArtImages}
+            catNo={catNo}
+            tracks={tracks}
+            files={release.data.files}
+            identifier={metadata.identifier}
+          />
+          <Separator />
+          <ReleaseTracks tracks={tracks} catNo={catNo} />
+          <Separator />
+          <ReleaseDescription description={metadata.description} />
+          <Separator />
+          <ReleaseDetails
+            subject={metadata.subject}
+            licenseUrl={metadata.licenseurl}
+          />
+        </div>
+      </ContentWrapper>
+    </>
   );
 }

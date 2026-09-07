@@ -1,26 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { X } from "lucide-react";
 import { useMediaQuery, useIsClient } from "usehooks-ts";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer";
-import { buttonVariants } from "@/components/ui/button";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { ROUTES } from "@/app/constants/routes";
 import { cn } from "@/lib/utils";
 import { usePlaylist } from "@/app/stores/playlistStore";
 import { PlaylistPanel } from "../PlaylistPanel";
-import {
-  getPanelTitle,
-  isContentRoute,
-  showContentPanel,
-} from "./layout-utils";
+import { isContentRoute, showContentPanel } from "./layout-utils";
 import { panelSurface, shellFreePl } from "./shell-classes";
 
 const CLOSE_ANIMATION_MS = 450;
@@ -37,10 +25,12 @@ export function ContentPanel(props: { children: React.ReactNode }) {
   const closePlaylistPanel = usePlaylist((state) => state.closePlaylistPanel);
   const panelVisible = showContentPanel(pathname, isPlaylistPanelOpen);
   const [open, setOpen] = useState(panelVisible);
+  const [prevPanelVisible, setPrevPanelVisible] = useState(panelVisible);
 
-  useEffect(() => {
+  if (prevPanelVisible !== panelVisible) {
+    setPrevPanelVisible(panelVisible);
     setOpen(panelVisible);
-  }, [panelVisible]);
+  }
 
   function handleOpenChange(nextOpen: boolean) {
     if (!nextOpen) {
@@ -83,7 +73,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
             shellFreePl
           )}
         >
-          <div className="mx-auto w-full max-w-[80ch]">{panelContent}</div>
+          {panelContent}
         </div>
       </div>
     );
@@ -97,22 +87,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
       modal={false}
     >
       <DrawerContent className="[--drawer-content-height:90vh]">
-        <DrawerHeader className="flex-row items-center justify-between gap-2 pb-2">
-          <DrawerTitle>
-            {getPanelTitle(pathname, isPlaylistPanelOpen)}
-          </DrawerTitle>
-          <DrawerClose
-            className={cn(
-              buttonVariants({ variant: "ghost", size: "icon-sm" })
-            )}
-            aria-label="Close panel"
-          >
-            <X className="h-4 w-4" />
-          </DrawerClose>
-        </DrawerHeader>
-        <div className="px-4 pb-4">
-          <div className="mx-auto w-full max-w-[80ch]">{panelContent}</div>
-        </div>
+        {panelContent}
       </DrawerContent>
     </Drawer>
   );
