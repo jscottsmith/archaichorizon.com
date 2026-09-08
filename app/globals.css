@@ -71,7 +71,7 @@
   --background: oklch(1 var(--chroma) var(--hue));
   --foreground: oklch(0.145 var(--chroma) var(--hue));
   --panel-opacity: 0.4;
-  --panel-blur: 10px;
+  --panel-blur: 2rem;
   --panel: color-mix(
     in oklch,
     var(--background) calc(var(--panel-opacity) * 100%),

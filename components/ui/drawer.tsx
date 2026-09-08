@@ -128,7 +128,7 @@ function DrawerContent({
             // Bleed (disabled on y-scroll trays — the ::after strip shows as a bottom artifact).
             "after:pointer-events-none after:absolute after:bg-(--drawer-bleed-background,var(--panel)) data-[swipe-axis=x]:after:inset-y-0 data-[swipe-axis=x]:after:w-(--bleed) data-[swipe-axis=y]:after:hidden data-[swipe-direction=left]:after:right-full data-[swipe-direction=right]:after:left-full",
             // Sizing.
-            "[--drawer-content-height:var(--drawer-height,auto)] data-[swipe-axis=x]:[--drawer-content-width:75%] data-[swipe-axis=y]:[--drawer-content-max-height:calc(100dvh-6rem)] data-[swipe-axis=y]:data-snap-points:[--drawer-content-height:100dvh] data-[swipe-axis=x]:sm:[--drawer-content-width:24rem]",
+            "[--drawer-content-height:var(--drawer-height,auto)] data-[swipe-axis=x]:[--drawer-content-width:75%] data-[swipe-axis=y]:[--drawer-content-height:calc(100dvh-3rem)] data-[swipe-axis=y]:[--drawer-content-max-height:calc(100dvh-3rem)] data-[swipe-axis=y]:data-snap-points:[--drawer-content-height:100dvh] data-[swipe-axis=x]:sm:[--drawer-content-width:24rem]",
             // Shell stays non-scrolling so bg-panel holds during overscroll; scroll lives on Content.
             "overflow-hidden",
             // Stack.

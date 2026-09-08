@@ -13,7 +13,7 @@ export function MobileNavTrigger(props: { className?: string }) {
       type="button"
       aria-label="Open navigation"
       className={cn(
-        buttonVariants({ variant: "ghost", size: "icon-sm" }),
+        buttonVariants({ variant: "floating", size: "icon-sm" }),
         "fixed top-[calc(env(safe-area-inset-top)_+_0.5rem)] left-2 z-50 md:hidden",
         props.className
       )}
