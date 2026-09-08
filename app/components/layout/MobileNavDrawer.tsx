@@ -23,7 +23,6 @@ export function MobileNavDrawer() {
       }}
       swipeDirection="down"
       showSwipeHandle
-      modal={false}
     >
       <DrawerContent>
         <DrawerHeader className="pb-2">
