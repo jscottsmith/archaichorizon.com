@@ -86,9 +86,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
       showSwipeHandle
       modal={false}
     >
-      <DrawerContent className="[--drawer-content-height:90vh]">
-        {panelContent}
-      </DrawerContent>
+      <DrawerContent>{panelContent}</DrawerContent>
     </Drawer>
   );
 }

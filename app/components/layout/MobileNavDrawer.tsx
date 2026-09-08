@@ -25,7 +25,7 @@ export function MobileNavDrawer() {
       showSwipeHandle
       modal={false}
     >
-      <DrawerContent className="[--drawer-content-height:90vh]">
+      <DrawerContent>
         <DrawerHeader className="pb-2">
           <DrawerTitle className="sr-only">Navigation</DrawerTitle>
           <DrawerDescription className="sr-only">

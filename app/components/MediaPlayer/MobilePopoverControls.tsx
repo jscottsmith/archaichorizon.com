@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import {
   Drawer,
   DrawerContent,
@@ -45,9 +44,7 @@ export function MobilePopoverControls(props: {
       onOpenChange={props.onOpenChange}
       showSwipeHandle
     >
-      <DrawerContent
-        className={cn("[--drawer-content-height:90vh]", props.className)}
-      >
+      <DrawerContent className={props.className}>
         <DrawerHeader className="pb-2">
           <DrawerTitle className="sr-only">Player Controls</DrawerTitle>
           <DrawerDescription className="sr-only">
