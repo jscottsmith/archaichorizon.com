@@ -80,12 +80,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
   }
 
   return (
-    <Drawer
-      open={open}
-      onOpenChange={handleOpenChange}
-      showSwipeHandle
-      modal={false}
-    >
+    <Drawer open={open} onOpenChange={handleOpenChange} showSwipeHandle>
       <DrawerContent>{panelContent}</DrawerContent>
     </Drawer>
   );
