@@ -28,7 +28,7 @@ export function PanelHeader(props: {
   return (
     <header
       className={cn(
-        "sticky top-0 z-20 flex items-center gap-2 px-4 py-3",
+        "sticky top-0 z-20 hidden items-center gap-2 px-4 py-3 md:flex",
         props.className
       )}
     >
@@ -53,7 +53,7 @@ export function PanelHeader(props: {
         )}
       </div>
 
-      <h1 className="pointer-events-none absolute inset-x-0 truncate px-14 text-center text-base font-semibold md:pointer-events-auto md:static md:flex-1 md:px-0 md:text-left md:text-xl md:font-bold">
+      <h1 className="min-w-0 flex-1 truncate text-left text-xl font-bold">
         {props.title}
       </h1>
 
