@@ -24,8 +24,9 @@ export function ContentPanel(props: { children: React.ReactNode }) {
   const isPlaylistPanelOpen = usePlaylist((state) => state.isPlaylistPanelOpen);
   const closePlaylistPanel = usePlaylist((state) => state.closePlaylistPanel);
   const panelVisible = showContentPanel(pathname, isPlaylistPanelOpen);
-  const [open, setOpen] = useState(panelVisible);
-  const [prevPanelVisible, setPrevPanelVisible] = useState(panelVisible);
+  // Start closed so the drawer can mount before opening and play enter animations.
+  const [open, setOpen] = useState(false);
+  const [prevPanelVisible, setPrevPanelVisible] = useState(false);
 
   if (prevPanelVisible !== panelVisible) {
     setPrevPanelVisible(panelVisible);
@@ -58,13 +59,13 @@ export function ContentPanel(props: { children: React.ReactNode }) {
     setOpen(nextOpen);
   }
 
-  if (!panelVisible) {
-    return null;
-  }
-
   const panelContent = isPlaylistPanelOpen ? <PlaylistPanel /> : props.children;
 
   if (!showMobileDrawer) {
+    if (!panelVisible) {
+      return null;
+    }
+
     return (
       <div className={cn(panelSurface, "absolute inset-0 z-10 flex flex-col")}>
         <div
@@ -79,6 +80,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
     );
   }
 
+  // Keep the drawer mounted while closed so open/close can animate like nav/player.
   return (
     <Drawer open={open} onOpenChange={handleOpenChange} showSwipeHandle>
       <DrawerContent>{panelContent}</DrawerContent>
