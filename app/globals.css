@@ -74,7 +74,7 @@
   --panel-blur: 2rem;
   --panel: color-mix(
     in oklch,
-    var(--background) calc(var(--panel-opacity) * 100%),
+    var(--background) calc(var(--panel-opacity) * 80%),
     transparent
   );
 }

@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { usePlaylist } from "@/app/stores/playlistStore";
 import { PlaylistPanel } from "../PlaylistPanel";
 import { isContentRoute, showContentPanel } from "./layout-utils";
-import { panelSurface, shellFreePl } from "./shell-classes";
+import { shellFreePl } from "./shell-classes";
 
 const CLOSE_ANIMATION_MS = 450;
 
@@ -67,7 +67,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
     }
 
     return (
-      <div className={cn(panelSurface, "absolute inset-0 z-10 flex flex-col")}>
+      <div className="absolute inset-0 z-10 flex flex-col">
         <div
           className={cn(
             "min-h-0 flex-1 overflow-y-auto overscroll-contain pt-4 pr-4 pb-[calc(var(--spacing-shell-inset)+8rem)]",

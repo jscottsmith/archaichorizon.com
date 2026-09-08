@@ -7,5 +7,3 @@ export const shellFreePl =
 
 export const shellFreeMdPl =
   "md:pl-[calc(var(--spacing-shell-inset)+var(--spacing-sidebar)+var(--spacing-shell-gap))] md:group-data-[sidebar-collapsed=true]/shell:pl-[calc(var(--spacing-shell-inset)+var(--spacing-sidebar-collapsed)+var(--spacing-shell-gap))]";
-
-export const panelSurface = "bg-panel backdrop-blur-panel";
