@@ -127,6 +127,23 @@
 }
 
 @layer components {
+  .panel-scroll-fade {
+    --panel-scroll-fade-size: 2rem;
+    mask-image: linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 50%) 0,
+      #000 calc(var(--panel-scroll-fade-size)),
+      #000 calc(100% - var(--panel-scroll-fade-size)),
+      rgb(0 0 0 / 50%) 100%
+    );
+  }
+
+  @media (min-width: 768px) {
+    .panel-scroll-fade {
+      --panel-scroll-fade-size: 6rem;
+    }
+  }
+
   .bg-gradient-radial {
     background: radial-gradient(
       circle at center center,

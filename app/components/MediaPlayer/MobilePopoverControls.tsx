@@ -52,30 +52,32 @@ export function MobilePopoverControls(props: {
             control, and track information
           </DrawerDescription>
         </DrawerHeader>
-        <div className="flex flex-col gap-8 px-6 pb-6">
-          <CoverArtCarousel
-            className="mx-auto w-1/2 max-w-3xs"
-            images={images}
-          />
-          <div className="mx-auto flex w-full max-w-md flex-col gap-8">
-            {currentTrack?.catNo ? (
-              <Link
-                href={buildReleaseRoute(currentTrack.catNo)}
-                className="-mt-1.5 -ml-1.5 rounded-md p-1.5 transition-colors hover:bg-accent/50"
-                onClick={close}
-              >
+        <div className="panel-scroll-fade min-h-0 flex-1 overflow-hidden">
+          <div className="flex h-full flex-col gap-8 overflow-y-auto overscroll-contain px-6 pb-6">
+            <CoverArtCarousel
+              className="mx-auto w-1/2 max-w-3xs"
+              images={images}
+            />
+            <div className="mx-auto flex w-full max-w-md flex-col gap-8">
+              {currentTrack?.catNo ? (
+                <Link
+                  href={buildReleaseRoute(currentTrack.catNo)}
+                  className="-mt-1.5 -ml-1.5 rounded-md p-1.5 transition-colors hover:bg-accent/50"
+                  onClick={close}
+                >
+                  <ArtistInfo />
+                </Link>
+              ) : (
                 <ArtistInfo />
-              </Link>
-            ) : (
-              <ArtistInfo />
-            )}
-            <TrackProgress />
-            <div className="flex items-center justify-center gap-6">
-              <PreviousButton iconSize={24} />
-              <PlayPauseButton iconSize={32} />
-              <NextButton iconSize={24} />
+              )}
+              <TrackProgress />
+              <div className="flex items-center justify-center gap-6">
+                <PreviousButton iconSize={24} />
+                <PlayPauseButton iconSize={32} />
+                <NextButton iconSize={24} />
+              </div>
+              <VolumeControl className="w-full" expanded />
             </div>
-            <VolumeControl className="w-full" expanded />
           </div>
         </div>
       </DrawerContent>

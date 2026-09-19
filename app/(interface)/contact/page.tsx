@@ -1,11 +1,11 @@
 import { SITE } from "@/app/constants/site";
 import { ContentWrapper } from "@/app/components/ContentWrapper";
 import { PanelHeader } from "@/app/components/PanelHeader";
+import { PanelChrome } from "@/app/components/PanelChrome";
 
 export default function ContactPage() {
   return (
-    <>
-      <PanelHeader title="Contact" />
+    <PanelChrome header={<PanelHeader title="Contact" />}>
       <ContentWrapper>
         <p className="text-sm leading-relaxed text-foreground/80">
           Reach out to us at{" "}
@@ -17,6 +17,6 @@ export default function ContactPage() {
           </a>
         </p>
       </ContentWrapper>
-    </>
+    </PanelChrome>
   );
 }

@@ -31,8 +31,10 @@ export function MobileNavDrawer() {
             Site navigation and now playing details
           </DrawerDescription>
         </DrawerHeader>
-        <div className="pb-[env(safe-area-inset-bottom)]">
-          <LeftRailContent />
+        <div className="panel-scroll-fade min-h-0 flex-1 overflow-hidden">
+          <div className="h-full overflow-y-auto overscroll-contain pb-[env(safe-area-inset-bottom)]">
+            <LeftRailContent />
+          </div>
         </div>
       </DrawerContent>
     </Drawer>

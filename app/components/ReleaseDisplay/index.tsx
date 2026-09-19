@@ -12,6 +12,7 @@ import { ReleaseDetails } from "./ReleaseDetails";
 import { PageLoading } from "../PageLoading";
 import { Separator } from "@/components/ui/separator";
 import { PanelHeader } from "../PanelHeader";
+import { PanelChrome } from "../PanelChrome";
 import { ROUTES } from "@/app/constants/routes";
 
 // Loading component
@@ -60,12 +61,15 @@ export function ReleaseDisplay({
   }));
 
   return (
-    <>
-      <PanelHeader
-        title={catNo}
-        backHref={ROUTES.COLLECTION}
-        closeHref={ROUTES.HOME}
-      />
+    <PanelChrome
+      header={
+        <PanelHeader
+          title={catNo}
+          backHref={ROUTES.COLLECTION}
+          closeHref={ROUTES.HOME}
+        />
+      }
+    >
       <ContentWrapper>
         <div className="space-y-6">
           <ReleaseBasicInfo
@@ -89,6 +93,6 @@ export function ReleaseDisplay({
           />
         </div>
       </ContentWrapper>
-    </>
+    </PanelChrome>
   );
 }

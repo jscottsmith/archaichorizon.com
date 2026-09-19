@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { ContentWrapper } from "./ContentWrapper";
 import { PageLoading } from "./PageLoading";
 import { PanelHeader } from "./PanelHeader";
+import { PanelChrome } from "./PanelChrome";
 import { buildReleaseRoute } from "@/app/utils/url";
 
 // Error component
@@ -44,20 +45,18 @@ export function CollectionDisplay({
 
   if (!collection || collection.length === 0) {
     return (
-      <>
-        <PanelHeader title="Collection" />
+      <PanelChrome header={<PanelHeader title="Collection" />}>
         <ContentWrapper>
           <div className="flex items-center justify-center p-8">
             <p>No items found in the collection.</p>
           </div>
         </ContentWrapper>
-      </>
+      </PanelChrome>
     );
   }
 
   return (
-    <>
-      <PanelHeader title="Collection" />
+    <PanelChrome header={<PanelHeader title="Collection" />}>
       <ContentWrapper>
         <section className="grid grid-cols-1 gap-1">
           {collection.map((item) => (
@@ -108,6 +107,6 @@ export function CollectionDisplay({
           ))}
         </section>
       </ContentWrapper>
-    </>
+    </PanelChrome>
   );
 }

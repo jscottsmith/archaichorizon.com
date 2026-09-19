@@ -28,7 +28,7 @@ export function PanelHeader(props: {
   return (
     <header
       className={cn(
-        "sticky top-0 z-20 hidden items-center gap-2 px-4 py-3 md:flex",
+        "flex items-center gap-2 px-4 py-3 max-md:hidden",
         props.className
       )}
     >

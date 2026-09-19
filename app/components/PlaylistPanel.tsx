@@ -4,6 +4,7 @@ import { TrackList } from "./TrackList";
 import { usePlaylist } from "../stores/playlistStore";
 import { ContentWrapper } from "./ContentWrapper";
 import { PanelHeader } from "./PanelHeader";
+import { PanelChrome } from "./PanelChrome";
 
 export function PlaylistPanel() {
   const closePlaylistPanel = usePlaylist((state) => state.closePlaylistPanel);
@@ -12,13 +13,16 @@ export function PlaylistPanel() {
   const selectTrack = usePlaylist((state) => state.selectTrack);
 
   return (
-    <>
-      <PanelHeader
-        title="Playlist"
-        onBack={closePlaylistPanel}
-        onClose={closePlaylistPanel}
-        closeLabel="Close playlist"
-      />
+    <PanelChrome
+      header={
+        <PanelHeader
+          title="Playlist"
+          onBack={closePlaylistPanel}
+          onClose={closePlaylistPanel}
+          closeLabel="Close playlist"
+        />
+      }
+    >
       <ContentWrapper>
         <TrackList
           tracks={playlistTracks}
@@ -26,6 +30,6 @@ export function PlaylistPanel() {
           selectTrack={selectTrack}
         />
       </ContentWrapper>
-    </>
+    </PanelChrome>
   );
 }
