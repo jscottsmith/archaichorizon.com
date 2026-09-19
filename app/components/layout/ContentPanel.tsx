@@ -68,12 +68,7 @@ export function ContentPanel(props: { children: React.ReactNode }) {
 
     return (
       <div className="absolute inset-0 z-10 flex flex-col">
-        <div
-          className={cn(
-            "min-h-0 flex-1 overflow-y-auto overscroll-contain pt-4 pr-4 pb-[calc(var(--spacing-shell-inset)+8rem)]",
-            shellFreePl
-          )}
-        >
+        <div className={cn("flex min-h-0 flex-1 flex-col", shellFreePl)}>
           {panelContent}
         </div>
       </div>
