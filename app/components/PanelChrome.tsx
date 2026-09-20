@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /** Desktop panel header height (py-3 + size-8 controls). */
-export const PANEL_HEADER_HEIGHT_CLASS = "h-14";
+const PANEL_HEADER_HEIGHT_CLASS = "h-14";
 
 /**
  * Overlay header above a faded scroll body so content can pass underneath
