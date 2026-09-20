@@ -79,7 +79,7 @@ export const Track = React.memo(function Track({
       </Button>
       <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center">
         <div className="pointer-events-auto">
-          <TrackDownload track={track} />
+          <TrackDownload track={track} isCurrentTrack={isCurrentTrack} />
         </div>
       </div>
     </div>

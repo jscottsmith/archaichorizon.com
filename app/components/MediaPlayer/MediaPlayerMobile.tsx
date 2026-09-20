@@ -1,48 +1,46 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { CoverImage } from "./CoverImage";
 import { PreviousButton } from "./PreviousButton";
 import { PlayPauseButton } from "./PlayPauseButton";
 import { NextButton } from "./NextButton";
-import { MobilePopoverControls } from "./MobilePopoverControls";
-import { useMobilePopover } from "@/app/hooks/useMobilePopover";
 import { ArtistInfo } from "./ArtistInfo";
+import { PlaylistToggle } from "./PlaylistToggle";
+import { MobilePopoverControls } from "./MobilePopoverControls";
 import { ids } from "@/app/constants/ids";
 
 export function MediaPlayerMobile({ className }: { className?: string }) {
-  const { isOpen, open, close } = useMobilePopover();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <Card
-        id={ids.mediaPlayerMobile}
         className={cn(
-          "hover:bg-accent/50 mx-auto inline-flex w-full cursor-pointer flex-row items-center justify-between gap-2 rounded-lg p-2 px-2 transition-colors",
+          "mx-auto inline-flex w-full flex-row items-center justify-between gap-2 p-2",
           className
         )}
-        onClick={open}
       >
-        <CoverImage size={48} className="h-12 w-12" />
-        <ArtistInfo hideArtist hideAlbum hideTrackNumbers />
-        <div
-          role="presentation"
-          onClick={(e) => e.stopPropagation()}
-          onKeyDown={(e) => e.stopPropagation()}
-          className={cn(
-            "flex items-center justify-center gap-1 md:gap-2 lg:gap-4",
-            className
-          )}
+        <button
+          type="button"
+          id={ids.mediaPlayerMobile}
+          onClick={() => setIsOpen(true)}
+          className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 text-left"
         >
+          <CoverImage size={48} className="h-12 w-12 shrink-0" />
+          <ArtistInfo hideArtist hideAlbum hideTrackNumbers />
+        </button>
+        <div className="flex items-center justify-center gap-1">
           <PreviousButton iconSize={20} />
           <PlayPauseButton iconSize={20} />
           <NextButton iconSize={20} />
+          <PlaylistToggle />
         </div>
       </Card>
 
-      <MobilePopoverControls isOpen={isOpen} closePopover={close} />
+      <MobilePopoverControls isOpen={isOpen} onOpenChange={setIsOpen} />
     </>
   );
 }
