@@ -32,7 +32,10 @@ export function PanelChrome(props: {
         >
           {props.header ? (
             <div
-              className={cn(PANEL_HEADER_HEIGHT_CLASS, "shrink-0 max-md:hidden")}
+              className={cn(
+                PANEL_HEADER_HEIGHT_CLASS,
+                "shrink-0 max-md:hidden"
+              )}
               aria-hidden
             />
           ) : null}
