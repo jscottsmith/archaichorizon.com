@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { ids } from "@/app/constants/ids";
 import {
   CoverImage,
+  ArtistInfo,
   MainControls,
   VolumeControl,
   PlaylistToggle,
@@ -27,8 +28,13 @@ export function PlayerBar(props: { className?: string }) {
         className="pointer-events-auto mx-auto w-full max-w-4xl gap-3 px-4 py-3"
       >
         <div className="grid grid-cols-12 items-center justify-between">
-          <div className="col-span-5 flex items-center">
-            <CoverImage />
+          <div className="col-span-5 min-w-0">
+            <ArtistInfo
+              hideAlbum
+              className="-m-1.5 flex min-w-0 items-center gap-2 rounded-md p-1.5 transition-colors hover:bg-accent/50"
+            >
+              <CoverImage />
+            </ArtistInfo>
           </div>
 
           <MainControls className="col-span-2 justify-center" />
