@@ -41,7 +41,7 @@ export const ArtistInfo = React.memo(function ArtistInfo({
   }
 
   const details = hasTrack ? (
-    <div className="min-w-0 flex-1 overflow-hidden whitespace-nowrap text-left text-xs">
+    <div className="min-w-0 flex-1 overflow-hidden text-left text-xs whitespace-nowrap">
       {currentTrack?.title && (
         <h3 className="flex min-w-0 items-center gap-2 overflow-hidden text-sm font-semibold">
           <span className="min-w-0 truncate">
