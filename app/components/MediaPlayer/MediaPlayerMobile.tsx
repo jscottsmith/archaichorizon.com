@@ -30,7 +30,7 @@ export function MediaPlayerMobile({ className }: { className?: string }) {
           className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 text-left"
         >
           <CoverImage size={48} className="h-12 w-12 shrink-0" />
-          <ArtistInfo hideArtist hideAlbum hideTrackNumbers />
+          <ArtistInfo asLink={false} hideArtist hideAlbum hideTrackNumbers />
         </button>
         <div className="flex items-center justify-center gap-1">
           <PreviousButton iconSize={20} />
